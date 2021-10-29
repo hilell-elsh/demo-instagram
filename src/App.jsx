@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import logo from './logo.svg'
 import './App.css'
+import PrimarySearchAppBar from './components/header'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,6 +11,7 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
+          <PrimarySearchAppBar />
           <img src={logo} className="App-logo" alt="logo" />
           <p>Hello Vite + React!</p>
           <p>
