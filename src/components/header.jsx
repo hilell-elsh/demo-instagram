@@ -11,14 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Avatar from '@mui/material/Avatar';
+
+import {notifications} from '../ex-apis/notifications'
+import {messages} from '../ex-apis/messages'
+import {user} from '../ex-apis/user'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: 15,
+  borderRadius: 16,
   backgroundColor: alpha("#fff", 0.15),
   '&:hover': {
     backgroundColor: alpha("#fff", 0.25),
@@ -63,29 +67,44 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const newNotificationsCount = notifications.filter((noti) => noti.readed === "false").length;
+  const newMessagesCount = messages.filter((noti) => noti.readed === "false").length;
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const onProfileChoose = () => {
+    handleMenuClose;
+    // need to add profile route
+  }
+  const onAccountChoose = () => {
+    handleMenuClose;
+    // need to add account route
+  }
+  const openMessages = () => {
+    // open messages
+  }
+  const openNotifications = () => {
+    // open notifications
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'right',
       }}
       id={menuId}
@@ -97,8 +116,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={onProfileChoose}>Profile</MenuItem>
+      <MenuItem onClick={onAccountChoose}>My account</MenuItem>
     </Menu>
   );
 
@@ -119,21 +138,24 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+      <MenuItem onClick={openMessages}>
+        <IconButton 
+        size="large" 
+        aria-label="show new messages" 
+        color="inherit">
+          <Badge badgeContent={newMessagesCount} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={openNotifications}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={newNotificationsCount} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -147,9 +169,9 @@ export default function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
         </IconButton>
-        <p>Profile</p>
+        <p>{user.profile.name.firstName+" "+user.profile.name.lastName}</p>
       </MenuItem>
     </Menu>
   );
@@ -171,9 +193,9 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            // sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Demo-Insagram
+            Demo-Instagram
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -186,17 +208,23 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
+            <IconButton 
+              size="large" 
+              aria-label="show new mails" 
+              color="inherit" 
+              onclick={openMessages}
+            >
+              <Badge badgeContent={newMessagesCount} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label="show new notifications"
               color="inherit"
+              onClick={openNotifications}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={newNotificationsCount} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -209,7 +237,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

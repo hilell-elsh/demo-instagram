@@ -10,8 +10,8 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <PrimarySearchAppBar />
         <header className="App-header">
-          <PrimarySearchAppBar />
           <img src={logo} className="App-logo" alt="logo" />
           <p>Hello Vite + React!</p>
           <p>
