@@ -88,6 +88,9 @@ export default function PrimarySearchAppBar() {
     handleMenuClose();
     // need to add account route
   }
+  const logout = () => {
+    handleMenuClose();
+  }
   
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -150,6 +153,9 @@ export default function PrimarySearchAppBar() {
             </Badge>
             </IconButton>
             <p>Notifications</p>
+        </MenuItem>
+        <MenuItem onClick={logout} sx={{borderTop: 1}}>
+            <p>Logout</p>
         </MenuItem>
         </Menu>
     );
