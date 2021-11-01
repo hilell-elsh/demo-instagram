@@ -15,10 +15,15 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
+import SettingsIcon from '@mui/icons-material/Settings';
 
+
+import {user} from '../ex-apis/user'
 import {notifications} from '../ex-apis/notifications'
 import {messages} from '../ex-apis/messages'
-import {user} from '../ex-apis/user'
+export const newMessagesCount = messages.filter((noti) => noti.readed === "false").length;
+export const newNotificationsCount = notifications.filter((noti) => noti.readed === "false").length;
+export const userAvatar = <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -35,7 +40,6 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -45,7 +49,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -60,45 +63,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const newNotificationsCount = notifications.filter((noti) => noti.readed === "false").length;
-  const newMessagesCount = messages.filter((noti) => noti.readed === "false").length;
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const onProfileChoose = () => {
-    handleMenuClose;
-    // need to add profile route
-  }
-  const onAccountChoose = () => {
-    handleMenuClose;
-    // need to add account route
-  }
   const openMessages = () => {
     // open messages
   }
   const openNotifications = () => {
     // open notifications
   }
-
+  const onProfileChoose = () => {
+    handleMenuClose();
+    // need to add profile route
+  }
+  const onAccountChoose = () => {
+    handleMenuClose();
+    // need to add account route
+  }
+  
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -116,67 +106,54 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={onProfileChoose}>Profile</MenuItem>
-      <MenuItem onClick={onAccountChoose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={openMessages}>
-        <IconButton 
-        size="large" 
-        aria-label="show new messages" 
-        color="inherit">
-          <Badge badgeContent={newMessagesCount} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem onClick={openNotifications}>
-        <IconButton
-          size="large"
-          aria-label="show new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={newNotificationsCount} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
-        </IconButton>
-        <p>{user.profile.name.firstName+" "+user.profile.name.lastName}</p>
-      </MenuItem>
-    </Menu>
-  );
-
-  return (
+        <MenuItem onClick={onProfileChoose}>
+            <IconButton
+            size="large"
+            aria-label="account of current user"
+            color="inherit"
+            >
+                {userAvatar}
+                Profile
+            </IconButton>
+        </MenuItem>
+        <MenuItem onClick={onAccountChoose}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            color="inherit"
+          >
+            <Badge>
+              <SettingsIcon />
+            </Badge>
+            <p> My account</p>
+          </IconButton>
+        </MenuItem>
+        <MenuItem onClick={openMessages} sx={{display: {xs: 'flex', md: 'none'}}}>
+            <IconButton 
+            size="large" 
+            aria-label="show new messages" 
+            color="inherit">
+            <Badge badgeContent={newMessagesCount} color="error">
+                <MailIcon />
+            </Badge>
+            </IconButton>
+            <p>Messages</p>
+        </MenuItem>
+        <MenuItem onClick={openNotifications} sx={{display: {xs: 'flex', md: 'none'}}}>
+            <IconButton
+            size="large"
+            aria-label="show new notifications"
+            color="inherit"
+            >
+            <Badge badgeContent={newNotificationsCount} color="error">
+                <NotificationsIcon />
+            </Badge>
+            </IconButton>
+            <p>Notifications</p>
+        </MenuItem>
+        </Menu>
+    );
+   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -212,7 +189,7 @@ export default function PrimarySearchAppBar() {
               size="large" 
               aria-label="show new mails" 
               color="inherit" 
-              onclick={openMessages}
+              onClick={openMessages}
             >
               <Badge badgeContent={newMessagesCount} color="error">
                 <MailIcon />
@@ -237,16 +214,16 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
+              {userAvatar}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="show more"
-              aria-controls={mobileMenuId}
+              aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <MoreIcon />
@@ -254,7 +231,6 @@ export default function PrimarySearchAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
     </Box>
   );
