@@ -1,21 +1,26 @@
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import {Logo, FormInput, SignUpLink, FormWrapper, FormButton} from "./FormStyle"
+
+const SmallLink = styled.a`
+    font-size: 12px;
+`
 
 export default function LoginForm() {
     return (
-        <div className="login">
-            <form>
-                <h1>Instagram</h1>
-                <label>
-                    <input type="text" placeholder="Phone number, username or email" required />
-                </label>
-                <label>
-                    <input type="password" placeholder="Password" required />
-                </label>
-                <button type="submit">Log In</button>
-            </form>
-            <div className="no-account">
+        <>
+            <FormWrapper>
+                <Logo>Kilogram</Logo>
+                <FormInput type="text" placeholder="Phone number, username or email" required />
+                <FormInput type="password" placeholder="Password" required />
+                <FormButton type="submit">Log In</FormButton>
+                <Link to="/restorepassword">
+                    <SmallLink to="/restorepassword">Forgot Password?</SmallLink>
+                </Link>
+            </FormWrapper>
+            <SignUpLink>
                 <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
-            </div>
-        </div>
+            </SignUpLink>
+        </>
     )
 }
