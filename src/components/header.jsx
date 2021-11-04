@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -64,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
@@ -114,6 +115,8 @@ export default function PrimarySearchAppBar() {
             size="large"
             aria-label="account of current user"
             color="inherit"
+            component={Link}
+            to="/profile"
             >
                 {userAvatar}
                 Profile
@@ -124,6 +127,8 @@ export default function PrimarySearchAppBar() {
             size="large"
             aria-label="account of current user"
             color="inherit"
+            component={Link}
+            to="/settings"
           >
             <Badge>
               <SettingsIcon />
@@ -131,7 +136,12 @@ export default function PrimarySearchAppBar() {
             <p> My account</p>
           </IconButton>
         </MenuItem>
-        <MenuItem onClick={openMessages} sx={{display: {xs: 'flex', md: 'none'}}}>
+        <MenuItem 
+          onClick={openMessages} 
+          sx={{display: {xs: 'flex', md: 'none'}}}
+          component={Link}
+          to="/mailbox"
+          >
             <IconButton 
             size="large" 
             aria-label="show new messages" 
@@ -196,6 +206,8 @@ export default function PrimarySearchAppBar() {
               aria-label="show new mails" 
               color="inherit" 
               onClick={openMessages}
+              component={Link}
+              to="/mailbox"
             >
               <Badge badgeContent={newMessagesCount} color="error">
                 <MailIcon />

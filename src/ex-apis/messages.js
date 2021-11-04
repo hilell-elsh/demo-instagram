@@ -1,7 +1,7 @@
 export const messages = [
     {
         "massage": "hello world",
-        "from": "{sombody.username}",
+        "sender": "{sombody.username}",
         "time": {
             "date": "28.10.21",
             "hour": "14:35:19"
@@ -11,7 +11,7 @@ export const messages = [
 
     {
         "massage": "hi to you",
-        "from": "{sombody.username}",
+        "sender": "{sombody.username}",
         "time": {
             "date": "28.10.21",
             "hour": "10:44:58"
@@ -21,7 +21,7 @@ export const messages = [
     
     {
         "massage": "hi to you",
-        "from": "{sombody.username}",
+        "sender": "{sombody.username}",
         "time": {
             "date": "28.10.21",
             "hour": "10:44:58"
