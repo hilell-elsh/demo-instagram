@@ -2,10 +2,14 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Profile from './pages/Profile'
+import Header from './components/header'
+import Mailbox from './pages/Mailbox'
+import Settings from './pages/Settings'
 
 function App() {
   return (
     <Router>
+        <Header />
       <Switch>
         <Route path="/login">
           <Login />
@@ -17,8 +21,14 @@ function App() {
           <Profile />
         </Route>
         <Redirect path="/" to="/login" />
+          <Route path="/mailbox">
+            <Mailbox />
+          </Route>
+          <Route path="/settings">
+            <Settings />
+          </Route>
       </Switch>
-    </Router>  
+    </Router>
   )
 }
 
