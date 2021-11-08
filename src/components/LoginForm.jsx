@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {Logo, FormInput, SignUpLink, FormWrapper, FormButton} from "./FormStyle"
+import { Logo, FormInput, SignUpLink, FormWrapper, FormButton } from "./FormStyle"
 
 const SmallLink = styled.a`
     font-size: 12px;
