@@ -9,6 +9,7 @@ import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import PageFeed from './pages/Feed'
 import './styles/main.css'
 
 
@@ -19,6 +20,9 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
+        <Route path="/feed">
+            <PageFeed />
+          </Route>
           <Route path="/mailbox">
             <Mailbox />
           </Route>
