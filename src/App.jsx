@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route,  Redirect } from 'react-router-dom'
 // import logo from './logo.svg'
-import './App.css'
+// import './App.css'
 import Header from './components/header'
 import Mailbox from './pages/Mailbox'
 import Profile from './pages/Profile'
