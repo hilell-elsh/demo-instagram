@@ -1,10 +1,11 @@
-import Feed from "../components/Feed";
+import Feed from "../components/FeedPost";
+import Feed2 from "../components/FeedPost2";
 
 export default function PageFeed() {
     return (
         <div>
             <Feed />
-            <Feed />
+            <Feed2 />
         </div>
             
     )
