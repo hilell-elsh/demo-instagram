@@ -9,6 +9,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
+import Badge from '@mui/material/Badge';
 import { red , green ,blue , orange , purple , lime, lightGreen , deepPurple , deepOrange , pink } from '@mui/material/colors';
 
 
@@ -24,7 +25,9 @@ export default function MessengerList() {
         
             <ListItem>
                 <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: orange[500] }} alt="Matthew Kent" src="/static/images/avatar/2.jpg" />
+                    <Badge  badgeContent={1} color="error">
+                        <Avatar sx={{ bgcolor: orange[500] }} alt="Matthew Kent" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvwN3Vd48KHkaScpcZvJnSNEE8slCoCa5RJw&usqp=CAU" />
+                    </Badge>
                 </ListItemAvatar>
                 <ListItemText primary="Matthew Kent" secondary="Hello, this is a message" />
             </ListItem>
@@ -38,8 +41,11 @@ export default function MessengerList() {
             </ListItem>
             <Divider variant="inset" component="li" />
             <ListItem>
+                
                 <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: blue[500] }} alt="Micheal Bright" src="/static/images/avatar/2.jpg" />
+                    <Badge  badgeContent={1} color="error">
+                        <Avatar sx={{ bgcolor: blue[500] }} alt="Micheal Bright" src="/static/images/avatar/2.jpg" />
+                    </Badge>
                 </ListItemAvatar>
                 <ListItemText primary="Micheal Bright" secondary="Hello, this is a message" />
             </ListItem>
