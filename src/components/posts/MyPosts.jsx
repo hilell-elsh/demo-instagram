@@ -1,8 +1,10 @@
 import  Masonry from '@mui/lab/Masonry'
 import Stack from '@mui/material/Stack'
-import { posts } from '../../ex-apis/posts.js'
+import { getPosts } from '../../services/post-data.js'
 
 export default function MyPosts() {
+    const posts = getPosts()
+
     return (
         <Masonry columns={3} spacing={1}>
             {posts.map((item, index) => (

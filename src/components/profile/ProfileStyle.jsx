@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const ProfileWrapper = styled.div`
-    width: 80vw;
+    width: 70vw;
     height: 80vh;
     display: flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
-import { posts } from '../ex-apis/posts.js'
+import { user } from '../ex-apis/user.js'
 
-export function getPosts() {
-    return posts
+export function getUser() {
+    return user
         // fetch('../ex-apis/posts.json')
         // .then((response) => response.json())
 }

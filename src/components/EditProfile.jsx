@@ -1,4 +1,4 @@
-import { FormButton, FormInput, EditWrapper } from "../components/form/FormStyle";
+import { FormButton, FormInput, EditWrapper } from "./form/FormStyle";
 import { user } from '../ex-apis/user'
 import styled from "styled-components"
 

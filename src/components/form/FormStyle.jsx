@@ -55,7 +55,6 @@ export const SignUpLink = styled.div`
 `
 
 export const EditWrapper = styled.form`
-    border-top: 1px solid #afafaf;
     padding-top: 40px;
     width: 70vw;
     display: flex;

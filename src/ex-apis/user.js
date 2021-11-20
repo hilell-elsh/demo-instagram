@@ -20,26 +20,25 @@ export const user = {
         "following": {
             "total": "50"
         },
-            
-    },
-    "posts": {
-        "myPosts": {
-            "total": "0",
-            "posts": {
-                "pic": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/330px-VAN_CAT.png"
-            }
-        },
-        "savedPosts": {
-            "total": "0",
-            "posts": {
+        "posts": {
+            "myPosts": {
+                "total": "0",
+                "posts": {
+                    "pic": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/330px-VAN_CAT.png"
+                }
+            },
+            "savedPosts": {
+                "total": "0",
+                "posts": {
 
-            }
-        },
-        "taggedPosts": {
-            "total": "0",
-            "posts": {
+                }
+            },
+            "taggedPosts": {
+                "total": "0",
+                "posts": {
 
+                }
             }
-        },
-    },
+        }
+    }
 }
