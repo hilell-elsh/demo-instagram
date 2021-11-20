@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { red , green ,blue , orange } from '@mui/material/colors';
 
-
 export default function PostHeader() {
     return (
         <CardHeader

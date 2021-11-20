@@ -1,6 +1,5 @@
 import CardMedia from '@mui/material/CardMedia';
 
-
 export default function PostMedia() {
     return (
         <CardMedia

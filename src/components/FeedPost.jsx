@@ -19,5 +19,5 @@ export default function Feed() {
             <PostActions expanded= {expanded} setExpanded= {setExpanded}  /> 
             <PostCollapse expanded= {expanded}  />
         </Card>
-        )
+    )
 }

@@ -2,9 +2,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import FilterHdrIcon from '@mui/icons-material/FilterHdr';
-
 import { red , green ,blue , orange } from '@mui/material/colors';
-
 
 export default function PostContent() {
     return (
