@@ -12,7 +12,9 @@ export const FormWrapper = styled.form`
     align-items: center;
 `
 export const Logo = styled.h1`
-    font-size: 48px;
+    font-family: billabong;
+    font-weight: 300;
+    font-size: 64px;
     margin-bottom: 30px;
     margin-top: 30px;
 `
@@ -50,4 +52,23 @@ export const SignUpLink = styled.div`
     border: 1px solid #ddd; 
     border-radius: 5px;
     background-color: #fff;
+`
+
+export const EditWrapper = styled.form`
+    border-top: 1px solid #afafaf;
+    padding-top: 40px;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+    & label {
+        margin-top: 10px;
+        width: 40vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+    }
 `
