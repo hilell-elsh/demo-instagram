@@ -1,5 +1,5 @@
-import { FormButton, FormInput, EditWrapper } from "./form/FormStyle";
-import { user } from '../ex-apis/user'
+import { FormButton, FormInput, EditWrapper } from "../form/FormStyle";
+import { user } from '../../ex-apis/user'
 import styled from "styled-components"
 
 const EditButton = styled(FormButton)`

@@ -58,6 +58,7 @@ export const Count = styled.p`
     font-weight: 500;
     
     & span {
+        cursor: pointer;
         font-weight: 400;
     }
 `
