@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import PageFeed from './pages/Feed'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Profile from './pages/Profile'
@@ -19,6 +20,9 @@ function App() {
         <Route path="/:username">
           <Header />
           <Route path="/:username/profile">
+          <Route path="/:username/feed">
+            <PageFeed />
+          </Route>
             <Profile />
           </Route>
           <Route path="/:username/mailbox">
