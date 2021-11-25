@@ -9,25 +9,25 @@ export default function ProfilePosts() {
     return (
         <PostsWrapper>
             <LinksWrapper>
-                <Link to="/profile/">
+                <Link to="/:username/profile/">
                     POSTS
                 </Link>
-                <Link to="/profile/saved">
+                <Link to="/:username/profile/saved">
                     SAVED
                 </Link>
-                <Link to="/profile/tagged">
+                <Link to="/:username/profile/tagged">
                     TAGGED
                 </Link>
             </LinksWrapper>
             <Posts>
                 <Switch>
-                    <Route exact path="/profile/">
+                    <Route path="/:username/profile/">
                         <MyPosts />
                     </Route>
-                    <Route path="/profile/saved">
+                    <Route path="/:username/profile/saved">
                         <SavedPosts />
                     </Route>
-                    <Route path="/profile/tagged">
+                    <Route path="/:username/profile/tagged">
                         <TaggedPosts />
                     </Route>
                 </Switch>

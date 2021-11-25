@@ -15,24 +15,17 @@ const userAvatar = <Avatar
 
                         
 export default function ProfileInfo() {
-    
-    const [display, setDisplay] = useState('none')
+    // move to store ---------------------------
+    const [display, setDisplay] = useState(false)
     const [title, setTitle] = useState('')
     
     const handleOpen = () => {
-        setDisplay('block');
+        setDisplay(true);
         setTitle(event.target.innerText)
     }
 
-    const handleClose = () => setDisplay('none');
-
-    // TRY IN REACT ------------------
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //       modal.style.display = "none";
-    //     }
-    //   } ------------------------------
-
+    const handleClose = () => setDisplay(false);
+    // -----------------------------------------
     return (
     <>
         <InfoWrapper>
@@ -41,10 +34,10 @@ export default function ProfileInfo() {
             <Count>{userProfile.posts.myPosts.total} <span>posts</span></Count>
             <Count>{userProfile.followers.total} <span onClick={handleOpen}>followers</span></Count>
             <Count>{userProfile.following.total} <span onClick={handleOpen}>following</span></Count>
-            <FollowerModal handleClose={handleClose} display={display} title={title}/>
-            <Link to="/settings">
+            { display && <FollowerModal handleClose={handleClose} display={display} title={title}/>}
+            <Link to="/:username/settings">
                 <Button>Edit Profile</Button>
-            </Link>  
+            </Link>
         </InfoWrapper>
     </>
     )
