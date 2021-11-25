@@ -19,9 +19,10 @@ import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 
-import {user} from '../ex-apis/user'
-import {notifications} from '../ex-apis/notifications'
-import {messages} from '../ex-apis/messages'
+import {user} from '../../ex-apis/user'
+import {notifications} from '../../ex-apis/notifications'
+import {messages} from '../../ex-apis/messages'
+
 export const newMessagesCount = messages.filter((noti) => noti.readed === "false").length;
 export const newNotificationsCount = notifications.filter((noti) => noti.readed === "false").length;
 export const userAvatar = <Avatar alt={user.profile.name.firstName+" "+user.profile.name.lastName} src={user.profile.image.src} />
@@ -171,7 +172,7 @@ export default function Header() {
     );
    return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             size="large"

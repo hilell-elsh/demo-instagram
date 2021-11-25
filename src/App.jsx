@@ -1,28 +1,35 @@
-import { BrowserRouter as Router, Switch, Route,  Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Kilogram from './pages/Kilogram'
-import './styles/main.css'
-
+import Profile from './pages/Profile'
+import Header from './components/global/Header'
+import Mailbox from './pages/Mailbox'
+import Settings from './pages/Settings'
 
 function App() {
-
   return (
     <Router>
-      <div className="App">
-        <Switch>
-        <Route path="/Kilogram">
-            <Kilogram />
-        </Route>
+      <Switch>
         <Route path="/login">
-            <Login />
+          <Login />
         </Route>
         <Route path="/signup">
-            <Signup />
+          <Signup />
+        </Route>
+        <Route path="/:username">
+          <Header />
+          <Route path="/:username/profile">
+            <Profile />
+          </Route>
+          <Route path="/:username/mailbox">
+            <Mailbox />
+          </Route>
+          <Route path="/:username/settings">
+            <Settings />
+          </Route>
         </Route>
         <Redirect path="/" to="/login" />
-        </Switch>
-      </div>
+      </Switch>
     </Router>
   )
 }

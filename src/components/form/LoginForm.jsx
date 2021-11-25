@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {Logo, FormInput, SignUpLink, FormWrapper, FormButton} from "./FormStyle"
+import { Logo, FormInput, SignUpLink, FormWrapper, FormButton } from "./FormStyle"
 
-const SmallLink = styled.a`
+const SmallLink = styled.p`
     font-size: 12px;
 `
 
@@ -15,7 +15,7 @@ export default function LoginForm() {
                 <FormInput type="password" placeholder="Password" required />
                 <FormButton type="submit">Log In</FormButton>
                 <Link to="/restorepassword">
-                    <SmallLink to="/restorepassword">Forgot Password?</SmallLink>
+                    <SmallLink>Forgot Password?</SmallLink>
                 </Link>
             </FormWrapper>
             <SignUpLink>
