@@ -1,44 +1,36 @@
-
-import { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route,  Redirect } from 'react-router-dom'
-// import logo from './logo.svg'
-import './App.css'
-import Header from './components/header'
-import Mailbox from './pages/Mailbox'
-import Profile from './pages/Profile'
-import Settings from './pages/Settings'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import './styles/main.css'
-
+import Profile from './pages/Profile'
+import Header from './components/global/Header'
+import Mailbox from './pages/Mailbox'
+import Settings from './pages/Settings'
 
 function App() {
-
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route path="/mailbox">
-            <Mailbox />
-          </Route>
-          <Route path="/profile">
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route path="/:username">
+          <Header />
+          <Route path="/:username/profile">
             <Profile />
           </Route>
-          <Route path="/settings">
+          <Route path="/:username/mailbox">
+            <Mailbox />
+          </Route>
+          <Route path="/:username/settings">
             <Settings />
           </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Redirect path="/" to="/login" />
-        </Switch>
-      </div>
+        </Route>
+        <Redirect path="/" to="/login" />
+      </Switch>
     </Router>
-
   )
 }
 
