@@ -10,12 +10,20 @@ import PostCollapse from './FeedPost/PostCollapse';
 
 export default function Feed() {
     const [expanded, setExpanded] = React.useState(false);
+    alert('render')
+    const {postHeader, postContent, postMedia} = React.useMemo(() => {
+        return {
+            postHeader: <PostHeader />,
+            postContent: <PostContent />,
+            postMedia: <PostMedia />
+        }
+    }, [])
 
     return (
         <Card sx={{ maxWidth: 1080 , marginTop: "5px"}} >
-            <PostHeader />
-            <PostMedia />
-            <PostContent />
+            {postHeader}
+            {postMedia}
+            {postContent}
             <PostActions expanded= {expanded} setExpanded= {setExpanded}  /> 
             <PostCollapse expanded= {expanded}  />
         </Card>
