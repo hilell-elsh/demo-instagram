@@ -1,21 +1,45 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import Divider from '@mui/material/Divider';
-import Badge from '@mui/material/Badge';
+import { 
+    List,
+    ListItem,
+    ListItemText,
+    ListItemAvatar,
+    ListItemButton,
+    Avatar,
+    Divider,
+    Badge,
+    Typography
+    } from '@mui/material';
 import { red , green ,blue , orange , purple , lime, lightGreen , deepPurple , deepOrange , pink } from '@mui/material/colors';
 
 
 
 export default function MessengerList() {
     return (
+        <>
+        // ********** try without MUI **************
+         <nav>
+            <div className="msgItem">
+                <Badge badgeContent={1} color="error" sx={{ display: 'inline'}}>
+                    <Avatar sx={{ bgcolor: orange[500]}} alt="Matthew Kent" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvwN3Vd48KHkaScpcZvJnSNEE8slCoCa5RJw&usqp=CAU" />
+                </Badge>
+                <div className="msgText">
+                    <h5>
+                        Matthew Kent
+                    </h5>
+                    <p>
+
+                        Long massage Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                    </p>
+                </div>
+            </div>
+        </nav>
+        {/* // ********** try without MUI ************** */}
+
+        <br/>
+        <br/>
+        // ********** try with MUI **************
+        <br/>
         <List
             sx={{
             bgcolor: 'background.paper',
@@ -23,13 +47,40 @@ export default function MessengerList() {
             component="nav" aria-label="main mailbox folders"
         >
         
-            <ListItem>
+            <ListItem
+                sx={{
+                    height: "100px",
+                    width: "1000px",
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+
+                }}
+                alignItems = "flex-start"
+            >
                 <ListItemAvatar>
                     <Badge  badgeContent={1} color="error">
                         <Avatar sx={{ bgcolor: orange[500] }} alt="Matthew Kent" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvwN3Vd48KHkaScpcZvJnSNEE8slCoCa5RJw&usqp=CAU" />
                     </Badge>
                 </ListItemAvatar>
-                <ListItemText primary="Matthew Kent" secondary="Hello, this is a message" />
+                <ListItemText 
+                    primary="Matthew Kent" 
+                    secondary={
+                        <Typography
+                        sx={{ 
+                            display: 'inline',
+                            // whiteSpace: 'nowrap',
+                            // overflow: 'hidden',
+                            // textOverflow: 'ellipsis',
+                            //  height: "20px",
+                            width: "300px",
+                            // component="span"
+                        }}
+                        >
+                            Long massage Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                        </Typography>
+                    }
+                />
             </ListItem>
 
             <Divider variant="inset" component="li" />
@@ -100,5 +151,7 @@ export default function MessengerList() {
             </ListItem>
 
         </List>
+        {/* // ********** try without MUI ************** */}
+        </>
     )
 }
