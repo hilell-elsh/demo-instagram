@@ -11,7 +11,7 @@ html, body {
 body {
   display: flex;
   justify-content: center;
-  
+  align-items: center;
   background-color: #fafafa;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
