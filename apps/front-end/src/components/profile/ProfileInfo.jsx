@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUser } from '../../services/user-data'
 import Avatar from '@mui/material/Avatar'
 
+import { getUser } from '../../services/user-data'
 import { Username, InfoWrapper, Button, Count } from './ProfileStyle'
+import { modalOpen, modalClose } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
 const userProfile = getUser().profile
@@ -15,26 +16,29 @@ const userAvatar = <Avatar
 
                         
 export default function ProfileInfo() {
-    // move to store ---------------------------
-    const [display, setDisplay] = useState(false)
-    const [title, setTitle] = useState('')
     
-    const handleOpen = () => {
-        setDisplay(true);
-        setTitle(event.target.innerText)
-    }
+    const {isModal} = useSelector((state) => state.modal)
+    const dispatch = useDispatch()
 
-    const handleClose = () => setDisplay(false);
+    // const [title, setTitle] = useState('')
+    
+    // const handleOpen = () => {
+    //     setDisplay(true);
+    //     setTitle(event.target.innerText)
+    // }
+
+    // const handleClose = () => setDisplay(false);
     // -----------------------------------------
+
     return (
     <>
         <InfoWrapper>
             {userAvatar}
             <Username>{userProfile.username}</Username>
             <Count>{userProfile.posts.myPosts.total} <span>posts</span></Count>
-            <Count>{userProfile.followers.total} <span onClick={handleOpen}>followers</span></Count>
-            <Count>{userProfile.following.total} <span onClick={handleOpen}>following</span></Count>
-            { display && <FollowerModal handleClose={handleClose} display={display} title={title}/>}
+            <Count>{userProfile.followers.total} <span onClick={() => dispatch(modalOpen)}>followers</span></Count>
+            <Count>{userProfile.following.total} <span onClick={() => dispatch(modalOpen)}>following</span></Count>
+            { isModal && <FollowerModal handleClose={modalClose} modal={modal} title={title}/>}
             <Link to="/:username/settings">
                 <Button>Edit Profile</Button>
             </Link>

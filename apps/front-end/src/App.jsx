@@ -18,7 +18,7 @@ function App() {
           <Signup />
         </Route>
         <Route path="/:username">
-          <Header />
+          {/* <Header /> */}
           <Route path="/:username/profile">
           <Route path="/:username/feed">
             <PageFeed />
