@@ -58,3 +58,8 @@ export const ModalContentItem = styled.div`
         margin-left: 1rem;
     }
 `
+
+export const ModalListItem = styled.li`
+    border: 1px solid #afafaf;
+    font-size: 16px;
+`
