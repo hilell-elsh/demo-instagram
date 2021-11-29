@@ -9,10 +9,12 @@ export const modalSlice = createSlice({
     reducers: {
         modalOpen: (state) => {
             state.isModal = true;
+            state.title = event.target.innerText;
         },
 
         modalClose: (state) => {
             state.isModal = false;
+            state.title = '';
         },
 
         // setTitle: (state, action) => {
@@ -21,6 +23,6 @@ export const modalSlice = createSlice({
     }
 })
 
-export const {modalOpen, modalClose} = modalSlice.actions
+export const modalActions = modalSlice.actions
 
 export default modalSlice.reducer

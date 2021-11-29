@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const ModalBackdrop = styled.div`
-    position: fixed;
     z-index: 1;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
@@ -12,6 +12,7 @@ export const ModalBackdrop = styled.div`
 `
 
 export const ModalWrapper = styled.div`
+    z-index: 2;
     display: flex;
     flex-direction: column;
     width: 20vw;
@@ -44,4 +45,9 @@ export const ModalHeader = styled.div`
 export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+export const ModalListItem = styled.li`
+    border: 1px solid #afafaf;
+    font-size: 16px;
 `

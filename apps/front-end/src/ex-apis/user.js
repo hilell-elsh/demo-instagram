@@ -17,9 +17,9 @@ export const user = {
         "followers": {
             "total": "43",
             "usernames": [
-                "avi",
-                "moshe", 
-                "yossi"
+                {"name": "avi"},
+                {"name": "moshe"},
+                {"name": "yossi"}
             ]
         },
         "following": {
