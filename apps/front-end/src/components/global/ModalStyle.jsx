@@ -43,11 +43,18 @@ export const ModalHeader = styled.div`
 `
 
 export const ModalContent = styled.div`
+    height: inherit;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
 `
 
-export const ModalListItem = styled.li`
-    border: 1px solid #afafaf;
-    font-size: 16px;
+export const ModalContentItem = styled.div`
+    display: flex;
+    align-items: center;
+    margin: .5rem 0;
+
+    & p {
+        margin-left: 1rem;
+    }
 `
