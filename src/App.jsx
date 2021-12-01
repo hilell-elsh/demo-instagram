@@ -20,10 +20,10 @@ function App() {
         <Route path="/:username">
           <Header />
           <Route path="/:username/profile">
+            <Profile />
+          </Route>
           <Route path="/:username/feed">
             <PageFeed />
-          </Route>
-            <Profile />
           </Route>
           <Route path="/:username/mailbox">
             <Mailbox />
