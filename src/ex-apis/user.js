@@ -1,9 +1,11 @@
 export const user = {
     "profile": {
+        "ID": 1,
         "username": "HilellElshalem",
         "name": {
             "firstName": "Hilell",
-            "lastName": "Elshalem"
+            "lastName": "Elshalem",
+            "fullName": "Hilell Elshalem"
         },
         "address": {
             "country": "Israel",
