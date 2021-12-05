@@ -16,13 +16,19 @@ export default function FollowerModal(props) {
                 <i className="fas fa-times" onClick={props.dispatch(modalClose)}></i>
             </ModalHeader>
             <ModalContent>
-                <ul>
-                    {userFollowers.map((username) => {
-                        <li>{username}</li>
-                    })}
-                </ul>
+                {userFollowers.map((username, index) => (
+                    <ModalContentItem key={index}>
+                        <Avatar src={username.image.src} sx={{ width: 40, height: 40 }}/>
+                        {/* add link with username */}
+                        <p>{username.name.firstName + " " + username.name.lastName}</p>
+                        {/* add remove button */}
+                    </ModalContentItem>
+                ))}
             </ModalContent>
         </ModalWrapper>
     </ModalBackdrop>
     )
 }
+
+// modal content items needs to come from the api that ha the same name as the modal title
+// separate content to followers and following and implement each component according to the modal title
