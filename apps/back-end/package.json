@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
 <<<<<<< HEAD
     "dev": "nodemon index.js"
@@ -21,6 +22,14 @@
   "dependencies": {
     "express": "^4.17.1"
 >>>>>>> caaaf8a (wip)
+=======
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15"
+>>>>>>> b5990f6 (wip)
   },
   "author": "",
   "license": "ISC"
