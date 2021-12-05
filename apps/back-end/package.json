@@ -18,13 +18,17 @@
     "nodemon": "^2.0.15"
 =======
     "dev": "index.js"
+<<<<<<< HEAD
 =======
     "test": "echo \"Error: no test specified\" && exit 1"
 >>>>>>> 5526ddd (wip)
+=======
+>>>>>>> 893091e (wip)
   },
   "dependencies": {
     "express": "^4.17.1"
 >>>>>>> caaaf8a (wip)
+<<<<<<< HEAD
 =======
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
@@ -51,6 +55,8 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.15"
 >>>>>>> 5f5d6f8 (wip)
+=======
+>>>>>>> 893091e (wip)
   },
   "author": "",
   "license": "ISC"

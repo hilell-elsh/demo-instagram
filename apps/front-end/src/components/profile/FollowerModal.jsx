@@ -16,14 +16,7 @@ export default function FollowerModal(props) {
                 <i className="fas fa-times" onClick={props.dispatch(modalClose)}></i>
             </ModalHeader>
             <ModalContent>
-                {userFollowers.map((username, index) => (
-                    <ModalContentItem key={index}>
-                        <Avatar src={username.image.src} sx={{ width: 40, height: 40 }}/>
-                        {/* add link with username */}
-                        <p>{username.name.firstName + " " + username.name.lastName}</p>
-                        {/* add remove button */}
-                    </ModalContentItem>
-                ))}
+            
             </ModalContent>
         </ModalWrapper>
     </ModalBackdrop>
