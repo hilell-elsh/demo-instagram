@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "dev": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.15"
+=======
+    "dev": "index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+>>>>>>> caaaf8a (wip)
   },
   "author": "",
   "license": "ISC"
