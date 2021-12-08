@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "lerna run dev --parallel",
-    "setup": "lerna bootstrap",
+    "setup": "lerna bootstrap -- --production=false",
     "postinstall": "npm run setup && lerna run build",
     "start": "node apps/back-end/index.js"
   },
