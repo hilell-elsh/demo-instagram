@@ -8,7 +8,7 @@ import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
 const userProfile = getUser().profile
-const userAvatar = <Avatar 
+const userAvatar = <Avatar
                         alt={userProfile.name.firstName + " " + userProfile.name.lastName}
                         src={userProfile.image.src}
                         sx={{ width: 164, height: 164 }}

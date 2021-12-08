@@ -4,5 +4,4 @@ dist
 dist-ssr
 *.local
 .vscode
-vite.config.js
-package-lock.json
+static
