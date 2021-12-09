@@ -1,0 +1,24 @@
+login
+logout
+signup - new user
+get user (basic data)
+; ** לברר אם במונגו אפשר להחזיר רק חלק מהשדות
+// get users([userId])
+get user posts
+grt user additionalData
+update user
+delete user ):
+new post
+update post
+delete post
+add post like 
+remove post like
+new comment
+delete comment
+add comment like 
+remove comment like
+follow
+unfollow
+allow comments
+unallow comments
+get feed
