@@ -32,7 +32,7 @@ export const ModalHeader = styled.div`
     border-bottom: 1px solid #afafaf;
 
     & p {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
         flex-grow: 1;
         text-align: center;
@@ -68,10 +68,28 @@ export const ModalContentItem = styled.div`
     }
 `
 
+export const ExitButton = styled.i`
+    // transition: 500ms;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: .1rem;
+`
+
 export const UploadButton = styled(Button)`
     max-width: 70%;
     margin-top: 1rem;
     background-color: #0095f6;
     color: #fff;
     border: 1px solid transparent;
+`
+
+export const RemoveButton = styled.i`
+    color: #ff6b6b;
+    cursor: pointer;
+    transition: 500ms;
+
+    &:hover {
+        color: red;
+        transition: 500ms;
+    }
 `

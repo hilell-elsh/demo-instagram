@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const FormWrapper = styled.form`
     min-width: 25vw;
+    margin-top: 20vh;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;

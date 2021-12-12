@@ -22,7 +22,6 @@ export default function MyPosts() {
             posts = getUser().profile.posts.myPosts
     }
 
-    console.log(posts)
     return (
         <Masonry columns={3} spacing={1}>
             {posts.map((item, index) => (
