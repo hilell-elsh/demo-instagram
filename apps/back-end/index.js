@@ -1,5 +1,9 @@
-// const express = require('express');
+const express = require('express');
+const {join} = require('path')
 
-// express().listen(3000, function () {
-//     console.log('listening on port 3000')
-// })
+const app = express()
+app.use("/",express.static(join(__dirname,"static")))
+app.use("*",express.static(join(__dirname,"static/index.html")))
+app.listen(process.env.PORT || 3000, function () {
+    console.log('listening on port 3000')
+})

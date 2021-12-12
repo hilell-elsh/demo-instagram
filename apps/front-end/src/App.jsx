@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import PageFeed from './pages/Feed'
 import Login from './pages/Login'
-import Signup from './pages/Signup'
+import Signup from './pages/SignUp'
 import Profile from './pages/Profile'
 import Header from './components/global/Header'
 import Mailbox from './pages/Mailbox'
