@@ -59,7 +59,12 @@ export const ModalContentItem = styled.div`
     }
 `
 
-export const ModalListItem = styled.li`
-    border: 1px solid #afafaf;
-    font-size: 16px;
+export const ModalContentItem = styled.div`
+    display: flex;
+    align-items: center;
+    margin: .5rem 0;
+
+    & p {
+        margin-left: 1rem;
+    }
 `
