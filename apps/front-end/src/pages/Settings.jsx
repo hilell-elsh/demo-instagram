@@ -1,7 +1,7 @@
-import EditProfile from "../components/profile/EditProfile"
+
 
 export default function Settings() {
     return (
-        <EditProfile />
+        <p>this is Settings</p>
     )
 }
