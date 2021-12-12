@@ -10,7 +10,6 @@ import PostCollapse from './FeedPost/PostCollapse';
 
 export default function Feed() {
     const [expanded, setExpanded] = React.useState(false);
-    alert('render')
     const {postHeader, postContent, postMedia} = React.useMemo(() => {
         return {
             postHeader: <PostHeader />,
