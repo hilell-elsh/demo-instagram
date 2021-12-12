@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export const ProfileWrapper = styled.div`
     width: 70vw;
-    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,7 +47,8 @@ export const Username = styled.h1`
 `
 
 export const Button = styled.button`
-    padding: 7px;
+    padding: 6px;
+    font-weight: 600;
     border: 1px solid #c0c0c0;
     border-radius: 5px;
     cursor: pointer;

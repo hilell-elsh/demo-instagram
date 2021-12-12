@@ -1,29 +1,45 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
 
-import { ModalBackdrop, ModalWrapper, ModalHeader, ModalContent, ModalContentItem } from '../global/ModalStyle'
-import { getUser } from '../../services/user-data'
+import { ModalBackdrop, ModalWrapper, ModalHeader, ModalContent, ModalContentItem, RemoveButton, ExitButton } from '../global/ModalStyle'
+import { buttonOpen, buttonClose } from '../../store/button'
 import { modalClose } from '../../store/modal'
+import { getUser } from '../../services/user-data'
 
-export default function FollowerModal(props) {
+export default function FollowerModal({title}) {
+    const userFollowers = getUser().profile.followers
+    const userFollowing = getUser().profile.following
 
-    const userFollowers = getUser().profile.followers.usernames
+    const isButton = useSelector((state) => state.button.isButton)
     const dispatch = useDispatch()
+
+    function checkContent(title) {
+        if(title === 'following') {
+            return userFollowing
+        } else if(title === 'followers') {
+            return userFollowers
+        }
+    }
+    const usersList = checkContent(title)
     
     return(
     <ModalBackdrop>
         <ModalWrapper>
             <ModalHeader>
-                <p>{props.title}</p>
-                <i className="fas fa-times" onClick={() => dispatch(modalClose())}></i>
+                <p>{title}</p>
+                <ExitButton className="fas fa-times" onClick={() => dispatch(modalClose())}></ExitButton>
             </ModalHeader>
             <ModalContent>
-                {userFollowers.map((username, index) => (
+                {usersList.map((username, index) => (
                     <ModalContentItem key={index}>
                         <Avatar src={username.image.src} sx={{ width: 40, height: 40 }}/>
-                        {/* add link with username */}
+                        <Link to={`/${username.username}/profile`}>
+                            {username.username}
+                        </Link>
                         <p>{username.name.firstName + " " + username.name.lastName}</p>
-                        {/* add remove button */}
+                        <RemoveButton className="fas fa-trash" onClick={() => dispatch(buttonOpen())}></RemoveButton>
+                        { isButton && <ExitButton className="fas fa-times" onClick={() => dispatch(buttonClose())} style={{opacity: .6}}></ExitButton> }
                     </ModalContentItem>
                 ))}
             </ModalContent>
@@ -32,5 +48,5 @@ export default function FollowerModal(props) {
     )
 }
 
-// modal content items needs to come from the api that ha the same name as the modal title
-// separate content to followers and following and implement each component according to the modal title
+// on unfollow button click => 2 buttons: v or x
+// x => cancel v => unfollow

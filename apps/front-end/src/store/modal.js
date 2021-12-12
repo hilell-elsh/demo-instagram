@@ -16,10 +16,6 @@ export const modalSlice = createSlice({
             state.isModal = false;
             state.title = '';
         },
-
-        // setTitle: (state, action) => {
-        //     state.isModal
-        // }
     }
 })
 
