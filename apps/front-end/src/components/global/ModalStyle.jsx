@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Button } from '../profile/ProfileStyle'
 
 export const ModalBackdrop = styled.div`
     z-index: 1;
@@ -15,12 +16,13 @@ export const ModalWrapper = styled.div`
     z-index: 2;
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 25vw;
     height: 40vh;
     margin: 15% auto;
     background-color: #fefefe;
     border: 1px solid #afafaf;
     border-radius: 10px;
+    overflow: auto;
 `
 
 export const ModalHeader = styled.div`
@@ -51,20 +53,25 @@ export const ModalContent = styled.div`
 
 export const ModalContentItem = styled.div`
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin: .5rem 0;
+    
+    & a {
+        color: black;
+        font-weight: 500;
+    }
 
     & p {
-        margin-left: 1rem;
+        color: #8e8e8e;
+        font-size: .8rem;
     }
 `
 
-export const ModalContentItem = styled.div`
-    display: flex;
-    align-items: center;
-    margin: .5rem 0;
-
-    & p {
-        margin-left: 1rem;
-    }
+export const UploadButton = styled(Button)`
+    max-width: 70%;
+    margin-top: 1rem;
+    background-color: #0095f6;
+    color: #fff;
+    border: 1px solid transparent;
 `

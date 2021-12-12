@@ -1,9 +1,6 @@
-import { Link, Switch, Route } from "react-router-dom";
-import MyPosts from "../posts/MyPosts";
-import SavedPosts from "../posts/SavedPosts";
-import TaggedPosts from "../posts/TaggedPosts";
+import { Link } from "react-router-dom";
+import MyPosts from "./MyPosts";
 import { PostsWrapper, LinksWrapper, Posts } from "./ProfileStyle";
-// import getPosts from "../../services/post-data.js";
 
 export default function ProfilePosts() {
     return (
@@ -20,17 +17,7 @@ export default function ProfilePosts() {
                 </Link>
             </LinksWrapper>
             <Posts>
-                <Switch>
-                    <Route path="/:username/profile/">
-                        <MyPosts />
-                    </Route>
-                    <Route path="/:username/profile/saved">
-                        <SavedPosts />
-                    </Route>
-                    <Route path="/:username/profile/tagged">
-                        <TaggedPosts />
-                    </Route>
-                </Switch>
+                <MyPosts />
             </Posts>
         </PostsWrapper>
     )  

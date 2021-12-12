@@ -8,7 +8,8 @@ import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
 const userProfile = getUser().profile
-const userAvatar = <Avatar
+
+export const userAvatar = <Avatar 
                         alt={userProfile.name.firstName + " " + userProfile.name.lastName}
                         src={userProfile.image.src}
                         sx={{ width: 164, height: 164 }}
@@ -16,24 +17,21 @@ const userAvatar = <Avatar
 
                         
 export default function ProfileInfo() {
-    
     const isModal = useSelector((state) => state.modal.isModal)
     const title = useSelector((state) => state.modal.title)
     const dispatch = useDispatch()
     
     return (
-    <>
         <InfoWrapper>
             {userAvatar}
             <Username>{userProfile.username}</Username>
-            <Count>{userProfile.posts.myPosts.total} <span>posts</span></Count>
-            <Count>{userProfile.followers.total} <span onClick={() => dispatch(modalOpen())}>followers</span></Count>
-            <Count>{userProfile.following.total} <span onClick={() => dispatch(modalOpen())}>following</span></Count>
+            <Count>{userProfile.posts.myPosts.length} <span>posts</span></Count>
+            <Count>{userProfile.followers.length} <span onClick={() => dispatch(modalOpen())}>followers</span></Count>
+            <Count>{userProfile.following.length} <span onClick={() => dispatch(modalOpen())}>following</span></Count>
             { isModal && <FollowerModal title={title}/>}
             <Link to="/:username/settings">
                 <Button>Edit Profile</Button>
             </Link>
         </InfoWrapper>
-    </>
     )
 }

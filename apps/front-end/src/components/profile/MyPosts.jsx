@@ -1,10 +1,28 @@
-import  Masonry from '@mui/lab/Masonry'
+import { useLocation } from 'react-router-dom'
+import Masonry from '@mui/lab/Masonry'
 import Stack from '@mui/material/Stack'
-import { getPosts } from '../../services/post-data.js'
+
+import { getUser } from '../../services/user-data.js'
 
 export default function MyPosts() {
-    const posts = getPosts()
+    const location = useLocation()
+    const postLocation = location.pathname.split('/').slice(-1).toString()
+    let posts
 
+    switch (postLocation) {
+        case 'saved':
+            posts = getUser().profile.posts.savedPosts
+            break;
+
+        case 'tagged':
+            posts = getUser().profile.posts.taggedPosts
+            break;
+
+        default: 
+            posts = getUser().profile.posts.myPosts
+    }
+
+    console.log(posts)
     return (
         <Masonry columns={3} spacing={1}>
             {posts.map((item, index) => (
