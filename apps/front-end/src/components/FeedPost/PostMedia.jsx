@@ -1,4 +1,22 @@
 import CardMedia from '@mui/material/CardMedia';
+import styled from "styled-components"
+
+const Slideshow = styled.div`
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+`;
+
+const Slide = styled.div`
+    display: none;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+`;
+
+
+
 
 export default function PostMedia() {
     return (
