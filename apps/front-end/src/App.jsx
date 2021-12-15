@@ -3,7 +3,7 @@ import PageFeed from './pages/Feed'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
 import Profile from './pages/Profile'
-import Header from './components/global/Header'
+import Header from './components/Header'
 import Mailbox from './pages/Mailbox'
 import Settings from './pages/Settings'
 
@@ -18,7 +18,7 @@ function App() {
           <Signup />
         </Route>
         <Route path="/:username">
-          {/* <Header /> */}
+          <Header />
           <Route path="/:username/profile">
             <Profile />
           </Route>
