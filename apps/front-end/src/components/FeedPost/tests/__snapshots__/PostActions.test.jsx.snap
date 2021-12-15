@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostActions Component should be rendered 1`] = `
+<div>
+  <div
+    class="MuiCardActions-root css-1rwjz6-MuiCardActions-root"
+  >
+    <div />
+    <div
+      class="action-share-mock"
+    />
+    <div />
+    <div
+      class="action-expand-more-mock"
+      data-expanded="undefined"
+    />
+  </div>
+</div>
+`;
