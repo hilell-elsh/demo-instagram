@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "lerna run test --parallel",
     "dev": "lerna run dev --parallel",
     "setup": "lerna bootstrap -- --production=false",
     "postinstall": "npm run setup && lerna run build",

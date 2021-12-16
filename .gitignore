@@ -6,3 +6,5 @@ dist-ssr
 .vscode
 vite.config.js
 package-lock.json
+coverage
+static
