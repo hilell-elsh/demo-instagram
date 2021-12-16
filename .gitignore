@@ -7,3 +7,4 @@ dist-ssr
 vite.config.js
 package-lock.json
 coverage
+static
