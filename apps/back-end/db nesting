@@ -42,16 +42,16 @@ users: {
 
 posts: {
     postId
-    userId - from users
+    author - from users
     text 
-    [imageSrc] - from cloudinary?
+    [images] - from cloudinary?
     createdDate
     locations
-    allowed comment (boolean)
+    allowedComment (boolean)
     tags [
         tagName from tags?
     ]
-    users`s tags [
+    userTags [
         userId
     ]
     reactions: {
@@ -75,7 +75,7 @@ posts: {
 
 tags: {
     tagCode (saved 1-1000, the rest for new tags of the users)
-    tagName
+    tagText
     icon
 }
 
