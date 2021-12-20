@@ -1,5 +1,6 @@
-// require('./todo');
-// require('./user');
+require('./post');
+require('./user');
+require('./tag');
 
 const {connect} = require('mongoose');
 let connection;
