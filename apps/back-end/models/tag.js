@@ -7,6 +7,6 @@ const TagSchema = new mongoose.Schema({
     icon: {type: String, required: true}, 
 });
 
-const TagModel = mongoose.model('todo', TagSchema);
+const TagModel = mongoose.model('Tag', TagSchema);
 
 module.exports = TagModel;

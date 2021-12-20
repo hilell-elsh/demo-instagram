@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.ObjectId;
 
 const PostSchema = new mongoose.Schema({
-    author: {type: ObjectId, required: true},
+    author: {type: ObjectId, required: true, ref: 'User'},
     text: {type: String, required: true},
     images: {type: [String], required: true},
     createdDate: {type: Date, default: Date.now},
@@ -13,7 +13,7 @@ const PostSchema = new mongoose.Schema({
     reactions: {
         likes: [ObjectId],
         comments: [{
-            user: ObjectId,
+            user: {type: ObjectId, ref: 'User'},
             text: String,
             createdDate: Date,
             likes: [ObjectId]
