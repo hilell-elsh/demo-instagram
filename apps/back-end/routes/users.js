@@ -1,4 +1,12 @@
 const { Router } = require('express');
+const {
+    getUser,
+    getUserPosts,
+    toggleFollowUser,
+    getMe,
+    updateMe,
+    deleteMe
+} = require('../controllers/users');
 
 const usersRouter = Router();
 usersRouter.get('/api/users/:userId', getUser);
