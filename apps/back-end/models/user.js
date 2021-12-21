@@ -22,17 +22,17 @@ const UserSchema = new mongoose.Schema({
         website: String,
         bio: String,
         gender: String,
-        followers: [ObjectId],
-        following: [ObjectId],
+        followers: [{type: ObjectId, ref: 'User'}],
+        following: [{type: ObjectId, ref: 'User'}],
         created: {type: Date, default: Date.now},
     },
     posts: {
-        myPosts: [ObjectId],
-        taggedPosts: [ObjectId],
-        savedPosts: [ObjectId]
+        myPosts: [{type: ObjectId, ref: 'Post'}],
+        taggedPosts: [{type: ObjectId, ref: 'Post'}],
+        savedPosts: [{type: ObjectId, ref: 'Post'}]
     }
 });
 
-const UserModel = mongoose.model('user', UserSchema);
+const UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;
