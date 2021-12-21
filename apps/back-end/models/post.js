@@ -8,19 +8,10 @@ const PostSchema = new mongoose.Schema({
     createdDate: {type: Date, default: Date.now},
     location: String,
     allowedComment: {type: Boolean, default: true, required: true},
-    tags: [ObjectId],
-    userTags: [ObjectId],
-    reactions: {
-        likes: [ObjectId],
-        comments: [{
-            user: {type: ObjectId, ref: 'User'},
-            text: String,
-            createdDate: Date,
-            likes: [ObjectId]
-        }]
-    }
+    tags: [{type: ObjectId, ref: 'Tag'}],
+    userTags: [{type: ObjectId, ref: 'User'}],
 });
 
-const PostModel = mongoose.model('post', PostSchema);
+const PostModel = mongoose.model('Post', PostSchema);
 
 module.exports = PostModel;
