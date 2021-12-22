@@ -6,10 +6,10 @@ import {act , isElementOfType} from 'react-dom/test-utils'
 describe("PostActions Component", ()=> {
     let PostActions, container
     beforeEach(async ()=> {
-        jest.mock('../PostActions/ActionLike.jsx')
-        jest.mock('../PostActions/ActionAddComment.jsx')
-        jest.mock('../PostActions/ActionShare.jsx')
-        jest.mock('../PostActions/ActionEpandMore.jsx')
+        vi.mock('../PostActions/ActionLike.jsx')
+        vi.mock('../PostActions/ActionAddComment.jsx')
+        vi.mock('../PostActions/ActionShare.jsx')
+        vi.mock('../PostActions/ActionEpandMore.jsx')
 
         container = document.createElement('div')
 
@@ -42,11 +42,11 @@ describe("PostActions Component", ()=> {
         act(() => {
             ReactDOM.render(<PostActions expanded={false} />, container)
         })
-        expect(container.querySelector('.action-expand-more-mock').getAttribute('data-expanded')).toBe('false')
+        expect(container.querySelector('.action-expand-more-mock').getAttribute('data-expanded')).toBe('false');
     })
 
     test('should call setExpanded when emitted from ActionExpandMore', () => {
-        const expandedCallback = jest.fn()
+        const expandedCallback = vi.fn()
         
         act(() => {
             ReactDOM.render(<PostActions expanded={false} setExpanded ={expandedCallback}/>, container)

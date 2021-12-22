@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "jest"
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.5.0",
@@ -22,14 +23,11 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "@babel/preset-react": "^7.16.5",
     "@vitejs/plugin-react": "^1.0.0",
-    "babel": "^6.23.0",
-    "babel-jest": "^27.4.5",
+    "c8": "^7.10.0",
+    "happy-dom": "^2.25.1",
     "vite": "^2.6.4",
-    "vite-jest": "^0.1.4"
+    "vitest": "^0.0.107"
   },
   "main": "vite.config.js",
   "author": "",

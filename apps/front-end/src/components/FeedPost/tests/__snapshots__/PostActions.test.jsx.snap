@@ -1,7 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`PostActions Component should be rendered 1`] = `
+exports[`PostActions Component > should be rendered 1`] = `
 <div>
+  
   <div
     class="MuiCardActions-root css-1rwjz6-MuiCardActions-root"
   >
