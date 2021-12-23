@@ -1,19 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Avatar from '@mui/material/Avatar'
+import { useDispatch } from 'react-redux'
 
-import { ModalBackdrop, ModalWrapper, ModalHeader, ModalContent, ModalContentItem, RemoveButton, ExitButton } from '../global/ModalStyle'
-import { buttonOpen, buttonClose } from '../../store/button'
+import { ModalBackdrop, ModalWrapper, ModalHeader, ExitButton, ModalContent } from '../global/ModalStyle'
 import { modalClose } from '../../store/modal'
 import { getUser } from '../../services/user-data'
+import FollowerModalContentItem from './FollowerModalContentItem'
 
 export default function FollowerModal({title}) {
     const userFollowers = getUser().profile.followers
     const userFollowing = getUser().profile.following
-
-    const isButton = useSelector((state) => state.button.isButton)
-    const dispatch = useDispatch()
-
+    
     function checkContent(title) {
         if(title === 'following') {
             return userFollowing
@@ -22,6 +17,8 @@ export default function FollowerModal({title}) {
         }
     }
     const usersList = checkContent(title)
+
+    const dispatch = useDispatch()
     
     return(
     <ModalBackdrop>
@@ -32,21 +29,10 @@ export default function FollowerModal({title}) {
             </ModalHeader>
             <ModalContent>
                 {usersList.map((username, index) => (
-                    <ModalContentItem key={index}>
-                        <Avatar src={username.image.src} sx={{ width: 40, height: 40 }}/>
-                        <Link to={`/${username.username}/profile`}>
-                            {username.username}
-                        </Link>
-                        <p>{username.name.firstName + " " + username.name.lastName}</p>
-                        <RemoveButton className="fas fa-trash" onClick={() => dispatch(buttonOpen())}></RemoveButton>
-                        { isButton && <ExitButton className="fas fa-times" onClick={() => dispatch(buttonClose())} style={{opacity: .6}}></ExitButton> }
-                    </ModalContentItem>
+                    <FollowerModalContentItem username={username} index={index}/>
                 ))}
             </ModalContent>
         </ModalWrapper>
     </ModalBackdrop>
     )
 }
-
-// on unfollow button click => 2 buttons: v or x
-// x => cancel v => unfollow
