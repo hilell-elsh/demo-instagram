@@ -1,6 +1,7 @@
 
 
 const createPost = (req, res) => {
+    
     // create new post
     // POST method
     // /api/posts
