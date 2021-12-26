@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-
+import { useRef } from 'react'
 import { ModalBackdrop, ModalWrapper, ModalHeader, ModalContent, UploadButton, ExitButton } from './ModalStyle'
 import { modalClose } from '../../store/modal'
 
@@ -15,6 +15,20 @@ const NewPostWrapper = styled(ModalWrapper)`
 export default function NewPostModal() {
     const dispatch = useDispatch()
 
+    const hiddenInput = useRef(null)
+    const handleClick = () => {
+        hiddenInput.current.click()
+    }
+
+    const uploadImg = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'kilogram')
+        setLoading(true)
+        const res = await fetch('https://')
+    }
+
     return (
         <ModalBackdrop>
             <NewPostWrapper>
@@ -25,7 +39,13 @@ export default function NewPostModal() {
                 <NewPostContent>
                     <i className="fas fa-photo-video" style={{fontSize: '10rem', color: 'rgb(209 209 209)'}}></i>
                     <h2 style={{marginTop: '1rem'}}>Drag photos and videos here</h2>
-                    <UploadButton>Select from computer</UploadButton>
+                    <UploadButton onClick={handleClick}>Select from computer</UploadButton>
+                    <input
+                        type="file"
+                        ref={hiddenInput}
+                        name="picture"
+                        style={{display:'none'}}
+                        onChange={uploadImg}></input>
                 </NewPostContent>
             </NewPostWrapper>
         </ModalBackdrop>
