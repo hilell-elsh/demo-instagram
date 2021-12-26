@@ -17,3 +17,5 @@ usersRouter.post('/api/me', updateMe);
 usersRouter.delete('/api/me', deleteMe);
 
 module.exports = usersRouter;
+
+// '/users?page=1&limit=20'

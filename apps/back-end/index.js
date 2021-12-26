@@ -11,7 +11,7 @@ app.use(express.json());
 app.use("/",express.static(join(__dirname,"static")));
 app.use("*",express.static(join(__dirname,"static/index.html")));
 
-// require('./routes/??????')(app);
+require('./routes')(app);
 
 connectToDb()
     .then(app.listen(port, ()=>console.log("app is running in port: " + port)));
