@@ -16,6 +16,6 @@ export default function FollowerModalContentItem({username, index}) {
             <p>{username.name.firstName + " " + username.name.lastName}</p>
             <RemoveButton className="fas fa-trash" onClick={() => setIsButton(true)}></RemoveButton>
             { isButton && <ExitButton className="fas fa-times" onClick={() => setIsButton(false)} style={{opacity: .6}}></ExitButton> }
-        </ModalContentItem>      
+        </ModalContentItem>
     )
 }

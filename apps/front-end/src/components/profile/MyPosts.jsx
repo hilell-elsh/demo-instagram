@@ -32,12 +32,12 @@ export default function MyPosts() {
                     alt={item.title}
                     loading="lazy"
                     style={{ borderBottomLeftRadius: 4,
-                             borderBottomRightRadius: 4,
-                             borderTopRightRadius: 4,
-                             borderTopLeftRadius: 4,
-                             cursor: "pointer"
-                             }}
-                />
+                        borderBottomRightRadius: 4,
+                        borderTopRightRadius: 4,
+                        borderTopLeftRadius: 4,
+                        cursor: "pointer"
+                    }}
+                    />
                 </Stack>
             ))}
         </Masonry>
