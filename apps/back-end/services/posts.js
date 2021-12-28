@@ -5,8 +5,8 @@ function createPost (data) {
     return newPost.save();
 }
 
-function getPost(query={}) {
-    return PostModel.findOne({ query })    
+function getPost(postId) {
+    return PostModel.findById(postId);    
 }
 
 function getPosts(query={}) {
