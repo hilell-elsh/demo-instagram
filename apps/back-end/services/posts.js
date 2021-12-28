@@ -17,8 +17,8 @@ function deletePost(postId) {
     return PostModel.findByIdAndDelete(postId)    
 }
 
-function updatePost(query={}, data) {
-    return PostModel.findOneAndUpdate(query, data)
+function updatePost(postId, data) {
+    return PostModel.findByIdAndUpdate(postId, data)
 }
 
 module.exports = {
