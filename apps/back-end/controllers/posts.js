@@ -1,7 +1,8 @@
 const postsService = require('../services/posts');
 const usersService = require('../services/users');
 const tagsService = require('../services/tags');
-const likesService = require('../services/likes.js');
+const likesService = require('../services/likes');
+const commentsService = require('../services/comments');
 
 const createPost = async (req, res) => {
     // create new post
@@ -12,6 +13,7 @@ const createPost = async (req, res) => {
         author: req.user
         // add tags and usre tags?
     }
+    
     res
         .status(200)
         .json(postsService.createPost(newPost))
@@ -29,10 +31,16 @@ const getPost = (req, res) => {
     //      ....
     const post = {
         ...req.post,
+        author: usersService.getUser(req.post.author).select('userBasicData'), 
         tags: req.post.tags.map(tag => tagsService.getTag(tag)),
-        userTags: req.post.userTags.map(user => usersService.getUser(user).select('userBasicData')),
-        // comments: commentsService.getComments(req.post._id)
-        postLikes: likesService.getPostLikes(req.post._id),
+        userTags: req.post.userTags
+            .map(user => {
+                return {
+                    userId: user,
+                    userBasicData: usersService.getUser(user).select('userBasicData')}
+            }),
+        postLikes: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
+        comments: commentsService.getCommentsAmount(req.post._id)
     }
 
 } 

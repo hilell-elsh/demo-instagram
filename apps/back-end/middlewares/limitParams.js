@@ -1,8 +1,8 @@
 
 
 function getLimitParams(req, res, next) {
-    res.skip = address.searchParams.get('skip');
-    res.limit = address.searchParams.get('limit');
+    req.skip = address.searchParams.get('skip');
+    req.limit = address.searchParams.get('limit');
 
     console.log('skip:', res.skip, "\nlimit:", res.limit);
     
