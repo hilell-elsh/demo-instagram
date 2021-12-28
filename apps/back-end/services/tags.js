@@ -5,8 +5,8 @@ function createTag (data) {
     return newTag.save();
 }
 
-function getTag(query={}) {
-    return TagModel.findOne({ query })    
+function getTag(tagId) {
+    return TagModel.findById(tagId)    
 }
 
 function getTags(query={}) {
