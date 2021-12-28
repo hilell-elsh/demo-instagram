@@ -39,8 +39,8 @@ const getPost = (req, res) => {
                     userId: user,
                     userBasicData: usersService.getUser(user).select('userBasicData')}
             }),
-        postLikes: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
-        comments: commentsService.getCommentsAmount(req.post._id)
+        likesAmount: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
+        commentsAmount: commentsService.getCommentsAmount(req.post._id)
     }
 
     res
@@ -77,7 +77,16 @@ const updatePost = (req, res) => {
     // PUT method
     // /api/posts/:postId
     if ( req.currentUserId === req.post.author ) {
-        // update post
+        const updateData = {
+            ...req.body,
+            author: req.post.author,
+            createdDate: req.post.createdDate
+        }
+        const updatedPost = await postsService.updatePost(req.postId, updateData)
+        res
+            .status(200)
+            .json(updatedPost)
+            .end();
     } else {
         res
             .status(403)
@@ -90,6 +99,11 @@ const toggleLikePost = (req, res) => {
     // add corrent user to post's likes list
     // POST method
     // /api/posts/:postId/like
+    if (likesService.checkLike(req.currentUserId, req.postId)) {
+        likesService.deleteLike(req.currentUserId, req.postId)
+    } else {
+        likesService.addLike(req.currentUserId, req.postId)
+    }
 } 
 
 // inside help middleware
