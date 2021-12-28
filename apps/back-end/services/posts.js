@@ -13,8 +13,8 @@ function getPosts(query={}) {
     return PostModel.find({ query })
 }
 
-function deletePost(query={}) {
-    return PostModel.findOneAndDelete({ query })    
+function deletePost(postId) {
+    return PostModel.findByIdAndDelete(postId)    
 }
 
 function updatePost(query={}, data) {

@@ -43,18 +43,47 @@ const getPost = (req, res) => {
         comments: commentsService.getCommentsAmount(req.post._id)
     }
 
+    res
+        .status(200)
+        .json(post)
+        .end();
 } 
 
 const deletePost = (req, res) => {
     // delete post by :postId param
+    // include comment and likes
     // DELETE method
     // /api/posts/:postId
+    if ( req.currentUserId === req.post.author ) {
+        const {isLikesDeleteSuccess, deletedLikesCount, nLikes} = likesService.deletePost(req.post._id);
+        const {isCommentsDeleteSuccess, deletedCommentsCount, nComments} = commentsService.deletePost(req.post._id);
+        const deletedPost = postsService.deletePost(req.post._id);
+        if (isCommentsDeleteSuccess && isLikesDeleteSuccess) {
+            res
+                .status(200)
+                .json({deletedPost, nComments, nLikes})
+                .end();
+        }
+    } else {
+        res
+            .status(403)
+            .json({massage: 'You are not allowed'})
+            .end();
+    }
 } 
 
 const updatePost = (req, res) => {
     // update post data by :postId param
     // PUT method
     // /api/posts/:postId
+    if ( req.currentUserId === req.post.author ) {
+        // update post
+    } else {
+        res
+            .status(403)
+            .json({massage: 'You are not allowed'})
+            .end();
+    }
 } 
 
 const toggleLikePost = (req, res) => {
