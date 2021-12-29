@@ -8,8 +8,11 @@ const getUser = (req, res) => {
     //      posts,
     //      additional data
     //      ....
-
+    
 }
+
+// get user following
+// get user followers
 
 const toggleFollowUser = (req, res) => {
     // add corrent user to user's following list by :userID param
@@ -27,6 +30,7 @@ const getUserPosts = (req, res) => {
     //      usernames & images sorces
     //      ....
 }
+
 
 const getMe = (req, res) => {
     // get all user data

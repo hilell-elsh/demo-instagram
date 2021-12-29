@@ -9,12 +9,12 @@ const {
 } = require('../controllers/users');
 
 const usersRouter = Router();
-usersRouter.get('/api/users/:userId', getUser);
-usersRouter.post('/api/users/:userId/follow', toggleFollowUser);
-usersRouter.get('/api/users/:userId/posts', getUserPosts);
-usersRouter.get('/api/me', getMe);
-usersRouter.post('/api/me', updateMe);
-usersRouter.delete('/api/me', deleteMe);
+usersRouter.get('/api/users/:userId', getUser)
+        .post('/api/users/:userId/follow', toggleFollowUser)
+        .get('/api/users/:userId/posts', getUserPosts)
+        .get('/api/me', getMe)
+        .post('/api/me', updateMe)
+        .delete('/api/me', deleteMe);
 // add save post
 
 module.exports = usersRouter;
