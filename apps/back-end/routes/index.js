@@ -4,10 +4,12 @@ const postsRouter = require('./posts');
 const commentsRouter = require('./comments');
 const authRouter = require('./auth');
 const uploadRouter = require('./upload');
+const { checkUser, validateUser } = require('../middlewares/checkuser')
 
 const mainRouter = (router) => {
     router
         // .use(middlewares)
+        .use(checkUser)
 
         // scope routers
         .use(usersRouter)

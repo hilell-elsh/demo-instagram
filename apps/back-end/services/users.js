@@ -5,8 +5,8 @@ function createUser (data) {
     return newUser.save();
 }
 
-function getUser(query={}) {
-    return UserModel.findOne({ query })    
+function getUser(userId) {
+    return UserModel.findById(userId);    
 }
 
 function getUsers(query={}) {

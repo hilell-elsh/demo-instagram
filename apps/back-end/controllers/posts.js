@@ -11,13 +11,14 @@ const createPost = async (req, res) => {
     const newPost = {
         ...res.body,
         author: req.user
-        // add tags and usre tags?
+        // add tags and usre tags
+        // add images handler
     }
     
     res
-        .status(200)
-        .json(postsService.createPost(newPost))
-        .end();
+    .status(200)
+    .json(postsService.createPost(newPost))
+    .end();
 } 
 
 const getPost = (req, res) => {
@@ -34,21 +35,22 @@ const getPost = (req, res) => {
         author: usersService.getUser(req.post.author).select('userBasicData'), 
         tags: req.post.tags.map(tag => tagsService.getTag(tag)),
         userTags: req.post.userTags
-            .map(user => {
-                return {
-                    userId: user,
-                    userBasicData: usersService.getUser(user).select('userBasicData')}
-            }),
+        .map(user => {
+            return {
+                userId: user,
+                userBasicData: usersService.getUser(user).select('userBasicData')
+            }
+        }),
         likesAmount: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
         commentsAmount: commentsService.getCommentsAmount(req.post._id)
     }
-
+    
     res
-        .status(200)
-        .json(post)
-        .end();
+    .status(200)
+    .json(post)
+    .end();
 } 
-
+    
 const deletePost = (req, res) => {
     // delete post by :postId param
     // include comment and likes
@@ -58,20 +60,21 @@ const deletePost = (req, res) => {
         const {isLikesDeleteSuccess, deletedLikesCount, nLikes} = likesService.deletePost(req.post._id);
         const {isCommentsDeleteSuccess, deletedCommentsCount, nComments} = commentsService.deletePost(req.post._id);
         const deletedPost = postsService.deletePost(req.post._id);
+        // add images handler
         if (isCommentsDeleteSuccess && isLikesDeleteSuccess) {
             res
-                .status(200)
-                .json({deletedPost, nComments, nLikes})
-                .end();
+            .status(200)
+            .json({deletedPost, nComments, nLikes})
+            .end();
         }
     } else {
         res
-            .status(403)
-            .json({massage: 'You are not allowed'})
-            .end();
+        .status(403)
+        .json({massage: 'You are not allowed'})
+        .end();
     }
 } 
-
+    
 const updatePost = (req, res) => {
     // update post data by :postId param
     // PUT method
@@ -81,12 +84,13 @@ const updatePost = (req, res) => {
             ...req.body,
             author: req.post.author,
             createdDate: req.post.createdDate
+            // add images handler
         }
         const updatedPost = await postsService.updatePost(req.postId, updateData)
         res
-            .status(200)
-            .json(updatedPost)
-            .end();
+        .status(200)
+        .json(updatedPost)
+        .end();
     } else {
         res
             .status(403)
