@@ -1,4 +1,4 @@
-
+const usersService = require('../services/users')
 
 const getUser = (req, res) => {
     // get user data by :userID param
@@ -8,7 +8,40 @@ const getUser = (req, res) => {
     //      posts,
     //      additional data
     //      ....
+    const user = {
+        ...req.user,
+        additionalData: {
+            ...req.user.additionalData,
+            name: {
+                ...req.user.name,
+                fullName: (req.user.additionalData.name.firstName + ' ' + req.user.additionalData.name.lastName)
+            },
+            followers: req.user.additionalData.followers
+                .map(user => {
+                    return {
+                        userId: user,
+                        userBasicData: usersService.getUser(user).select('userBasicData')
+                    }
+                }),
+            following: req.user.additionalData.following
+                .map(user => {
+                    return {
+                        userId: user,
+                        userBasicData: usersService.getUser(user).select('userBasicData')
+                    }
+                }),
+        },
+        posts: {
+            ...req.user.posts,
+            myPosts: postsService.getPosts({author: req.userId}).select('_id'),
+            taggedPosts: postsService.getPosts({userTags: req.userId}).select('_id')
+        }
+    }
     
+    res
+    .status(200)
+    .json(user)
+    .end();
 }
 
 // get user following
@@ -50,6 +83,19 @@ const deleteMe = (req, res) => {
     // /api/me
 }
 
+// inside help middleware
+const getUserById = async (req, res, next) => {
+    const userId = req.params.userId;
+    const user = usersService.getUser(userId);
+    req.userId = userId;
+    if (user) {
+        req.user = user;
+        req.userId = req.user._id;
+        next();
+    } else {
+        res.status(404).json({message: 'User not found'}).end();
+    }
+}
 
 module.exports = {
     getUser,
@@ -57,5 +103,6 @@ module.exports = {
     toggleFollowUser,
     getMe,
     updateMe,
-    deleteMe
+    deleteMe,
+    getUserById
 }

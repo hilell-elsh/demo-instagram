@@ -35,12 +35,12 @@ const getPost = (req, res) => {
         author: usersService.getUser(req.post.author).select('userBasicData'), 
         tags: req.post.tags.map(tag => tagsService.getTag(tag)),
         userTags: req.post.userTags
-        .map(user => {
-            return {
-                userId: user,
-                userBasicData: usersService.getUser(user).select('userBasicData')
-            }
-        }),
+            .map(user => {
+                return {
+                    userId: user,
+                    userBasicData: usersService.getUser(user).select('userBasicData')
+                }
+            }),
         likesAmount: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
         commentsAmount: commentsService.getCommentsAmount(req.post._id)
     }
@@ -114,9 +114,10 @@ const toggleLikePost = (req, res) => {
 const getPostById = async (req, res, next) => {
     const postId = req.params.postId;
     const post = postsService.getPost(postId);
-    req.postId = post.postId;
+    req.postId = postId;
     if (post) {
         req.post = post;
+        req.postId = req.post._id;
         next();
     } else {
         res.status(404).json({message: 'Post not found'}).end();
