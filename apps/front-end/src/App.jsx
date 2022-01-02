@@ -6,6 +6,7 @@ import Profile from './pages/Profile'
 import Header from './components/global/Header'
 import Mailbox from './pages/Mailbox'
 import Settings from './pages/Settings'
+// require('dotenv').config();
 
 function App() {
   return (
