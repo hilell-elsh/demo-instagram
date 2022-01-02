@@ -17,8 +17,8 @@ function deleteUser(query={}) {
     return UserModel.findOneAndDelete({ query })    
 }
 
-function updateUser(query={}, data) {
-    return UserModel.findOneAndUpdate(query, data)
+function updateUser(userId, data) {
+    return UserModel.findByIdAndUpdate(userId, data)
 }
 
 module.exports = {

@@ -8,12 +8,12 @@ const createPost = async (req, res) => {
     // create new post
     // POST method
     // /api/posts
-    const newPost = {
+    const newPost = await postsService.createPost({
         ...res.body,
         author: req.user
-        // add tags and usre tags
+        // add tags and users tags
         // add images handler
-    }
+    })
     
     res
     .status(200)
@@ -32,7 +32,10 @@ const getPost = (req, res) => {
     //      ....
     const post = {
         ...req.post,
-        author: usersService.getUser(req.post.author).select('userBasicData'), 
+        author: {
+            userId: req.post.author,
+            userBasicData: usersService.getUser(req.post.author).select('userBasicData')
+        },
         tags: req.post.tags.map(tag => tagsService.getTag(tag)),
         userTags: req.post.userTags
             .map(user => {
@@ -75,7 +78,7 @@ const deletePost = (req, res) => {
     }
 } 
     
-const updatePost = (req, res) => {
+const updatePost = async (req, res) => {
     // update post data by :postId param
     // PUT method
     // /api/posts/:postId
@@ -84,7 +87,7 @@ const updatePost = (req, res) => {
             ...req.body,
             author: req.post.author,
             createdDate: req.post.createdDate
-            // add images handler
+            // *** add images handler
         }
         const updatedPost = await postsService.updatePost(req.postId, updateData)
         res
@@ -104,9 +107,17 @@ const toggleLikePost = (req, res) => {
     // POST method
     // /api/posts/:postId/like
     if (likesService.checkLike(req.currentUserId, req.postId)) {
-        likesService.deleteLike(req.currentUserId, req.postId)
+        likesService.deleteLike(req.currentUserId, req.postId);
+        res
+            .status(200)
+            .json({liked: true})
+            .end()
     } else {
         likesService.addLike(req.currentUserId, req.postId)
+        res
+            .status(200)
+            .json({liked: false})
+            .end()
     }
 } 
 
@@ -120,7 +131,10 @@ const getPostById = async (req, res, next) => {
         req.postId = req.post._id;
         next();
     } else {
-        res.status(404).json({message: 'Post not found'}).end();
+        res
+            .status(404)
+            .json({message: 'Post not found'})
+            .end();
     }
 }
 
