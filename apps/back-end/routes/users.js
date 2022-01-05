@@ -10,7 +10,8 @@ const {
 } = require('../controllers/users');
 
 const usersRouter = Router();
-usersRouter.get('/api/users/:userId', getUserById, getUser)
+usersRouter
+        .get('/api/users/:userId', getUserById, getUser)
         .post('/api/users/:userId/follow', getUserById, toggleFollowUser)
         .get('/api/users/:userId/posts', getUserById, getUserPosts)
         .get('/api/me', getMe)

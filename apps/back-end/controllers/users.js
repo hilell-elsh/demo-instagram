@@ -1,9 +1,9 @@
 const usersService = require('../services/users');
 const postsService = require('../services/posts');
-const { post } = require('../routes/users');
+// const { post } = require('../routes/users');
+const { getId } = require('../services/object');
 
-
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
     // get user data by :userID param
     // GET method
     // /api/users/:userId
@@ -11,39 +11,35 @@ const getUser = (req, res) => {
     //      posts,
     //      additional data
     //      ....
-    const user = {
-        ...req.user,
-        additionalData: {
-            ...req.user.additionalData,
-            name: {
-                ...req.user.name,
-                fullName: (req.user.additionalData.name.firstName + ' ' + req.user.additionalData.name.lastName)
-            },
-            followers: req.user.additionalData.followers
-                .map(user => {
-                    return {
-                        userId: user,
-                        userBasicData: usersService.getUser(user).select('userBasicData')
-                    }
-                }),
-            following: req.user.additionalData.following
-                .map(user => {
-                    return {
-                        userId: user,
-                        userBasicData: usersService.getUser(user).select('userBasicData')
-                    }
-                }),
-        },
-        posts: {
-            ...req.user.posts,
-            myPosts: postsService.getPosts({author: req.userId}).select('_id'),
-            taggedPosts: postsService.getPosts({userTags: req.userId}).select('_id')
-        }
-    }
+    console.log('get user', req.userId);
     
+    const user = await usersService.getUser(req.userId)
+    // const user = await req.user
+    .populate('additionalData.followers', 'userBasicData')
+    .populate('additionalData.following', 'userBasicData')
+    // .populate('posts.myPosts', 'userBasicData')
+    .select('userBasicData additionalData')
+    .lean()
+    // .toObject();
+    const dbUser = req.user.toObject();
+    // const user = {
+    //     ...dbUser,
+    //     posts: {
+    //         ...dbUser.posts || [],
+    //         myPosts: await postsService.getPosts({author: req.userId}).select('_id')
+    //             .map(post => post.toObject()),
+    //         taggedPosts: await postsService.getPosts({userTags: req.userId}).select('_id')
+    //             .map(post => post.toObject())
+    //     }
+    // }
+
+
+    console.log(user);
+    
+
     res
-    .status(200)
     .json(user)
+    .status(200)
     .end();
 }
 
@@ -78,7 +74,7 @@ const toggleFollowUser = (req, res) => {
     }
 }
 
-const getUserPosts = (req, res) => {
+const getUserPosts = async (req, res) => {
     // get user posts by :userID param
     // GET method
     // /api/users/:userId/posts?skip=0&limit=20
@@ -126,6 +122,11 @@ const getMe = (req, res) => {
     // get all user data
     // GET method
     // /api/me
+    const me = {
+        ...req.currentUser,
+    }
+    // username
+    // 
 }
 
 const updateMe = (req, res) => {
@@ -142,8 +143,11 @@ const deleteMe = (req, res) => {
 
 // inside help middleware
 const getUserById = async (req, res, next) => {
-    const userId = req.params.userId;
-    const user = usersService.getUser(userId);
+    // console.log('userId', req.params.userId);
+    const userId = getId(req.params.userId);
+    // console.log(userId);
+    const user = await usersService.getUser(userId);
+    console.log(user.toObject());
     req.userId = userId;
     if (user) {
         req.user = user;

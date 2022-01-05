@@ -4,6 +4,7 @@ const postsRouter = require('./posts');
 const commentsRouter = require('./comments');
 const authRouter = require('./auth');
 const uploadRouter = require('./upload');
+const adminRouter = require('./admin');
 const { checkUser, validateUser } = require('../middlewares/checkuser')
 
 const mainRouter = (router) => {
@@ -18,6 +19,7 @@ const mainRouter = (router) => {
         .use(commentsRouter)
         .use(authRouter)
         .use(uploadRouter)
+        .use(adminRouter)
 }
 
 module.exports = mainRouter

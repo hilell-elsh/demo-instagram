@@ -1,21 +1,22 @@
 import { posts } from '../ex-apis/posts.js'
 
-export async function creatrePost(newPostData) {
+// const path = import.meta.env.VITE_SERVER_PATH
+
+export async function createPost(newPostData) {
     // required text, [images src]
-    const path = process.env.server_path+'/api/posts';
-    const response = await fetch(path, {
+    const path = '/api/posts';
+    return fetch(path, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'content-type': 'application/json'
         },
         body: JSON.stringify(newPostData)
-    });
-    return await response.json();
+    }).then((res) => res.json());
     // returned the new post data, can't change the author
 }
 
 export async function getPost(postId) {
-    const path = process.env.server_path+`/api/posts/${postId}`;
+    const path = `/api/posts/${postId}`;
     const response = await fetch(path, {
         method: 'GET',
         headers: {
@@ -56,7 +57,7 @@ export async function getPost(postId) {
 }
 
 export async function updatePost(postId, updateData) {
-    const path = process.env.server_path+`/api/posts/${postId}`;
+    const path = `/api/posts/${postId}`;
     const response = await fetch(path, {
         method: 'PUT',
         headers: {
@@ -68,7 +69,7 @@ export async function updatePost(postId, updateData) {
 }
 
 export async function deletePost(postId) {
-    const path = process.env.server_path+`/api/posts/${postId}`;
+    const path = `/api/posts/${postId}`;
     const response = await fetch(path, {
         method: 'DELETE',
         headers: {
@@ -79,7 +80,7 @@ export async function deletePost(postId) {
 }
 
 export async function toggleLikePost() {
-    const path = process.env.server_path+'/api/posts';
+    const path = '/api/posts';
     const response = await fetch(path, {
         method: 'POST',
         headers: {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon dev.js"
   },
   "dependencies": {
     "cloudinary-react": "^1.7.0",
