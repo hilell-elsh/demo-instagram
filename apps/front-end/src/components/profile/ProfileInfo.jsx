@@ -27,9 +27,9 @@ export default function ProfileInfo() {
         <InfoWrapper>
             {userAvatar}
             <Username>{user.userBasicData.username}</Username>
-            <Count>{userProfile.posts.myPosts.length} <span>posts</span></Count>
-            <Count>{userProfile.followers.length} <span onClick={() => dispatch(modalOpen())}>followers</span></Count>
-            <Count>{userProfile.following.length} <span onClick={() => dispatch(modalOpen())}>following</span></Count>
+            <Count>{user.posts.postsAmount} <span>posts</span></Count>
+            <Count>{user.additionalData.followers} <span onClick={() => dispatch(modalOpen())}>followers</span></Count>
+            <Count>{user.additionalData.following} <span onClick={() => dispatch(modalOpen())}>following</span></Count>
             { isModal && <FollowerModal title={title}/> }
             <Link to="/:username/settings">
                 <Button>Edit Profile</Button>
