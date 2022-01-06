@@ -1,4 +1,5 @@
 const UserModel = require('../models/user');
+const postsService = require('../services/posts');
 
 function createUser (data) {
     const newUser = new UserModel(data);
@@ -7,6 +8,28 @@ function createUser (data) {
 
 function getUser(userId) {
     return UserModel.findById(userId);    
+}
+
+async function getUserPosts(userId, skip=0, limit=10) {
+    const MAX_POSTS = 50;
+    limit = Math.min(limit, MAX_POSTS);
+    console.log(`request: posts of ${userId} 
+    \nskip: ${skip}, limit: ${limit}`);
+
+    const posts = await postsService.getPosts({author: userId})
+        .skip(skip)
+        .limit(limit)
+        .populate('author', 'userBasicData')
+        .populate('tags')
+        .populate('userTags', 'userBasicData')
+        .lean();
+    
+    return posts.map(post => {
+        post.likesAmount = likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
+        post.commentsAmount = commentsService.getCommentsAmount(post._id)
+
+    })
+
 }
 
 function getUsers(query={}) {
@@ -26,5 +49,6 @@ module.exports = {
     getUser,
     getUsers,
     deleteUser,
-    updateUser
+    updateUser,
+    getUserPosts
 };

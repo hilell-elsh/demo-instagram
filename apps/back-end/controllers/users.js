@@ -15,26 +15,23 @@ const getUser = async (req, res) => {
     
     const user = await usersService.getUser(req.userId)
     // const user = await req.user
-    .populate('additionalData.followers', 'userBasicData')
-    .populate('additionalData.following', 'userBasicData')
-    // .populate('posts.myPosts', 'userBasicData')
-    .select('userBasicData additionalData')
+    // .populate('additionalData.followers')
+    // .populate('additionalData.following')
+    // .populate('posts.myPosts')
+    // .select('userBasicData additionalData')
     .lean()
     // .toObject();
-    const dbUser = req.user.toObject();
-    // const user = {
-    //     ...dbUser,
-    //     posts: {
-    //         ...dbUser.posts || [],
-    //         myPosts: await postsService.getPosts({author: req.userId}).select('_id')
-    //             .map(post => post.toObject()),
-    //         taggedPosts: await postsService.getPosts({userTags: req.userId}).select('_id')
-    //             .map(post => post.toObject())
-    //     }
-    // }
-
-
+    
     console.log(user);
+
+    user.additionalData.followers = user.additionalData.followers.length;
+    user.additionalData.following = user.additionalData.following.length;
+    
+    user.posts = {
+        postsAmount: user.posts.myPosts.length,
+        firstPosts: usersService.getUserPosts(user._id, limit = 15)
+    }
+
     
 
     res
@@ -147,7 +144,7 @@ const getUserById = async (req, res, next) => {
     const userId = getId(req.params.userId);
     // console.log(userId);
     const user = await usersService.getUser(userId);
-    console.log(user.toObject());
+    // console.log(user.toObject());
     req.userId = userId;
     if (user) {
         req.user = user;
