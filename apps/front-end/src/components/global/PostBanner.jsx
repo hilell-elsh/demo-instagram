@@ -12,7 +12,7 @@ const Banner = styled.div`
     border-top-right-radius: 4px;
     background-color: rgba(0, 0, 0, 0.3);
     color: rgb(255, 255, 255);
-    z-index: 500;
+    z-index: 1;
     cursor: pointer;
 `
 const BannerItem = styled.div`

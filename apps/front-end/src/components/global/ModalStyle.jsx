@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Button } from '../profile/ProfileStyle'
 
 export const ModalBackdrop = styled.div`
-    z-index: 1;
+    z-index: 3;
     position: fixed;
     left: 0;
     top: 0;
@@ -12,7 +12,6 @@ export const ModalBackdrop = styled.div`
 `
 
 export const ModalWrapper = styled.div`
-    z-index: 2;
     position: relative;
     display: flex;
     flex-direction: column;
