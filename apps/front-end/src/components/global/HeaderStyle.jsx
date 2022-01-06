@@ -3,8 +3,7 @@ import { Logo } from "../form/FormStyle"
 
 export const HeaderWrapper = styled.div`
     position: sticky;
-    top: 0;
-    width: 100%;
+    inset: 0 0 auto 0;
     height: 7vh;
     display: flex;
     justify-content: space-between;
@@ -13,7 +12,7 @@ export const HeaderWrapper = styled.div`
     margin-bottom: 1rem;
     padding: 1rem;
     background-color: #fafafa;
-    z-index: 1000;
+    z-index: 2;
 `
 
 export const HeaderLogo = styled(Logo)`
