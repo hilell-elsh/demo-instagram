@@ -15,5 +15,6 @@ commentsRouter.delete('/api/posts/:postId/comments/:commentId', deletePostCommen
 commentsRouter.put('/api/posts/:postId/comments/:commentId', updatePostComment);
 commentsRouter.post('/api/posts/:postId/comments/:commentId/like', toggleLikeComment);
 
+// commentsRouter.get('/api/posts/:postId/comments/:commentId/likes', getCommentLikes);
 
 module.exports = commentsRouter;

@@ -1,31 +1,19 @@
-import { posts } from '../ex-apis/posts.js'
+import fetching from './basic-fetch'
 
-// const path = import.meta.env.VITE_SERVER_PATH
 
 export async function createPost(newPostData) {
     // required text, [images src]
-    const path = '/api/posts';
-    return fetch(path, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(newPostData)
-    }).then((res) => res.json());
+    // const path = '/api/posts';
+    return fetchInit(method='POST', data=newPostData);
     // returned the new post data, can't change the author
 }
 
 export async function getPost(postId) {
-    const path = `/api/posts/${postId}`;
-    const response = await fetch(path, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    return await response.json();
+    const path = `/${postId}`;
+    return fetch(path);
+
     // returned:
-    // post: {
+    // {
     //     _id : ObjectId,
     //     author: {
     //         userId: ObjectId,
@@ -57,39 +45,38 @@ export async function getPost(postId) {
 }
 
 export async function updatePost(postId, updateData) {
-    const path = `/api/posts/${postId}`;
-    const response = await fetch(path, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updateData)
-    });
-    return await response.json();
+    const path = `/${postId}`;
+    return fetchInit(path, method='PUT', data=updateData)
 }
 
 export async function deletePost(postId) {
-    const path = `/api/posts/${postId}`;
-    const response = await fetch(path, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    return await response.json();
+    const path = `/${postId}`;
+    return fetchInit(path, method='DELETE')
 }
 
 export async function toggleLikePost() {
     const path = '/api/posts';
-    const response = await fetch(path, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newPostData)
-    });
-    return await response.json();
+    return fetchInit(path, method='PUT')
+}
+
+export function uploadImage(image) {
+    pass
+    // '/api/upload'
+    // method 'POST'
+}
+
+export function getPostLikes(postId, skip=0, limit=10) {
+    const path = `/${postId}/likes?skip=${skip}&limit=${limit}`;
+    return fetchInit(path)
+}
+
+export function savePost(postId){
+    const path = `/${postId}/save`;
+    fetchInit(path, method='PUT')
 }
 
 
-// upload photo 
+async function fetchInit (path="", method='GET', data=null) {
+    path = `/posts${path}`;
+    return await fetching(path, method, data)
+}
