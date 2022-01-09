@@ -9,9 +9,9 @@ uploadRouter
         .post('/api/upload', upload.single("photo") ,(req, res) => {
             cloudinary.uploader.upload(req.file.path, (err, result) => {
                 if (err) {
-                    res.status(500).json(err);
+                    res.status(500).json(err).end();
                 } else {
-                    res.status(200).json(result);
+                    res.status(200).json(result.secure_url).end();
                 }
             })
         })
