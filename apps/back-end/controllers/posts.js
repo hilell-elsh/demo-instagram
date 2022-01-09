@@ -121,6 +121,12 @@ const toggleLikePost = (req, res) => {
     }
 } 
 
+const getPostLikes = (req, res) => {
+    pass
+}
+
+
+
 // inside help middleware
 const getPostById = async (req, res, next) => {
     const postId = req.params.postId;
@@ -145,5 +151,6 @@ module.exports = {
     deletePost,
     updatePost,
     toggleLikePost,
+    getPostLikes,
     getPostById
 }

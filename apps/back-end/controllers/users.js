@@ -48,10 +48,10 @@ const toggleFollowUser = (req, res) => {
     // POST method
     // /api/users/:userId/follow
 
-    console.log(`user controller > toggleFollowUser: \n${req.currentUserId} --> ${req.userId}`);
-    console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.currentUserId} --> ${req.userId}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following}`);
     
-    console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
 
     if (req.currentUser.additionalData.following.includes(req.userId)) {
         console.log('--> unfollow :(');
@@ -93,7 +93,7 @@ const getUserPosts = async (req, res) => {
     console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
                 \nskip: ${req.skip}, limit: ${req.limit}`);
     
-    const posts = await usersService(req.userId, req.skip, req.limit)
+    const posts = await usersService.getUserPosts(req.userId, req.skip, req.limit)
 
     res
         .status(200)
