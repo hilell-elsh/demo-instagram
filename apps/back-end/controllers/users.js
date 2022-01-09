@@ -11,19 +11,16 @@ const getUser = async (req, res) => {
     //      posts,
     //      additional data
     //      ....
-    console.log('get user', req.userId);
+    console.log('user controller > getUser: get user', req.userId);
     
-    const user = await usersService.getUser(req.userId)
-    // const user = await req.user
-    // .populate('additionalData.followers')
-    // .populate('additionalData.following')
-    // .populate('posts.myPosts')
-    // .select('userBasicData additionalData')
-    .lean()
+    const user = await usersService.getUser(req.userId).lean()
     // .toObject();
     
-    console.log(user);
-
+    console.log('user controller > getUser:', user);
+    
+    // user.additionalData.followers = usersService.getUsers({'additionalData.following': [user._id]}).count().lean();
+    // console.log('user controller > getUser: followers count', user.additionalData.followers);
+    
     user.additionalData.followers = user.additionalData.followers.length;
     user.additionalData.following = user.additionalData.following.length;
     
@@ -32,38 +29,48 @@ const getUser = async (req, res) => {
         firstPosts: usersService.getUserPosts(user._id, limit = 15)
     }
 
-    
-
     res
     .json(user)
     .status(200)
     .end();
 }
 
-// get user following
-// get user followers
+const getUserFollowing = async (req, res) => {
+    pass
+}
+
+const getUserFollowers = async (req, res) => {
+    pass
+}
 
 const toggleFollowUser = (req, res) => {
     // add corrent user to user's following list by :userID param
     // POST method
     // /api/users/:userId/follow
 
+    console.log(`user controller > toggleFollowUser: \n${req.currentUserId} --> ${req.userId}`);
+    console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following}`);
+    
+    console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
 
-
-    if (req.currentUserId in req.user.followers) {
-        usersService.updateUser(req.userId, {
-            followers: req.user.followers.filter(followerId => followerId === req.currentUserId)
-        })
-        res
-            .status(200)
-            .json({isFollow: false})
-            .end();
-    } else {
-        req.user.followers.push(req.userId);
-        req.user.save();
-        // usersService.updateUser(req.userId, {
-        //     followers: [...req.user.followers, req.currentUserId]
+    if (req.currentUser.additionalData.following.includes(req.userId)) {
+        console.log('--> unfollow :(');
+        // usersService.updateUser(req.currentUserId, {
+        //     followeing: req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
         // })
+        
+        req.currentUser.additionalData.following = req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
+        req.currentUser.save();
+
+        res
+        .status(200)
+        .json({isFollow: false})
+        .end();
+    } else {
+        console.log('--> follow');
+        req.currentUser.additionalData.following.push(req.userId);
+        req.currentUser.save();
+        
         res
             .status(200)
             .json({isFollow: true})
@@ -83,32 +90,11 @@ const getUserPosts = async (req, res) => {
     // -----------------------------------------------
     // *** must get 'skip' and 'limit' as limitParams
 
-    console.log(`request: all posts ${req.userId} 
+    console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
                 \nskip: ${req.skip}, limit: ${req.limit}`);
     
-    const posts = await postsService.getPosts({author: req.userId})
-        .skip(req.skip)
-        .limit(req.limit)
-        .map((post) => {
-            return {
-                ...post,
-                author: {
-                    userId: post.author,
-                    userBasicData: usersService.getUser(post.author).select('userBasicData')
-                },
-                tags: post.tags.map(tag => tagsService.getTag(tag)),
-                userTags: post.userTags
-                    .map(user => {
-                        return {
-                            userId: user,
-                            userBasicData: usersService.getUser(user).select('userBasicData')
-                        }
-                    }),
-                likesAmount: likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
-                commentsAmount: commentsService.getCommentsAmount(post._id)
-            }
-        })
-    
+    const posts = await usersService(req.userId, req.skip, req.limit)
+
     res
         .status(200)
         .json(posts)
@@ -140,11 +126,11 @@ const deleteMe = (req, res) => {
 
 // inside help middleware
 const getUserById = async (req, res, next) => {
-    // console.log('userId', req.params.userId);
+    // console.log('user controller > getUserById: userId', req.params.userId);
     const userId = getId(req.params.userId);
-    // console.log(userId);
+    // console.log('user controller > getUserById:', userId);
     const user = await usersService.getUser(userId);
-    // console.log(user.toObject());
+    // console.log('user controller > getUserById:', user.toObject());
     req.userId = userId;
     if (user) {
         req.user = user;
@@ -162,5 +148,7 @@ module.exports = {
     getMe,
     updateMe,
     deleteMe,
-    getUserById
+    getUserById,
+    getUserFollowing,
+    getUserFollowers
 }

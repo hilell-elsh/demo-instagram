@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
+UserSchema.virtual('followingCount').get(() => {
+    return this.additionalData.following.length
+});
+
 const UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;
