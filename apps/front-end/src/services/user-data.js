@@ -1,4 +1,5 @@
 import { user } from '../ex-apis/user.js'
+import fetching from './basic-fetch'
 
 export function getUser() {
     return user
@@ -6,19 +7,9 @@ export function getUser() {
         // .then((response) => response.json())
 }
 
-export async function getUser2(userId) {
-    const path = `/api/users/${userId}`;
-    return fetch(path, {
-        method: 'GET',
-        headers: {
-            // 'content-type': 'application/json',
-            'accept': 'application/json',
-            'user-id': '0'
-        }
-    })
-        .then((res) => res.json())
-        .catch((err) => console.log("ERROR: " + err))
-        // .then(userData => console.log(userData));
+export function getUser2(userId) {
+    const path = `/${userId}`;
+    return fetchInit(path)
 
     /* returned:
     {
@@ -71,4 +62,64 @@ export async function getUser2(userId) {
     }
     */
        
+}
+
+export function getUserPosts(userId, skip=0, limit=10) {
+    const path = `/${userId}/posts`;
+    return fetchInit(path)
+    
+    /* returned: 
+    [{
+        _id: ObjectId,
+        author: {
+            _id: ObjectId,
+            username: String,
+            profileImageSrc: String
+        },
+        text: String,
+        images: [String],
+        createdDate: Date,
+        location: String,
+        allowedComment: Boolean,
+        tags: [{
+            _id: ObjectId,
+            tagCode: Number,
+            tagText: String,
+            icon: String
+        }],
+        userTags: [{
+            _id: ObjectId,
+            username: String,
+            profileImageSrc: String
+        }],
+    }]
+    */
+}
+
+export function toggleFollowUser(userId) {
+    const path = `/${userId}/follow`;
+    return fetching(path, 'PUT')
+
+    /* returned:
+    {
+        isFollow: Boolean
+    }
+    */
+}
+
+export function getUserFollowing(userId) {
+    const path = `/${userId}/following`;
+    return fetching(path)
+}
+
+export function getUserFollowers(userId) {
+    const path = `/${userId}/followers`;
+    return fetching(path)
+}
+
+
+
+async function fetchInit (path="", method='GET', data=null) {
+    path = `/users${path}`;
+    return await fetching(path, method, data)
 }

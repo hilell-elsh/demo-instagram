@@ -1,21 +1,25 @@
 const { getUser } = require('../services/users')
+const { getId } = require('../services/object');
 
 async function checkUser(req, res, next) {
     const userId = req.headers['user-id'];
-    console.log("userId:", userId);
+    console.log("checkuser > checkuser: userId:", userId);
     
     if (userId === "0") {
-        console.log('admin request');
+        console.log('checkuser > checkuser: admin request');
         req.currentUser = "admin"
         next();
     } else {
-        console.log('another user request');
-        const user = await getUser(userId);
-        req.currentUserId = user._id;
-        
+        console.log('checkuser > checkuser: another user request');
+        // const user = await getUser(userId);
+                
         try {
-            req.currentUser = user;
-            req.currentUserId = user._id;
+            const currentUserId = getId(userId);
+            console.log(`checkuser: currentUserId ${currentUserId}`);
+            const currentUser = await getUser(currentUserId);
+            console.log(`checkuser: currentUser ${currentUser}`);
+            req.currentUser = currentUser;
+            req.currentUserId = req.currentUser._id;
         } catch (err) {
             // err
         }

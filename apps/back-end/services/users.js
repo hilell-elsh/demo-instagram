@@ -13,7 +13,7 @@ function getUser(userId) {
 async function getUserPosts(userId, skip=0, limit=10) {
     const MAX_POSTS = 50;
     limit = Math.min(limit, MAX_POSTS);
-    console.log(`request: posts of ${userId} 
+    console.log(`user services > getUserPosts: request: posts of ${userId} 
     \nskip: ${skip}, limit: ${limit}`);
 
     const posts = await postsService.getPosts({author: userId})
@@ -33,7 +33,7 @@ async function getUserPosts(userId, skip=0, limit=10) {
 }
 
 function getUsers(query={}) {
-    return UserModel.find({ query })
+    return UserModel.find(query)
 }
 
 function deleteUser(query={}) {

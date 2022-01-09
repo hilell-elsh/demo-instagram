@@ -17,6 +17,8 @@ postsRouter
         .put('/api/posts/:postId', getPostById, updatePost)
         .delete('/api/posts/:postId', getPostById, deletePost)
 
+        .post('/api/posts/uploadImage')
+
         .post('/api/posts/:postId/like', getPostById, toggleLikePost);
 
 
