@@ -90,3 +90,6 @@ export async function toggleLikePost() {
     });
     return await response.json();
 }
+
+
+// upload photo 
