@@ -6,7 +6,8 @@ const {
     deletePost,
     updatePost,
     toggleLikePost,
-    getPostById
+    getPostById,
+    getPostLikes
 } = require('../controllers/posts');
 
 const postsRouter = Router();
@@ -19,7 +20,12 @@ postsRouter
 
         .post('/api/posts/uploadImage')
 
-        .post('/api/posts/:postId/like', getPostById, toggleLikePost);
+        .put('/api/posts/:postId/like', getPostById, toggleLikePost)
+        
+        .get('/api/posts/:postId/likes', getPostById, getPostLikes)
+
+        // .put('/api/posts/:postId'/save, savePost)
+
 
 
 module.exports = postsRouter;
