@@ -1,4 +1,5 @@
 const commentsService = require('../services/comments');
+const likesService = require('../services/likes');
 
 const createPostComment = (req, res) => {
     // create new post comment, by :postId param
@@ -34,6 +35,25 @@ const getPostComments = (req, res) => {
     //      likes,
     //      usernames & images sorces
     //      ....
+    try {
+        const comments = commentsService.getPostComments(
+            req.postId,
+            limit=req.limit,
+            skip=req.skip
+        )
+            .populate('user', 'userBasicData')
+            .lean()
+
+        comments.forEach((comment) => {
+            comment.likeAmount = likesService.getLikesAmount(req.postId, comment._id)
+        })
+
+    } catch(err) {
+        res
+            .status(500)
+            .json(err)
+            .end();
+    }
 
 } 
 
