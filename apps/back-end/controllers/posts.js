@@ -10,7 +10,7 @@ const createPost = async (req, res) => {
     // /api/posts
     const newPost = await postsService.createPost({
         ...res.body,
-        author: req.user
+        author: req.currentUserId
         // add tags and users tags
         // add images handler
     })
