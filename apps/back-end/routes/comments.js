@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { getPostById } = require('../controllers/posts')
 const {
     createPostComment,
     getPostComments,
@@ -9,12 +10,16 @@ const {
 
 const commentsRouter = Router();
 
-commentsRouter.post('/api/posts/:postId/comments', createPostComment);
-commentsRouter.get('/api/posts/:postId/comments', getPostComments);
-commentsRouter.delete('/api/posts/:postId/comments/:commentId', deletePostComment);
-commentsRouter.put('/api/posts/:postId/comments/:commentId', updatePostComment);
-commentsRouter.post('/api/posts/:postId/comments/:commentId/like', toggleLikeComment);
+commentsRouter
 
-// commentsRouter.get('/api/posts/:postId/comments/:commentId/likes', getCommentLikes);
+        .use(getPostById)
+
+        .post('/api/posts/:postId/comments', createPostComment)
+        .get('/api/posts/:postId/comments', getPostComments)
+        .delete('/api/posts/:postId/comments/:commentId', deletePostComment)
+        .put('/api/posts/:postId/comments/:commentId', updatePostComment)
+        .post('/api/posts/:postId/comments/:commentId/like', toggleLikeComment)
+
+        // .get('/api/posts/:postId/comments/:commentId/likes', getCommentLikes);
 
 module.exports = commentsRouter;

@@ -1,9 +1,29 @@
-
+const commentsService = require('../services/comments');
 
 const createPostComment = (req, res) => {
     // create new post comment, by :postId param
     // POST method
     // /api/posts/:postId/comments
+
+    // postId user text
+
+    try {
+        const newComment = commentsService.createComment({
+            ...req.body,
+            postId: req.postId,
+            user: req.currentUserId
+        })
+
+        res
+            .status(200)
+            .json(newComment)
+            .end();
+    } catch(err) {
+        res
+            .status(500)
+            .json(err)
+            .end();
+    }
 } 
 
 const getPostComments = (req, res) => {
@@ -34,6 +54,23 @@ const toggleLikeComment = (req, res) => {
     // POST method
     // /api/posts/:postId/comments/:commentId/like
 } 
+
+
+const getCommentById = async (req, res, next) => {
+    const postId = req.params.commentId;
+    const post = postsService.getPost(postId);
+    req.postId = postId;
+    if (post) {
+        req.post = post;
+        req.postId = req.post._id;
+        next();
+    } else {
+        res
+            .status(404)
+            .json({message: 'Post not found'})
+            .end();
+    }
+}
 
 module.exports = {
     createPostComment,
