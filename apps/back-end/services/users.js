@@ -1,5 +1,7 @@
 const UserModel = require('../models/user');
 const postsService = require('../services/posts');
+const commentsService = require('../services/comments');
+const likesService = require('../services/likes');
 
 function createUser (data) {
     const newUser = new UserModel(data);
