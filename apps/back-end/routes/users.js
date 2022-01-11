@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { getLimitParams } = require('../middlewares/limitParams')
 const {
     getUser,
     getUserPosts,
@@ -14,10 +15,10 @@ const {
 const usersRouter = Router();
 usersRouter
         .get('/api/users/:userId', getUserById, getUser)
-        .get('/api/users/:userId/posts', getUserById, getUserPosts)
+        .get('/api/users/:userId/posts', getUserById, getLimitParams, getUserPosts)
         .put('/api/users/:userId/follow', getUserById, toggleFollowUser)
-        .get('/api/users/:userId/following', getUserById, getUserFollowing)
-        .get('/api/users/:userId/followers', getUserById, getUserFollowers)
+        .get('/api/users/:userId/following', getUserById, getLimitParams, getUserFollowing)
+        .get('/api/users/:userId/followers', getUserById, getLimitParams, getUserFollowers)
         .get('/api/me', getMe)
         .put('/api/me', updateMe)
         .delete('/api/me', deleteMe);

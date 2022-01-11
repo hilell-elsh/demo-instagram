@@ -5,19 +5,24 @@ const likesService = require('../services/likes');
 const commentsService = require('../services/comments');
 
 const createPost = async (req, res) => {
+    console.log('posts controller > createPost');
     // create new post
     // POST method
     // /api/posts
+
+    console.log('posts controller > createPost: data:', req.body);
+    
     const newPost = await postsService.createPost({
-        ...res.body,
+        ...req.body,
         author: req.currentUserId
         // add tags and users tags
         // add images handler
     })
+    console.log('posts controller > createPost: newpost:', newPost);
     
     res
     .status(200)
-    .json(postsService.createPost(newPost))
+    .json(newPost)
     .end();
 } 
 

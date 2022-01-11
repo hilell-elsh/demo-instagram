@@ -1,10 +1,19 @@
-
+const url = require('url');
+const querystring = require('querystring');
 
 function getLimitParams(req, res, next) {
-    req.skip = address.searchParams.get('skip') || 0;
-    req.limit = address.searchParams.get('limit') || 20;
+    // const queryObject = url.parse(req.url,true).search;
+    // console.log(`getLimitParams: ${queryObject}`);
+    // // const searchParams = new URLSearchParams(queryString);
+    // // req.skip = searchParams.get('skip') || 0;
+    // // req.limit = searchParams.get('limit') || 20;
+    // res.skip = queryObject.skip || 0;
+    // res.limit = queryObject.limit || 20;
+    
 
-    console.log('limitParams: skip:', res.skip, "\nlimit:", res.limit);
+    console.log('limitParams > skip:', req.query.skip, "\nlimit:", req.query.limit);
+    req.skip = req.query.skip;
+    req.limit = req.query.limit;
     
     next();
 }
