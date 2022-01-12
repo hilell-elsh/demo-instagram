@@ -1,7 +1,9 @@
 const LikeModel = require('../models/like');
 
-function getLikesAmount(postId, commentId=null) {
-    return LikeModel.countDocuments({postId: postId, commentId: commentId})
+async function getLikesAmount(postId, commentId=null) {
+    const amount = await LikeModel.find({postId: postId, commentId: commentId}).count().exec()
+    console.log(`like services > getLikesAmount > amount: ${amount}`);
+    return amount;
 }
 
 function deletePost(postId) {
