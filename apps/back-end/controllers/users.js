@@ -18,11 +18,9 @@ const getUser = async (req, res) => {
     
     console.log('user controller > getUser:', user);
     
-    user.additionalData.followers = await usersService.getUsers({'additionalData.following': [user._id]}).count().exec();
-    // console.log('user controller > getUser: followers count', user.additionalData.followers);
-    
-    // user.additionalData.followers = user.additionalData.followers.length;
     user.additionalData.following = user.additionalData.following.length;
+    user.additionalData.followers = await usersService.getUsers({'additionalData.following': [user._id]}).count().exec();
+    // console.log('user controller > getUser: followers count', user.additionalData.followers);    
     
     user.posts = {
         postsAmount: user.posts.myPosts.length,
@@ -33,14 +31,6 @@ const getUser = async (req, res) => {
     .json(user)
     .status(200)
     .end();
-}
-
-const getUserFollowing = async (req, res) => {
-    pass
-}
-
-const getUserFollowers = async (req, res) => {
-    pass
 }
 
 const toggleFollowUser = (req, res) => {
@@ -79,19 +69,20 @@ const toggleFollowUser = (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-    // get user posts by :userID param
-    // GET method
-    // /api/users/:userId/posts?skip=0&limit=20
-    // ** include all the data, like:
-    //      likes,
-    //      comments,
-    //      usernames & images sorces
-    //      ....
-    // -----------------------------------------------
-    // *** must get 'skip' and 'limit' as limitParams
+    /* get user posts by :userID param
+    GET method
+    /api/users/:userId/posts?skip=0&limit=20
+    ** include all the data, like:
+         likes,
+         comments,
+         usernames & images sorces
+         ....
+    -----------------------------------------------
+    *** must get 'skip' and 'limit' as limitParams
+    */
 
     console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
-                \nskip: ${req.skip}, limit: ${req.limit}`);
+                \tskip: ${req.skip}, limit: ${req.limit}`);
     
     const posts = await usersService.getUserPosts(req.userId, req.skip, req.limit)
     // console.log(`user controller > getUserPosts > posts:`, posts);
@@ -99,6 +90,22 @@ const getUserPosts = async (req, res) => {
     res
         .status(200)
         .json(posts)
+        .end();
+}
+
+const getUserFollowing = async (req, res) => {
+    const following = await usersService.getUserFollowing(req.user.additionalData.following, req.skip, req.limit);
+    res
+        .status(200)
+        .json(following)
+        .end();
+}
+
+const getUserFollowers = async (req, res) => {
+    const followers = await usersService.getUserFollowers(req.userId, req.skip, req.limit);
+    res
+        .status(200)
+        .json(followers)
         .end();
 }
 
