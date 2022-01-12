@@ -9,7 +9,7 @@ export function getUser() {
 
 export function getUser2(userId) {
     const path = `/${userId}`;
-    return fetchInit(path)
+    return fetchInit({path})
 
     /* returned:
     {
@@ -98,7 +98,7 @@ export function getUserPosts(userId, skip=0, limit=10) {
 
 export function toggleFollowUser(userId) {
     const path = `/${userId}/follow`;
-    return fetching(path, 'PUT')
+    return fetching({path, method='PUT'})
 
     /* returned:
     {
@@ -109,17 +109,17 @@ export function toggleFollowUser(userId) {
 
 export function getUserFollowing(userId) {
     const path = `/${userId}/following`;
-    return fetching(path)
+    return fetching({path})
 }
 
 export function getUserFollowers(userId) {
     const path = `/${userId}/followers`;
-    return fetching(path)
+    return fetching({path})
 }
 
 
-
-async function fetchInit (path="", method='GET', data=null) {
-    path = `/users${path}`;
-    return await fetching(path, method, data)
+/// change arguments to object
+function fetchInit ({path="", method='GET', data=null}) {
+    path = `/api/users${path}`;
+    return fetching({path, method, data})
 }

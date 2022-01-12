@@ -10,11 +10,11 @@ function getTag(tagId) {
 }
 
 function getTags(query={}) {
-    return TagModel.find({ query })
+    return TagModel.find(query)
 }
 
 function deleteTag(query={}) {
-    return TagModel.findOneAndDelete({ query })    
+    return TagModel.findOneAndDelete(query)    
 }
 
 function updateTag(query={}, data) {

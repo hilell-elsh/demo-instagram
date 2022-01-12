@@ -13,7 +13,7 @@ function getUser(userId) {
 }
 
 async function getUserPosts(userId, skip=0, limit=10) {
-    const MAX_POSTS = 50;
+    const MAX_POSTS = 20;
     limit = Math.min(limit, MAX_POSTS);
     console.log(`user services > getUserPosts: request: posts of ${userId} 
     \nskip: ${skip}, limit: ${limit}`);
@@ -24,13 +24,19 @@ async function getUserPosts(userId, skip=0, limit=10) {
         .populate('author', 'userBasicData')
         .populate('tags')
         .populate('userTags', 'userBasicData')
-        .lean();
+        .lean()
+        .then( (posts) => {
+                return Promise.all(
+                    posts.map( async (post) => {
+                        post.likesAmount = await likesService.getLikesAmount(post._id),
+                        post.commentsAmount = await commentsService.getCommentsAmount(post._id)
+                        return post
+                    })
+                )
+            }
+        )
 
         //// to fix vvvvvvvvv
-    posts.forEach( async (post) => {
-            post.likesAmount = await likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
-            post.commentsAmount = commentsService.getCommentsAmount(post._id)
-        })
         //// not working AAAAA
 
     console.log(`user services > getUserPosts > posts:`, posts);
@@ -48,7 +54,7 @@ function getUsers(query={}) {
 }
 
 function deleteUser(query={}) {
-    return UserModel.findOneAndDelete({ query })    
+    return UserModel.findOneAndDelete(query)    
 }
 
 function updateUser(userId, data) {

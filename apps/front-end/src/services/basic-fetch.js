@@ -1,14 +1,14 @@
 
 
-export default async function fetching (path="", method='GET', data=null) {
-    path = `/api${path}`;
+export default async function fetching ({path="", method='GET', data=null}) {
+    path = `${path}`;
     const options = {
         method: method,
         headers: new Headers({
             'user-id': '0'
         })
     }
-    if (!!data && data !== {}) {
+    if (!!data && Object.keys(data).length) {
         options.headers.append('Content-Type', 'application/json');
         options.body = JSON.stringify(data);
     }
