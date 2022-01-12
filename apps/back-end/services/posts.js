@@ -10,7 +10,7 @@ function getPost(postId) {
 }
 
 function getPosts(query={}) {
-    return PostModel.find({ query })
+    return PostModel.find(query)
 }
 
 function deletePost(postId) {

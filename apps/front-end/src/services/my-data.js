@@ -5,15 +5,15 @@ export function getMe() {
 }
 
 export function updateMe(updateData) {
-    return fetchInit(method='PUT', updateData)
+    return fetchInit({method='PUT', data=updateData})
 }
 
 export function deleteMe() {
-    return fetchInit(method='DELETE')
+    return fetchInit({method='DELETE'})
 }
 
 
-async function fetchInit (path="", method='GET', data=null) {
-    path = `/me${path}`;
-    return await fetching(path, method, data)
+async function fetchInit ({path="", method='GET', data=null}) {
+    path = `/api/me${path}`;
+    return await fetching({path, method, data})
 }

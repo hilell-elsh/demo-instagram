@@ -15,15 +15,9 @@ function getComment(commentId) {
     return CommentModel.findById(commentId);    
 }
 
-function getCommentsAmount(postId) {
-    let amount;
-    const updateCount = (num) => {
-        amount += num
-    }
-    CommentModel.countDocuments({postId: postId}, (err, count) => {
-            updateCount(count)
-        })
-    console.log(`comments services > getCommentsAmount > post: ${postId}, count: ${amount}`)
+async function getCommentsAmount(postId) {
+    const amount = await CommentModel.find({postId: postId}).count().exec()
+    console.log(`comment services > getCommentsAmount > amount: ${amount}`);
     return amount;
 }
 
