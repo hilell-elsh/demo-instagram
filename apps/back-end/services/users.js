@@ -12,11 +12,15 @@ function getUser(userId) {
     return UserModel.findById(userId);    
 }
 
+function getUsers(query={}) {
+    return UserModel.find(query)
+}
+
 async function getUserPosts(userId, skip=0, limit=10) {
     const MAX_POSTS = 20;
     limit = Math.min(limit, MAX_POSTS);
     console.log(`user services > getUserPosts: request: posts of ${userId} 
-    \nskip: ${skip}, limit: ${limit}`);
+    \t...skip: ${skip}, limit: ${limit}`);
 
     const posts = await postsService.getPosts({author: userId})
         .skip(skip)
@@ -36,21 +40,29 @@ async function getUserPosts(userId, skip=0, limit=10) {
             }
         )
 
-        //// to fix vvvvvvvvv
-        //// not working AAAAA
-
-    console.log(`user services > getUserPosts > posts:`, posts);
+    // console.log(`user services > getUserPosts > posts:`, posts);
     
     return posts
-    //     .map( async (post) => {
-    //         post.likesAmount = await likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
-    //         post.commentsAmount = commentsService.getCommentsAmount(post._id)
-    // })
-
 }
 
-function getUsers(query={}) {
-    return UserModel.find(query)
+async function getUserFollowers(userId, skip=0, limit=10) {
+    const followers = await getUsers({'additionalData.following': [userId]})
+        .select('userBasicData')
+        .skip(skip)
+        .limit(limit)
+        .lean()
+    // get user {additionalData.following {$in {cur..userId} } }.skip.limit.select('userBasicData')...
+    return followers
+}
+
+async function getUserFollowing(following, skip=0, limit=10) {
+    console.log(`user services > getUserFollowing > following: ${following}`);
+    return await getUsers({_id: following})
+    .select('userBasicData')
+    .skip(skip)
+    .limit(limit)
+    .lean()
+    // get user {_id {$in {cur..user.additionalData.following} } }.skip.limit.select('userBasicData')...
 }
 
 function deleteUser(query={}) {
@@ -67,5 +79,7 @@ module.exports = {
     getUsers,
     deleteUser,
     updateUser,
-    getUserPosts
+    getUserPosts,
+    getUserFollowers,
+    getUserFollowing
 };
