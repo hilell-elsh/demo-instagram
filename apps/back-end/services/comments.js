@@ -16,7 +16,15 @@ function getComment(commentId) {
 }
 
 function getCommentsAmount(postId) {
-    return CommentModel.countDocuments({postId: postId})
+    let amount;
+    const updateCount = (num) => {
+        amount += num
+    }
+    CommentModel.countDocuments({postId: postId}, (err, count) => {
+            updateCount(count)
+        })
+    console.log(`comments services > getCommentsAmount > post: ${postId}, count: ${amount}`)
+    return amount;
 }
 
 function deletePost(postId) {

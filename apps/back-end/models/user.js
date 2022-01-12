@@ -31,9 +31,9 @@ const UserSchema = new mongoose.Schema({
         taggedPosts: [{type: ObjectId, ref: 'Post'}],
         savedPosts: [{type: ObjectId, ref: 'Post'}]
     }
-});
+}, {toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-UserSchema.virtual('followingCount').get(() => {
+UserSchema.virtual('followingCount').get(function() {
     return this.additionalData.following.length
 });
 

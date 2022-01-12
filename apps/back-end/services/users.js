@@ -25,12 +25,21 @@ async function getUserPosts(userId, skip=0, limit=10) {
         .populate('tags')
         .populate('userTags', 'userBasicData')
         .lean();
-    
-    return posts.map(post => {
-        post.likesAmount = likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
-        post.commentsAmount = commentsService.getCommentsAmount(post._id)
 
-    })
+        //// to fix vvvvvvvvv
+    posts.forEach( async (post) => {
+            post.likesAmount = await likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
+            post.commentsAmount = commentsService.getCommentsAmount(post._id)
+        })
+        //// not working AAAAA
+
+    console.log(`user services > getUserPosts > posts:`, posts);
+    
+    return posts
+    //     .map( async (post) => {
+    //         post.likesAmount = await likesService.getLikesAmount(post._id), //? new ObjectId(post._id)
+    //         post.commentsAmount = commentsService.getCommentsAmount(post._id)
+    // })
 
 }
 

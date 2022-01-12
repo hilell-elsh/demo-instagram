@@ -18,10 +18,10 @@ const getUser = async (req, res) => {
     
     console.log('user controller > getUser:', user);
     
-    // user.additionalData.followers = usersService.getUsers({'additionalData.following': [user._id]}).count().lean();
+    user.additionalData.followers = await usersService.getUsers({'additionalData.following': [user._id]}).count().exec();
     // console.log('user controller > getUser: followers count', user.additionalData.followers);
     
-    user.additionalData.followers = user.additionalData.followers.length;
+    // user.additionalData.followers = user.additionalData.followers.length;
     user.additionalData.following = user.additionalData.following.length;
     
     user.posts = {
@@ -94,6 +94,7 @@ const getUserPosts = async (req, res) => {
                 \nskip: ${req.skip}, limit: ${req.limit}`);
     
     const posts = await usersService.getUserPosts(req.userId, req.skip, req.limit)
+    // console.log(`user controller > getUserPosts > posts:`, posts);
 
     res
         .status(200)
