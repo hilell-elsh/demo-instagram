@@ -44,12 +44,13 @@ const toggleFollowUser = (req, res) => {
     // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
 
     if (req.currentUser.additionalData.following.includes(req.userId)) {
-        console.log('--> unfollow :(');
+        console.log('--> unfollow :( ' + getId(req.userId));
         // usersService.updateUser(req.currentUserId, {
         //     followeing: req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
         // })
-        
-        req.currentUser.additionalData.following = req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
+        const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId !== getId(req.userId))
+        console.log('newFollowing', newFollowing);
+        req.currentUser.additionalData.following = newFollowing
         req.currentUser.save();
 
         res
