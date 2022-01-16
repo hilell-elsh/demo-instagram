@@ -46,7 +46,7 @@ async function getUserPosts(userId, skip=0, limit=10) {
 }
 
 async function getUserFollowers(userId, skip=0, limit=10) {
-    const followers = await getUsers({'additionalData.following': [userId]})
+    const followers = await getUsers({'additionalData.following': userId})
         .select('userBasicData')
         .skip(skip)
         .limit(limit)
