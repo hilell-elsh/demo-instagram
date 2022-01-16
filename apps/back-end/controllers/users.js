@@ -2,6 +2,8 @@ const usersService = require('../services/users');
 const postsService = require('../services/posts');
 // const { post } = require('../routes/users');
 const { getId } = require('../services/object');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const getUser = async (req, res) => {
     // get user data by :userID param
@@ -44,11 +46,14 @@ const toggleFollowUser = (req, res) => {
     // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
 
     if (req.currentUser.additionalData.following.includes(req.userId)) {
-        console.log('--> unfollow :( ' + getId(req.userId));
         // usersService.updateUser(req.currentUserId, {
         //     followeing: req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
         // })
-        const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId !== getId(req.userId))
+        console.log('oldFollowing', req.currentUser.additionalData.following);
+        console.log('--> unfollow :( ' + ObjectId(req.userId));
+        const newFollowing = req.currentUser.additionalData.following
+        console.log('unfollow index:', newFollowing.indexOf(req.userId));
+        newFollowing.splice(newFollowing.indexOf(req.userId),1)
         console.log('newFollowing', newFollowing);
         req.currentUser.additionalData.following = newFollowing
         req.currentUser.save();
