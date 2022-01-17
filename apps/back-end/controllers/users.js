@@ -21,12 +21,12 @@ const getUser = async (req, res) => {
     console.log('user controller > getUser:', user);
     
     user.additionalData.following = user.additionalData.following.length;
-    user.additionalData.followers = await usersService.getUsers({'additionalData.following': [user._id]}).count().exec();
+    user.additionalData.followers = await usersService.getUsers({'additionalData.following': user._id}).count().exec();
     // console.log('user controller > getUser: followers count', user.additionalData.followers);    
     
     user.posts = {
-        postsAmount: user.posts.myPosts.length,
-        firstPosts: usersService.getUserPosts(user._id, limit = 15)
+        postsAmount: await postsService.getPosts({author: user._id}).count().exec(),
+        firstPosts: await usersService.getUserPosts({userId: user._id, limit: 15})
     }
 
     res
@@ -49,12 +49,13 @@ const toggleFollowUser = (req, res) => {
         // usersService.updateUser(req.currentUserId, {
         //     followeing: req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
         // })
-        console.log('oldFollowing', req.currentUser.additionalData.following);
+        // console.log('oldFollowing', req.currentUser.additionalData.following);
         console.log('--> unfollow :( ' + ObjectId(req.userId));
+        // const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId !== ObjectId(req.userId))
         const newFollowing = req.currentUser.additionalData.following
-        console.log('unfollow index:', newFollowing.indexOf(req.userId));
+        // console.log('unfollow index:', newFollowing.indexOf(req.userId));
         newFollowing.splice(newFollowing.indexOf(req.userId),1)
-        console.log('newFollowing', newFollowing);
+        // console.log('newFollowing', newFollowing);
         req.currentUser.additionalData.following = newFollowing
         req.currentUser.save();
 
@@ -90,7 +91,7 @@ const getUserPosts = async (req, res) => {
     console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
                 \tskip: ${req.skip}, limit: ${req.limit}`);
     
-    const posts = await usersService.getUserPosts(req.userId, req.skip, req.limit)
+    const posts = await usersService.getUserPosts({userId: req.userId, skip: req.skip, limit: req.limit})
     // console.log(`user controller > getUserPosts > posts:`, posts);
 
     res
@@ -115,13 +116,21 @@ const getUserFollowers = async (req, res) => {
         .end();
 }
 
-const getMe = (req, res) => {
+const getMe = async (req, res) => {
     // get all user data
     // GET method
     // /api/me
-    const me = {
-        ...req.currentUser,
-    }
+    const me = req.currentUser.toObject();
+    me.additionalData.following = me.additionalData.following.length;
+    me.additionalData.followers = await usersService.getUsers({'additionalData.following': req.currentUserId}).count().exec();
+    me.posts.postsAmount = await postsService.getPosts({author: req.currentUserId}).count().exec();
+    me.posts.firstPosts = await usersService.getUserPosts({userId: req.currentUserId, limit: 15});
+    
+    res
+    .json(me)
+    .status(200)
+    .end();
+
     // username
     // 
 }

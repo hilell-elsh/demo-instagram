@@ -16,7 +16,7 @@ function getUsers(query={}) {
     return UserModel.find(query)
 }
 
-async function getUserPosts(userId, skip=0, limit=10) {
+async function getUserPosts({userId, skip=0, limit=10}) {
     const MAX_POSTS = 20;
     limit = Math.min(limit, MAX_POSTS);
     console.log(`user services > getUserPosts: request: posts of ${userId} 

@@ -33,9 +33,9 @@ const UserSchema = new mongoose.Schema({
     }
 }, {toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-UserSchema.virtual('followingCount').get(function() {
-    return this.additionalData.following.length
-});
+// UserSchema.virtual('followingCount').get(function() {
+//     return this.additionalData.following.length
+// });
 
 const UserModel = mongoose.model('User', UserSchema);
 
