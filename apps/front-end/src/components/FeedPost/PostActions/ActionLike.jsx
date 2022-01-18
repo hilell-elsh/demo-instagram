@@ -3,7 +3,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-export default function ActionLike() {
+export default function ActionLike({ contentItem}) {
     return (
         <Chip icon={
             <Tooltip title="Like">
@@ -11,6 +11,6 @@ export default function ActionLike() {
                     <FavoriteIcon />
                 </IconButton>
             </Tooltip>
-        } label="1,549 Likes" variant="outlined" />
+        } label={contentItem.likesAmount + " Likes"} variant="outlined" />
     )
 }

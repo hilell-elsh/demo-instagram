@@ -4,17 +4,14 @@ import Chip from '@mui/material/Chip';
 import FilterHdrIcon from '@mui/icons-material/FilterHdr';
 import { red , green ,blue , orange } from '@mui/material/colors';
 
-export default function PostContent() {
+export default function PostContent({ contentItem}) {
     return (
         <CardContent>
             <Typography variant="h6" color="text.secondary">
-                Yossi Cohen
+                {contentItem.author.userBasicData.username}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                This impressive paella is a perfect party dish and a fun meal to cook
-                together with your guests. Add 1 cup of frozen peas along with the mussels,
-                if you like. This impressive paella is a perfect party dish and a fun meal to cook
-                together with your guests. 
+                {contentItem.text}
             </Typography>
             <Chip 
                 sx={{ bgcolor: green[200] }} 
