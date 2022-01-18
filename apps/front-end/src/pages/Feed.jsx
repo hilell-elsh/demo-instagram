@@ -1,15 +1,18 @@
 import Feed from "../components/FeedPost";
-import Feed2 from "../components/FeedPost2";
+import {getFeed} from "../services/feed-data"
+
 
 export default function PageFeed() {
-
-    const feedList = [
+    const feed = getFeed()
+    
+   const feedList =
+    [
         {
             "_id": "61e4416f5f5ab74cebc66d5f",
             "author": {
                 "_id": "61e3f85b5f5ab74cebc66d4e",
                 "userBasicData": {
-                    "username": "hilell"
+                    "username": "maor"
                 }
             },
             "text": "try to create post",
@@ -21,7 +24,7 @@ export default function PageFeed() {
             "userTags": [],
             "createdDate": "2022-01-16T16:01:51.739Z",
             "__v": 0,
-            "likesAmount": 5,
+            "likesAmount": 9,
             "commentsAmount": 0
         },
         {
