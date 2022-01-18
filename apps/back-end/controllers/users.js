@@ -51,7 +51,7 @@ const toggleFollowUser = (req, res) => {
         // })
         // console.log('oldFollowing', req.currentUser.additionalData.following);
         console.log('--> unfollow :( ' + ObjectId(req.userId));
-        // const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId !== ObjectId(req.userId))
+        // const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId.equals(req.userId))
         const newFollowing = req.currentUser.additionalData.following
         // console.log('unfollow index:', newFollowing.indexOf(req.userId));
         newFollowing.splice(newFollowing.indexOf(req.userId),1)
