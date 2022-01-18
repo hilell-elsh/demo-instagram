@@ -7,7 +7,7 @@ import { Username, InfoWrapper, Button, Count } from './ProfileStyle'
 import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
-const user = await getUser2("61d59dac68877d6403d21f08")
+const user = await getUser2("61e3f85b5f5ab74cebc66d4e")
 
 const userProfile = getUser().profile
 

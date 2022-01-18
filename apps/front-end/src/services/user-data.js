@@ -98,7 +98,7 @@ export function getUserPosts(userId, skip=0, limit=10) {
 
 export function toggleFollowUser(userId) {
     const path = `/${userId}/follow`;
-    return fetching({path, method='PUT'})
+    return fetching({path, method:'PUT'})
 
     /* returned:
     {
