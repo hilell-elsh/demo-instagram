@@ -2,8 +2,8 @@ import styled from "styled-components"
 import { Logo } from "../form/FormStyle"
 
 export const HeaderWrapper = styled.div`
-    position: fixed;
-    left: 0;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 7vh;
     display: flex;
@@ -11,7 +11,7 @@ export const HeaderWrapper = styled.div`
     align-items: center;
     border-bottom: 1px solid #dbdbdb;
     margin-bottom: 1rem;
-    padding: 1rem 15rem;
+    padding: 1rem;
     background-color: #fafafa;
     z-index: 1000;
 `
@@ -22,7 +22,7 @@ export const HeaderLogo = styled(Logo)`
 `
 
 export const HeaderSearch = styled.input`
-    margin: auto;
+    flex: 1;
     width: 20vw;
     height: 2rem;
     padding: 0.5rem;
@@ -36,7 +36,7 @@ export const HeaderNav = styled.ul`
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: center;
-    padding-left: 15rem;
+    margin-left: 5rem;
 `
 
 export const HeaderButton = styled.li`
@@ -61,5 +61,9 @@ export const HeaderButton = styled.li`
 
     & .fa-compass:hover {
         color: #b6ffd0;
+    }
+
+    & .fa-sign-out-alt:hover {
+        color: #ff0000;
     }
 `

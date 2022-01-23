@@ -50,6 +50,10 @@ export default function Header() {
           <Link to="profile">
             {headerAvatar}
           </Link>
+          <HeaderButton>
+            {/* onClick logout */}
+            <i className="fas fa-sign-out-alt"></i>
+          </HeaderButton>
         </HeaderNav>
       </HeaderWrapper>
   )  

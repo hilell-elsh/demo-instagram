@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const ProfileWrapper = styled.div`
-    padding-top: 7vh;
-    width: 70vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +8,7 @@ export const ProfileWrapper = styled.div`
 `
 
 export const InfoWrapper = styled.div`
-    width: inherit;
+    width: 100%;
     height: 20vh;
     display: flex;
     justify-content: space-around;
@@ -19,8 +17,6 @@ export const InfoWrapper = styled.div`
 `
 
 export const PostsWrapper = styled.div`
-    width: inherit;
-    height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
