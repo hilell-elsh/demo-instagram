@@ -1,6 +1,6 @@
-import AddCommentIcon from '@mui/icons-material/AddComment';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import AddCommentIcon from '@mui/icons-material/AddComment'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 export default function ActionAddComment() {
     return (

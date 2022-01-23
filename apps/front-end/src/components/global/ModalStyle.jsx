@@ -8,7 +8,7 @@ export const ModalBackdrop = styled.div`
     top: 0;
     width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 `
 
 export const ModalWrapper = styled.div`
@@ -54,8 +54,8 @@ export const ModalContentItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: .5rem 0;
-    
+    margin: 0.5rem 0;
+
     & a {
         color: black;
         font-weight: 500;
@@ -63,7 +63,7 @@ export const ModalContentItem = styled.div`
 
     & p {
         color: #8e8e8e;
-        font-size: .8rem;
+        font-size: 0.8rem;
     }
 `
 
@@ -71,7 +71,7 @@ export const ExitButton = styled.i`
     // transition: 500ms;
     cursor: pointer;
     font-size: 1.2rem;
-    padding: .1rem;
+    padding: 0.1rem;
 `
 
 export const UploadButton = styled(Button)`

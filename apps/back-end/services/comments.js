@@ -1,28 +1,26 @@
-const CommentModel = require('../models/comment');
+const CommentModel = require('../models/comment')
 
-function createComment (data) {
-    const newComment = new CommentModel(data);
-    return newComment.save();
+function createComment(data) {
+    const newComment = new CommentModel(data)
+    return newComment.save()
 }
 
-function getPostComments(postId, limit=2, skip=0) {
-    return CommentModel.find({postId: postId})
-        .skip(skip)
-        .limit(limit);
+function getPostComments(postId, limit = 2, skip = 0) {
+    return CommentModel.find({ postId: postId }).skip(skip).limit(limit)
 }
 
 function getComment(commentId) {
-    return CommentModel.findById(commentId);    
+    return CommentModel.findById(commentId)
 }
 
 async function getCommentsAmount(postId) {
-    const amount = await CommentModel.find({postId: postId}).count().exec()
-    console.log(`comment services > getCommentsAmount > amount: ${amount}`);
-    return amount;
+    const amount = await CommentModel.find({ postId: postId }).count().exec()
+    console.log(`comment services > getCommentsAmount > amount: ${amount}`)
+    return amount
 }
 
 function deletePost(postId) {
-    return CommentModel.deleteMany({postId: postId})
+    return CommentModel.deleteMany({ postId: postId })
 }
 
 module.exports = {
@@ -30,5 +28,5 @@ module.exports = {
     getPostComments,
     getComment,
     getCommentsAmount,
-    deletePost
+    deletePost,
 }
