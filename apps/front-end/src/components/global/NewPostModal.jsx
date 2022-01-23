@@ -16,9 +16,10 @@ const NewPostContent = styled(ModalContent)`
 `
 const NewPostWrapper = styled(ModalWrapper)`
     width: 50%;
+    height: 60vh;
 `
 
-export default function NewPostModal(setIsNewPostModal) {
+export default function NewPostModal({setIsNewPostModal}) {
     const hiddenInput = useRef(null)
     const handleClick = () => {
         hiddenInput.current.click()
