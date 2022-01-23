@@ -67,8 +67,8 @@ async function validateUser(req, res, next) {
         res.status(401).end()
     }
 
-    const newToken = createToken(req.userId)
-    updateToken({ userId, token: newToken })
+    const newToken = createToken(req.curUserId)
+    updateToken({ userId: req.curUserId, token: newToken })
     res.cookie('token', newToken, {
         exp: Date.now() + ONE_MONTH,
         httpOnly: true,

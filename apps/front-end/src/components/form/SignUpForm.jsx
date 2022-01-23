@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom"
 import { useRef } from "react"
 import styled from "styled-components"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { signup } from "../../services/auth-service"
 
 import { Logo, FormInput, SignUpLink, FormWrapper, FormButton } from "./FormStyle"
-import { auth } from '../../services/firebase'
 
 const SecondaryTitle = styled.h2`
     font-size: 18px;
@@ -19,31 +18,35 @@ const SmallText = styled.p`
 `
 
 export default function SignUpForm() {
-    // const emailRef = useRef()
-    // const passwordRef = useRef()
 
-    // createUserWithEmailAndPassword(auth, emailRef, passwordRef)
-    // .then((userCredential) => {
-    //     // Signed in 
-    //     console.log(userCredential)
-    //     const user = userCredential.user;
-    //     // ...
-    // })
-    // .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // ..
-    // });
+    async function signupHandler(event) {
+        event.preventDefault();
+        const data = new FormData(event.target)
+        data.set('email', data.get('email'))
+        data.set('fullname', data.get('fullname'))
+        data.set('username', data.get('username'))
+        data.set('password', data.get('password'))
+        let signupData = {}
+        data.forEach((value, key) => {
+            signupData[key] = value
+        })
+        console.log(signupData);
+        const newUser = await signup(signupData)
+        console.log(newUser);
+        if (newUser) {
+            window.location.pathname = '/login'
+        }
+    }
 
     return (
         <>
-            <FormWrapper onSubmit={() => createUserWithEmailAndPassword()}>
+            <FormWrapper onSubmit={(event) => signupHandler(event)}>
                 <Logo>Kilogram</Logo>
                 <SecondaryTitle>No photos of people "training" in <br/> the gym on this app...</SecondaryTitle>
-                <FormInput type="email" placeholder="Email" required />
-                <FormInput type="text" placeholder="Full Name" required />
-                <FormInput type="text" placeholder="Username" required />
-                <FormInput type="password" ref={passwordRef} placeholder="Password" required />
+                <FormInput type="email" name="email" placeholder="Email" required />
+                <FormInput type="text" name="fullname" placeholder="Full Name" required />
+                <FormInput type="text" name="username" placeholder="Username" required />
+                <FormInput type="password" name="password" placeholder="Password" required />
                 <FormButton type="submit">Sign Up</FormButton>
                 <SmallText>By signing up you agree to our Terms,<br/> Data Policy and Cookies Policy.</SmallText>
             </FormWrapper>
