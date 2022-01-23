@@ -1,20 +1,20 @@
-const PostModel = require('../models/post');
+const PostModel = require('../models/post')
 
-function createPost (data) {
-    const newPost = new PostModel(data);
-    return newPost.save();
+function createPost(data) {
+    const newPost = new PostModel(data)
+    return newPost.save()
 }
 
 function getPost(postId) {
-    return PostModel.findById(postId);    
+    return PostModel.findById(postId)
 }
 
-function getPosts(query={}) {
+function getPosts(query = {}) {
     return PostModel.find(query)
 }
 
 function deletePost(postId) {
-    return PostModel.findByIdAndDelete(postId)    
+    return PostModel.findByIdAndDelete(postId)
 }
 
 function updatePost(postId, data) {
@@ -26,5 +26,5 @@ module.exports = {
     getPost,
     getPosts,
     deletePost,
-    updatePost
-};
+    updatePost,
+}

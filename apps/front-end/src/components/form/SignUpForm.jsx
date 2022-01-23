@@ -20,7 +20,7 @@ export default function SignUpForm() {
             <FormWrapper>
                 <Logo>Kilogram</Logo>
                 <SecondaryTitle>No photos of people "training" in <br/> the gym on this app...</SecondaryTitle>
-                <FormInput type="text" placeholder="Mobile number or email" required />
+                <FormInput type="email" placeholder="Email" required />
                 <FormInput type="text" placeholder="Full Name" required />
                 <FormInput type="text" placeholder="Username" required />
                 <FormInput type="password" placeholder="Password" required />

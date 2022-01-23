@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const FormWrapper = styled.form`
     min-width: 25vw;
@@ -9,7 +9,7 @@ export const FormWrapper = styled.form`
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-items: center;
 `
 export const Logo = styled.h1`
@@ -35,7 +35,7 @@ export const FormButton = styled.button`
     margin-bottom: 40px;
     color: white;
     font-weight: bold;
-    background-color: rgb(0,149,246);
+    background-color: rgb(0, 149, 246);
     border: 1px solid transparent;
     border-radius: 5px;
     cursor: pointer;
@@ -50,7 +50,7 @@ export const SignUpLink = styled.div`
     justify-content: center;
     margin-top: 30px;
     padding: 10px;
-    border: 1px solid #ddd; 
+    border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
 `
@@ -62,7 +62,7 @@ export const EditWrapper = styled.form`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    
+
     & label {
         margin-top: 10px;
         width: 40vw;

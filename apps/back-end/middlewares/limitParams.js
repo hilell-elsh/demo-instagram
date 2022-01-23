@@ -1,15 +1,19 @@
-const url = require('url');
-const querystring = require('querystring');
+const url = require('url')
+const querystring = require('querystring')
 
 function getLimitParams(req, res, next) {
+    console.log(
+        'limitParams > skip:',
+        req.query.skip,
+        'limit:',
+        req.query.limit
+    )
+    req.skip = req.query.skip
+    req.limit = req.query.limit
 
-    console.log('limitParams > skip:', req.query.skip, "limit:", req.query.limit);
-    req.skip = req.query.skip;
-    req.limit = req.query.limit;
-    
-    next();
+    next()
 }
 
 module.exports = {
-    getLimitParams
+    getLimitParams,
 }

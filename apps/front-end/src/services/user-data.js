@@ -3,13 +3,13 @@ import fetching from './basic-fetch'
 
 export function getUser() {
     return user
-        // fetch('../ex-apis/posts.json')
-        // .then((response) => response.json())
+    // fetch('../ex-apis/posts.json')
+    // .then((response) => response.json())
 }
 
 export function getUser2(userId) {
-    const path = `/${userId}`;
-    return fetchInit({path})
+    const path = `/${userId}`
+    return fetchInit({ path })
 
     /* returned:
     {
@@ -61,13 +61,12 @@ export function getUser2(userId) {
         }
     }
     */
-       
 }
 
-export function getUserPosts(userId, skip=0, limit=10) {
-    const path = `/${userId}/posts?skip=${skip}&limit=${limit}`;
+export function getUserPosts(userId, skip = 0, limit = 10) {
+    const path = `/${userId}/posts?skip=${skip}&limit=${limit}`
     return fetchInit(path)
-    
+
     /* returned: 
     [{
         _id: ObjectId,
@@ -97,8 +96,8 @@ export function getUserPosts(userId, skip=0, limit=10) {
 }
 
 export function toggleFollowUser(userId) {
-    const path = `/${userId}/follow`;
-    return fetching({path, method:'PUT'})
+    const path = `/${userId}/follow`
+    return fetching({ path, method: 'PUT' })
 
     /* returned:
     {
@@ -108,18 +107,17 @@ export function toggleFollowUser(userId) {
 }
 
 export function getUserFollowing(userId) {
-    const path = `/${userId}/following`;
-    return fetching({path})
+    const path = `/${userId}/following`
+    return fetching({ path })
 }
 
 export function getUserFollowers(userId) {
-    const path = `/${userId}/followers`;
-    return fetching({path})
+    const path = `/${userId}/followers`
+    return fetching({ path })
 }
 
-
 /// change arguments to object
-function fetchInit ({path="", method='GET', data=null}) {
-    path = `/api/users${path}`;
-    return fetching({path, method, data})
+function fetchInit({ path = '', method = 'GET', data = null }) {
+    path = `/api/users${path}`
+    return fetching({ path, method, data })
 }

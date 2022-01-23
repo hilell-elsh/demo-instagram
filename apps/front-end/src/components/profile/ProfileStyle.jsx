@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const ProfileWrapper = styled.div`
     width: 70vw;
@@ -56,7 +56,7 @@ export const Button = styled.button`
 
 export const Count = styled.p`
     font-weight: 500;
-    
+
     & span {
         cursor: pointer;
         font-weight: 400;

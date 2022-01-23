@@ -1,6 +1,6 @@
-import { FormButton, FormInput, EditWrapper } from "../form/FormStyle";
+import { FormButton, FormInput, EditWrapper } from '../form/FormStyle'
 import { user } from '../../ex-apis/user'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 const EditButton = styled(FormButton)`
     width: 12vw;
@@ -9,45 +9,52 @@ const ProfilePicButton = styled(EditButton)`
     background-color: #63c0fd;
 
     &:hover {
-        background-color: rgb(0,149,246);
+        background-color: rgb(0, 149, 246);
     }
 `
 
 export default function EditProfile() {
     return (
-       <EditWrapper>
-           <label>
-                <ProfilePicButton>
-                    Change Profile Pic
-                </ProfilePicButton>
-           </label>
-           <label>
-                Name 
-                <FormInput type="text" placeholder={user.profile.name.firstName + ' ' + user.profile.name.lastName}/>
+        <EditWrapper>
+            <label>
+                <ProfilePicButton>Change Profile Pic</ProfilePicButton>
             </label>
             <label>
-                Username 
-                <FormInput type="text" placeholder={user.profile.username}/>
+                Name
+                <FormInput
+                    type="text"
+                    placeholder={
+                        user.profile.name.firstName +
+                        ' ' +
+                        user.profile.name.lastName
+                    }
+                />
             </label>
             <label>
-                Website 
-                <FormInput type="text" placeholder="Website"/>
+                Username
+                <FormInput type="text" placeholder={user.profile.username} />
             </label>
             <label>
-                Bio 
-                <FormInput type="text" placeholder="Bio"/>
+                Website
+                <FormInput type="text" placeholder="Website" />
             </label>
             <label>
-                Email 
-                <FormInput type="Email" placeholder="Email"/>
+                Bio
+                <FormInput type="text" placeholder="Bio" />
             </label>
             <label>
-                Phone  
-                <FormInput type="tel" pattern="[0-9]{3}-[0-9]{7}" placeholder="Phone Number"/>
+                Email
+                <FormInput type="Email" placeholder="Email" />
             </label>
-            <EditButton>
-                Submit Changes
-            </EditButton>
-       </EditWrapper>
+            <label>
+                Phone
+                <FormInput
+                    type="tel"
+                    pattern="[0-9]{3}-[0-9]{7}"
+                    placeholder="Phone Number"
+                />
+            </label>
+            <EditButton>Submit Changes</EditButton>
+        </EditWrapper>
     )
 }
