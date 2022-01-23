@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { useRef } from 'react'
 import {
@@ -19,9 +18,7 @@ const NewPostWrapper = styled(ModalWrapper)`
     width: 50%;
 `
 
-export default function NewPostModal() {
-    const dispatch = useDispatch()
-
+export default function NewPostModal(setIsNewPostModal) {
     const hiddenInput = useRef(null)
     const handleClick = () => {
         hiddenInput.current.click()
@@ -35,7 +32,7 @@ export default function NewPostModal() {
         setLoading(true)
         const res = await fetch('https://')
     }
-
+    
     return (
         <ModalBackdrop>
             <NewPostWrapper>

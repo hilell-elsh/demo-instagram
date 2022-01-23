@@ -75,7 +75,11 @@ export const ExitButton = styled.i`
     // transition: 500ms;
     cursor: pointer;
     font-size: 1.2rem;
-    padding: 0.1rem;
+    padding: .1rem;
+
+    &:hover {
+        color: #bbb;
+    }
 `
 
 export const UploadButton = styled(Button)`

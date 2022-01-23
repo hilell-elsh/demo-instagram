@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const ProfileWrapper = styled.div`
+    padding-top: 7vh;
     width: 70vw;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,7 @@ export const PostsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: 1px solid #afafaf;
+    border-top: 1px solid #dbdbdb;
 `
 
 export const LinksWrapper = styled.div`
