@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function useInfiniteScrolling(query, pageNumber) {
+export default function useInfiniteScrolling(data, pageNumber) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [items, setItems] = useState(query)
+    const [items, setItems] = useState(data)
     const [hasMore, setHasMore] = useState(false)
-    console.log(query)
+    console.log(data)
 
     useEffect(
         (query) => {
