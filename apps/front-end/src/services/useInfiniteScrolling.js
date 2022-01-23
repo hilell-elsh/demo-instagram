@@ -6,7 +6,6 @@ export default function useInfiniteScrolling(data, pageNumber) {
     const [error, setError] = useState(false)
     const [items, setItems] = useState(data)
     const [hasMore, setHasMore] = useState(false)
-    console.log(data)
 
     useEffect(
         (query) => {
