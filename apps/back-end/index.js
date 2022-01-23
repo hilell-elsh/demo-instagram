@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 
 const connectToDb = require('./models')
 
-const port = process.env.PORT || 44444
+const port = process.env.PORT || 4000
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
