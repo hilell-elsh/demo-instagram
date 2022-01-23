@@ -13,6 +13,7 @@ export const ModalBackdrop = styled.div`
 
 export const ModalWrapper = styled.div`
     z-index: 2;
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 25vw;
@@ -21,34 +22,37 @@ export const ModalWrapper = styled.div`
     background-color: #fefefe;
     border: 1px solid #afafaf;
     border-radius: 10px;
-    overflow: auto;
-`
-
-export const ModalHeader = styled.div`
+    `
+    
+    export const ModalHeader = styled.div`
+    position: sticky;
     display: flex;
     justify-content: space-between;
     padding: 7px;
     border-bottom: 1px solid #afafaf;
-
+    border-radius: 10px 10px 0 0;
+    background-color: #fefefe;
+    
     & p {
         font-size: 18px;
         font-weight: 600;
         flex-grow: 1;
         text-align: center;
     }
-
+    
     & .fa-times {
         padding: 0 auto;
         cursor: pointer;
     }
-`
-
-export const ModalContent = styled.div`
+    `
+    
+    export const ModalContent = styled.div`
     height: inherit;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-`
+    padding: 0 1rem;
+    overflow: auto;
+    `
 
 export const ModalContentItem = styled.div`
     display: flex;
