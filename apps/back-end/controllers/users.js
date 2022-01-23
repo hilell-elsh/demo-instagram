@@ -46,30 +46,30 @@ const toggleFollowUser = (req, res) => {
     // POST method
     // /api/users/:userId/follow
 
-    // console.log(`user controller > toggleFollowUser: \n${req.currentUserId} --> ${req.userId}`);
-    // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.curUserId} --> ${req.userId}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.curUser.additionalData.following}`);
 
-    // console.log(`user controller > toggleFollowUser: \n${req.currentUser.additionalData.following.includes(req.userId)}`);
+    // console.log(`user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(req.userId)}`);
 
-    if (req.currentUser.additionalData.following.includes(req.userId)) {
-        // usersService.updateUser(req.currentUserId, {
-        //     followeing: req.currentUser.additionalData.following.filter(followerId => followerId === req.userId)
+    if (req.curUser.additionalData.following.includes(req.userId)) {
+        // usersService.updateUser(req.curUserId, {
+        //     followeing: req.curUser.additionalData.following.filter(followerId => followerId === req.userId)
         // })
-        // console.log('oldFollowing', req.currentUser.additionalData.following);
+        // console.log('oldFollowing', req.curUser.additionalData.following);
         console.log('--> unfollow :( ' + ObjectId(req.userId))
-        // const newFollowing = req.currentUser.additionalData.following.filter((followerId) => followerId.equals(req.userId))
-        const newFollowing = req.currentUser.additionalData.following
+        // const newFollowing = req.curUser.additionalData.following.filter((followerId) => followerId.equals(req.userId))
+        const newFollowing = req.curUser.additionalData.following
         // console.log('unfollow index:', newFollowing.indexOf(req.userId));
         newFollowing.splice(newFollowing.indexOf(req.userId), 1)
         // console.log('newFollowing', newFollowing);
-        req.currentUser.additionalData.following = newFollowing
-        req.currentUser.save()
+        req.curUser.additionalData.following = newFollowing
+        req.curUser.save()
 
         res.status(200).json({ isFollow: false }).end()
     } else {
         console.log('--> follow')
-        req.currentUser.additionalData.following.push(req.userId)
-        req.currentUser.save()
+        req.curUser.additionalData.following.push(req.userId)
+        req.curUser.save()
 
         res.status(200).json({ isFollow: true }).end()
     }
@@ -123,18 +123,18 @@ const getMe = async (req, res) => {
     // get all user data
     // GET method
     // /api/me
-    const me = req.currentUser.toObject()
+    const me = req.curUser.toObject()
     me.additionalData.following = me.additionalData.following.length
     me.additionalData.followers = await usersService
-        .getUsers({ 'additionalData.following': req.currentUserId })
+        .getUsers({ 'additionalData.following': req.curUserId })
         .count()
         .exec()
     me.posts.postsAmount = await postsService
-        .getPosts({ author: req.currentUserId })
+        .getPosts({ author: req.curUserId })
         .count()
         .exec()
     me.posts.firstPosts = await usersService.getUserPosts({
-        userId: req.currentUserId,
+        userId: req.curUserId,
         limit: 15,
     })
 

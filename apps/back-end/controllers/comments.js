@@ -12,7 +12,7 @@ const createPostComment = (req, res) => {
         const newComment = commentsService.createComment({
             ...req.body,
             postId: req.postId,
-            user: req.currentUserId,
+            user: req.curUserId,
         })
 
         res.status(200).json(newComment).end()

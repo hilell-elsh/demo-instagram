@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
 
     const newPost = await postsService.createPost({
         ...req.body,
-        author: req.currentUserId,
+        author: req.curUserId,
         // add tags and users tags
         // add images handler
     })
@@ -61,7 +61,7 @@ const deletePost = (req, res) => {
     // include comment and likes
     // DELETE method
     // /api/posts/:postId
-    if (req.currentUserId === req.post.author) {
+    if (req.curUserId === req.post.author) {
         const { isLikesDeleteSuccess, deletedLikesCount, nLikes } =
             likesService.deletePost(req.post._id)
         const { isCommentsDeleteSuccess, deletedCommentsCount, nComments } =
@@ -80,7 +80,7 @@ const updatePost = async (req, res) => {
     // update post data by :postId param
     // PUT method
     // /api/posts/:postId
-    if (req.currentUserId === req.post.author) {
+    if (req.curUserId === req.post.author) {
         const updateData = {
             ...req.body,
             author: req.post.author,
@@ -101,11 +101,11 @@ const toggleLikePost = (req, res) => {
     // add corrent user to post's likes list
     // POST method
     // /api/posts/:postId/like
-    if (likesService.checkLike(req.currentUserId, req.postId)) {
-        likesService.deleteLike(req.currentUserId, req.postId)
+    if (likesService.checkLike(req.curUserId, req.postId)) {
+        likesService.deleteLike(req.curUserId, req.postId)
         res.status(200).json({ liked: true }).end()
     } else {
-        likesService.addLike(req.currentUserId, req.postId)
+        likesService.addLike(req.curUserId, req.postId)
         res.status(200).json({ liked: false }).end()
     }
 }

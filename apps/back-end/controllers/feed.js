@@ -10,11 +10,12 @@ const getFeed = async (req, res) => {
     const MAX_POSTS = 30
     limit = Math.min(req.limit, MAX_POSTS)
     skip = req.skip
-    console.log(`feed services > getFeed: ${req.currentUserId} 
+    console.log(`feed services > getFeed: ${req.curUserId} 
     \t...skip: ${skip}, limit: ${limit}`)
 
     const posts = await postsService
-        .getPosts({ author: { $in: req.currentUser.additionalData.following } })
+        .getPosts({ author: { $in: req.curUser.additionalData.following } })
+        .sort('-createdDate')
         .skip(skip)
         .limit(limit)
         .populate('author', 'userBasicData')
