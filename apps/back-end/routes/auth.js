@@ -4,7 +4,7 @@ const { validateUser } = require('../middlewares/checkuser')
 
 const authRouter = Router()
 authRouter.post('/api/login', login)
-authRouter.post('/api/logout', validateUser, logout)
+authRouter.delete('/api/logout', validateUser, logout)
 authRouter.post('/api/signup', signup)
 
 module.exports = authRouter
