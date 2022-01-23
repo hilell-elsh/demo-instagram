@@ -5,19 +5,19 @@ const commentsRouter = require('./comments')
 const authRouter = require('./auth')
 const uploadRouter = require('./upload')
 const adminRouter = require('./admin')
-const { checkUser, validateUser } = require('../middlewares/checkuser')
+const { validateUser } = require('../middlewares/checkuser')
 
 const mainRouter = (router) => {
     router
-        // .use(middlewares)
-        .use(checkUser)
-
         // scope routers
+        .use(authRouter)
+
+        .use(validateUser)
+
         .use(usersRouter)
         .use(feedRouter)
         .use(postsRouter)
         .use(commentsRouter)
-        .use(authRouter)
         .use(uploadRouter)
         .use(adminRouter)
 }

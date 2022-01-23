@@ -5,7 +5,8 @@ const { getId } = require('../services/object')
 const { getToken, createToken, updateToken } = require('../services/auth')
 
 const TEN_MINUTES = 1000 * 60 * 10
-const ONE_MONTH = 30 * 24 * 60 * 60
+const ONE_DAY = TEN_MINUTES * 6 * 24
+const ONE_MONTH = ONE_DAY * 30
 
 async function checkUser(req, res, next) {
     const userId = req.headers['user-id']
@@ -14,19 +15,19 @@ async function checkUser(req, res, next) {
 
     if (userId === '0') {
         console.log('checkuser > : admin request')
-        req.currentUser = 'admin'
+        req.curUser = 'admin'
         next()
     } else {
         console.log('checkuser > : another user request')
         // const user = await getUser(userId);
 
         try {
-            const currentUserId = getId(userId)
-            console.log(`checkuser > currentUserId : ${currentUserId}`)
-            const currentUser = await getUser(currentUserId)
-            // console.log(`checkuser: currentUser ${currentUser}`);
-            req.currentUser = currentUser
-            req.currentUserId = req.currentUser._id
+            const curUserId = getId(userId)
+            console.log(`checkuser > curUserId : ${curUserId}`)
+            const curUser = await getUser(curUserId)
+            // console.log(`checkuser: curUser ${curUser}`);
+            req.curUser = curUser
+            req.curUserId = req.curUser._id
         } catch (err) {
             // err
         }
@@ -54,12 +55,15 @@ async function validateUser(req, res, next) {
     }
 
     if (Date.now() - createDate < TEN_MINUTES) {
-        req.userId = payload.userId
+        req.curUserId = payload.userId
+        req.curUser = await getUser(req.curUserId)
         next()
     }
 
     const dbToken = await getToken(req.userId)
-    if (!dbToken) {
+    let dbPayload = jwt.verify(dbToken, process.env.JWT_SECRET)
+    let dbCreateDate = dbPayload.created
+    if (Date.now() - dbCreateDate > ONE_DAY) {
         res.status(401).end()
     }
 
@@ -69,6 +73,7 @@ async function validateUser(req, res, next) {
         exp: Date.now() + ONE_MONTH,
         httpOnly: true,
     })
+    next()
 }
 
 module.exports = {

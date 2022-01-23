@@ -33,17 +33,18 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     const loginData = req.body
-    const userId = await usersService
+    const user = await usersService
         .getUsers({ 'userBasicData.username': loginData.username })
         .select('_id')
         .lean()
+    const userId = user[0]._id
     if (
         authService.validateAuth({
-            userId: userId[0]._id,
+            userId: userId,
             password: loginData.password,
         })
     ) {
-        const newToken = createToken(req.userId)
+        const newToken = createToken(userId)
         updateToken({ userId, token: newToken })
         res.cookie('token', newToken, {
             exp: Date.now() + ONE_MONTH,
