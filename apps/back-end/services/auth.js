@@ -25,7 +25,7 @@ function createToken(userId) {
         userId: userId,
         created: new Date().toJSON(),
     }
-    const token = jwt.sign(newPayload, process.env.JWT_SECRET)
+    const token = jwt.sign(newPayload, process.env.JWT_SECRET, { expiresIn: '30d'})
     return token
 }
 

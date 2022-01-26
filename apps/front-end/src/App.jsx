@@ -14,19 +14,19 @@ import Signup from './pages/SignUp'
 import Profile from './pages/Profile'
 import Mailbox from './pages/Mailbox'
 import Settings from './pages/Settings'
+import { store } from './store'
+
 // require('dotenv').config();
 
 function App() {
-    // const dispatch = useDispatch()
+    const state = store.getState();
+    
     const isLoggedIn = useSelector((state) => state.user.isUser)
-    const username = useSelector((state) => state.user.user?.userBasicData?.username || {})
-    console.log(`username: `+JSON.stringify(username));
     return (
         <Router>
             <Switch>
                 <Route path="/">
-                    { isLoggedIn ? window.location.pathname = `/${username}/feed` : <Login />}
-                    {/* {!isLoggedIn && <Login />} */}
+                    { isLoggedIn ? <PageFeed /> : <Login />}
                 </Route>
                 {/* <Route path="/login">
                     <Login />
@@ -36,7 +36,6 @@ function App() {
                 </Route>
                 <Route path="/:username">
                     <Route path="/:username/profile">
-                        {/* { !isLoggedIn && window.location.pathname = `/login`} */}
                         <Profile />
                     </Route>
                     <Route path="/:username/feed">

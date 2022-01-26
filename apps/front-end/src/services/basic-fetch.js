@@ -15,6 +15,11 @@ export default async function fetching({
     }
 
     return fetch(path, options)
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.statusCode === 401) {
+                throw new Error('')
+            }
+            return res.json()
+        })
         .catch((err) => console.log('ERROR: ' + err))
 }

@@ -8,9 +8,9 @@ export const userSlice = createSlice({
     },
     reducers: {
         setCurUser: (state, user) => {
-            state.user = user;
-            state.isUser = true;
-            console.log(state.user);
+            state.user = user
+            state.isUser = true
+            // console.log(getCurUser);
         },
 
         getCurUser: (state) => {
@@ -22,8 +22,8 @@ export const userSlice = createSlice({
         },
 
         clear: (state) => {
-            state.user = {};
-            state.isUser = false;
+            state.user = {}
+            state.isUser = false
         }
     }
 })
