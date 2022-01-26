@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
     Logo,
@@ -12,13 +12,16 @@ import {
 import { login } from "../../services/auth-service"
 import { getMe } from "../../services/my-data"
 import { setCurUser } from '../../store/user'
+import { store } from '../../store'
 
 const SmallLink = styled.p`
     font-size: 12px;
     `
 
 export default function LoginForm() {
+    const state = store.getState();
     const dispatch = useDispatch()
+    const stateUser = useSelector((state) => state.user.user)
     async function loginHandler(event) {
         event.preventDefault();
         const data = new FormData(event.target)
@@ -31,9 +34,11 @@ export default function LoginForm() {
         const isUser = await login(loginData)
         if (isUser) {
             const user = await getMe()
-            console.log(user);
+            // console.log(user);
             dispatch(setCurUser(user))
-            // window.location.pathname = '/'
+            console.log('state.user')
+            // console.log(store.getState().user);
+            // console.log(stateUser);
         }
     }
     return (

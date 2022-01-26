@@ -8,37 +8,37 @@ const TEN_MINUTES = 1000 * 60 * 10
 const ONE_DAY = TEN_MINUTES * 6 * 24
 const ONE_MONTH = ONE_DAY * 30
 
-async function checkUser(req, res, next) {
-    const userId = req.headers['user-id']
+// async function checkUser(req, res, next) {
+//     const userId = req.headers['user-id']
 
-    // console.log("checkuser > checkuser > userId:", userId);
+//     // console.log("checkuser > checkuser > userId:", userId);
 
-    if (userId === '0') {
-        console.log('checkuser > : admin request')
-        req.curUser = 'admin'
-        next()
-    } else {
-        console.log('checkuser > : another user request')
-        // const user = await getUser(userId);
+//     if (userId === '0') {
+//         console.log('checkuser > : admin request')
+//         req.curUser = 'admin'
+//         next()
+//     } else {
+//         console.log('checkuser > : another user request')
+//         // const user = await getUser(userId);
 
-        try {
-            const curUserId = getId(userId)
-            console.log(`checkuser > curUserId : ${curUserId}`)
-            const curUser = await getUser(curUserId)
-            // console.log(`checkuser: curUser ${curUser}`);
-            req.curUser = curUser
-            req.curUserId = req.curUser._id
-        } catch (err) {
-            // err
-        }
+//         try {
+//             const curUserId = getId(userId)
+//             console.log(`checkuser > curUserId : ${curUserId}`)
+//             const curUser = await getUser(curUserId)
+//             // console.log(`checkuser: curUser ${curUser}`);
+//             req.curUser = curUser
+//             req.curUserId = req.curUser._id
+//         } catch (err) {
+//             // err
+//         }
 
-        next()
-    }
-}
+//         next()
+//     }
+// }
 
 async function validateUser(req, res, next) {
     const token = req.cookies.token
-    console.log('token',token);
+    // console.log('token',token);
     if (!token) {
         res.status(401).end()
     }
@@ -52,24 +52,24 @@ async function validateUser(req, res, next) {
         }
         createDate = new Date(payload.created)
     } catch (err) {
-        res.status(401).end()
+        return res.status(401).end()
     }
 
     if (Date.now() - createDate < TEN_MINUTES) {
-        console.log('checkuser>validateUser>short');
+        // console.log('checkuser>validateUser>short');
         req.curUserId = payload.userId
-        console.log('checkuser>validateUser>req.curUserId', req.curUserId);
+        // console.log('checkuser>validateUser>req.curUserId', req.curUserId);
         req.curUser = await getUser(req.curUserId)
-        next();
+        return next();
     }
     
-    console.log('checkuser>validateUser>long:', payload);
+    // console.log('checkuser>validateUser>long:', payload);
 
-    const dbToken = await getToken(req.userId)
+    const dbToken = await getToken(req.curUserId)
     let dbPayload = jwt.verify(dbToken, process.env.JWT_SECRET)
-    let dbCreateDate = dbPayload.created
+    let dbCreateDate = new Date(dbPayload.created)
     if (Date.now() - dbCreateDate > ONE_DAY) {
-        res.status(401).end()
+        return res.status(401).end()
     }
 
     const newToken = createToken(req.curUserId)
@@ -82,6 +82,6 @@ async function validateUser(req, res, next) {
 }
 
 module.exports = {
-    checkUser,
+    // checkUser,
     validateUser,
 }

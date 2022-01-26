@@ -128,6 +128,14 @@ const getPostById = async (req, res, next) => {
     }
 }
 
+const getPosts = async (req, res) => {
+    const query = req.query.text;
+    if (query.length <=2) {
+        return res.status(404).json({ message: ''}).end()
+    }
+
+}
+
 module.exports = {
     createPost,
     getPost,

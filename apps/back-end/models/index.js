@@ -1,6 +1,9 @@
+require('./auth')
+require('./comment')
+require('./like')
 require('./post')
-require('./user')
 require('./tag')
+require('./user')
 
 const { connect } = require('mongoose')
 let connection
