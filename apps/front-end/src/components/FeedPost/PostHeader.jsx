@@ -4,13 +4,12 @@ import IconButton from '@mui/material/IconButton'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { red, green, blue, orange } from '@mui/material/colors'
 
-export default function PostHeader({ contentItem }) {
-    console.log(contentItem);
+export default function PostHeader() {
     return (
         <CardHeader
             avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    {contentItem.author.userBasicData.username.charAt(0)}
+                    Y
                 </Avatar>
             }
             action={
@@ -18,8 +17,8 @@ export default function PostHeader({ contentItem }) {
                     <MoreVertIcon />
                 </IconButton>
             }
-            title={contentItem.author.userBasicData.username}
-            subheader={contentItem.createdDate}
+            title="Yossi Cohen"
+            subheader="September 14, 2021"
         />
     )
 }
