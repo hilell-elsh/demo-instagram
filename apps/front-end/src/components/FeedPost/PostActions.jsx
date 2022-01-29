@@ -5,13 +5,13 @@ import ActionShare from './PostActions/ActionShare'
 import ActionAddComment from './PostActions/ActionAddComment'
 import ActionEpandMore from './PostActions/ActionEpandMore'
 
-export default function PostActions({ expanded, setExpanded }) {
+export default function PostActions( {expanded , setExpanded, contentItem} ) {
     return (
         <CardActions disableSpacing>
-            <ActionLike />
-            <ActionShare />
-            <ActionAddComment />
-            <ActionEpandMore expanded={expanded} setExpanded={setExpanded} />
+            	<ActionLike contentItem={contentItem} />
+                <ActionShare />
+                <ActionAddComment />
+                <ActionEpandMore expanded= {expanded} setExpanded= {setExpanded}  />  
         </CardActions>
     )
 }
