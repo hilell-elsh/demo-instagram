@@ -8,15 +8,13 @@ import PostContent from './FeedPost/PostContent'
 import PostActions from './FeedPost/PostActions'
 import PostCollapse from './FeedPost/PostCollapse'
 
-
-export default function Feed({contentItem}) {
-
-    const [expanded, setExpanded] = React.useState(false);
-    const {postHeader, postContent, postMedia} = React.useMemo(() => {
+export default function Feed() {
+    const [expanded, setExpanded] = React.useState(false)
+    const { postHeader, postContent, postMedia } = React.useMemo(() => {
         return {
-            postHeader: <PostHeader contentItem={contentItem} />,
-            postContent: <PostContent contentItem={contentItem} />,
-            postMedia: <PostMedia contentItem={contentItem} />
+            postHeader: <PostHeader />,
+            postContent: <PostContent />,
+            postMedia: <PostMedia />,
         }
     }, [])
 
@@ -25,8 +23,8 @@ export default function Feed({contentItem}) {
             {postHeader}
             {postMedia}
             {postContent}
-            <PostActions contentItem={contentItem} expanded= {expanded} setExpanded= {setExpanded}  /> 
-            <PostCollapse expanded= {expanded}  />
+            <PostActions expanded={expanded} setExpanded={setExpanded} />
+            <PostCollapse expanded={expanded} />
         </Card>
     )
 }
