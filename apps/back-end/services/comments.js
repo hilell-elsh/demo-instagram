@@ -1,8 +1,8 @@
 const CommentModel = require('../models/comment')
 const likesService = require('../services/likes')
 
-function createComment(data) {
-    const newComment = new CommentModel(data)
+function createCommentsInstance(postId) {
+    const newComment = new CommentModel(postId)
     return newComment.save()
 }
 
@@ -37,7 +37,7 @@ async function deleteComment(query = {}) {
 }
 
 module.exports = {
-    createComment,
+    createCommentsInstance,
     getPostComments,
     getComment,
     getCommentsAmount,

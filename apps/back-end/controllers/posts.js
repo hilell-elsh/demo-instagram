@@ -12,7 +12,8 @@ const createPost = async (req, res) => {
         author: req.curUserId,
     })
     console.log('posts controller > createPost: newpost:', newPost)
-
+    likesService.createLikesInstance(newPost._id)
+    commentsService.createCommentsInstance(newPost._id)
     res.status(200).json(newPost).end()
 }
 
