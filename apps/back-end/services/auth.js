@@ -13,7 +13,10 @@ async function validateAuth({ userId, password }) {
 }
 
 async function updateAuth({ userId, newPassword }) {
-    await AuthModel.findOneAndUpdate({ userId: userId }, {password: newPassword})
+    await AuthModel.findOneAndUpdate(
+        { userId: userId },
+        { password: newPassword }
+    )
 }
 
 function deleteAuth(query = {}) {
@@ -30,7 +33,7 @@ function createToken(userId) {
 }
 
 async function updateToken({ userId, token: newToken }) {
-    await AuthModel.findOneAndUpdate({ userId: userId }, {token: newToken})
+    await AuthModel.findOneAndUpdate({ userId: userId }, { token: newToken })
 }
 
 async function getToken(userId) {
@@ -45,5 +48,5 @@ module.exports = {
     deleteAuth,
     createToken,
     updateToken,
-    getToken
+    getToken,
 }

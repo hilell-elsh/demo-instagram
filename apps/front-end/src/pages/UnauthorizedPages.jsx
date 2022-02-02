@@ -6,7 +6,7 @@ import Login from './unauthorized/Login'
 export default function UnauthorizedPages() {
     return (
         <Switch>
-            <Route path="/login">
+            <Route exact path="/">
                 <Login />
             </Route>
             <Route path="/signup">

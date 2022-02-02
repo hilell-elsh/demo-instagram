@@ -1,3 +1,7 @@
 export default function ForgotPassword(email, password) {
-    return
+    return (
+        <div>
+            forgot password
+        </div>
+    )
 }
