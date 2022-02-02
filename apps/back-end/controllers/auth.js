@@ -5,7 +5,7 @@ const { createToken, updateToken } = require('../services/auth')
 const ONE_MONTH = 30 * 24 * 60 * 60
 
 const signup = async (req, res) => {
-    console.log('signup request', req.body);
+    console.log('signup request', req.body)
     const user = req.body
     const firstName = user.fullname.split(' ')[0]
     const lastName = user.fullname.split(' ')[1]
@@ -64,10 +64,7 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
-    // logout
-    // POST method
-    // /api/logout
-    const newToken = ""
+    const newToken = ''
     updateToken({ userId: req.curUserId, token: newToken })
     res.cookie('token', newToken, {
         httpOnly: true,
@@ -78,5 +75,5 @@ const logout = (req, res) => {
 module.exports = {
     login,
     logout,
-    signup
+    signup,
 }

@@ -1,17 +1,6 @@
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { setMyData } from './store/user'
-
-import PageFeed from './pages/Feed'
-import Login from './pages/Login'
-import Signup from './pages/SignUp'
-import Profile from './pages/Profile'
-import Mailbox from './pages/Mailbox'
-import Settings from './pages/Settings'
+import { BrowserRouter as Router, Redirect } from 'react-router-dom'
+import AuthorizedPages from './pages/AuthorizedPages'
+import UnauthorizedPages from './pages/UnauthorizedPages'
 
 // require('dotenv').config();
 
@@ -21,32 +10,9 @@ function App() {
     if (isLoggedIn) {dispatch(setMyData())}
     return (
         <Router>
-            <Switch>
-                <Route path="/">
-                    { isLoggedIn ? <PageFeed /> : <Login />}
-                </Route>
-                {/* <Route path="/login">
-                    <Login />
-                </Route> */}
-                <Route path="/signup">
-                    <Signup />
-                </Route>
-                <Route path="/:username">
-                    <Route path="/:username/profile">
-                        <Profile />
-                    </Route>
-                    <Route path="/:username/feed">
-                        <PageFeed />
-                    </Route>
-                    <Route path="/:username/mailbox">
-                        <Mailbox />
-                    </Route>
-                    <Route path="/:username/settings">
-                        <Settings />
-                    </Route>
-                </Route>
-                {/* <Redirect path="/" to="/:username/feed" /> */}
-            </Switch>
+            <UnauthorizedPages />
+            <AuthorizedPages />
+            <Redirect path="/" to="/login" />
         </Router>
     )
 }

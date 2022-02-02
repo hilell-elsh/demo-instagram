@@ -1,6 +1,6 @@
-import MessengerList from '../components/MessengerList'
-import MessengerChat from '../components/MessengerChat'
-import { getAllMessages } from '../services/massage-data'
+import MessengerList from '../../components/MessengerList'
+import MessengerChat from '../../components/MessengerChat'
+import { getAllMessages } from '../../services/massage-data'
 export default function Mailbox() {
     const messages = getAllMessages()
     console.log(messages)

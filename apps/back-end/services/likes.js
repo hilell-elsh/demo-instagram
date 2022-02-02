@@ -11,8 +11,12 @@ async function getLikesAmount(postId, commentId = null) {
     return amount
 }
 
-function deletePost(postId) {
-    return LikeModel.deleteMany({ postId: postId })
+function deleteLikes(query = {}) {
+    return LikeModel.deleteMany(query)
+}
+
+function getLikes(query = {}) {
+    return LikeModel.find({ query })
 }
 
 function deleteLike(userId, postId, commentId = null) {
@@ -44,8 +48,9 @@ function checkLike(userId, postId, commentId = null) {
 
 module.exports = {
     getLikesAmount,
-    deletePost,
+    deleteLikes,
     deleteLike,
     addLike,
     checkLike,
+    getLikes,
 }

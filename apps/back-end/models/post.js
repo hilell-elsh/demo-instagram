@@ -15,9 +15,9 @@ const PostSchema = new mongoose.Schema(
     { toObject: { virtuals: true }, toJSON: { virtuals: true } }
 )
 
-PostSchema.virtual('tagsCount').get(function () {
-    return this.tags.length
-})
+// PostSchema.virtual('tagsCount').get(function () {
+//     return this.tags.length
+// })
 
 const PostModel = mongoose.model('Post', PostSchema)
 

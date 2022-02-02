@@ -6,17 +6,9 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
 const getUser = async (req, res) => {
-    // get user data by :userID param
-    // GET method
-    // /api/users/:userId
-    // ** include all the user data, like:
-    //      posts,
-    //      additional data
-    //      ....
     console.log('user controller > getUser: get user', req.userId)
 
     const user = await usersService.getUser(req.userId).lean()
-    // .toObject();
 
     console.log('user controller > getUser:', user)
 
@@ -25,7 +17,6 @@ const getUser = async (req, res) => {
         .getUsers({ 'additionalData.following': user._id })
         .count()
         .exec()
-    // console.log('user controller > getUser: followers count', user.additionalData.followers);
 
     user.posts = {
         postsAmount: await postsService
@@ -42,26 +33,17 @@ const getUser = async (req, res) => {
 }
 
 const toggleFollowUser = (req, res) => {
-    // add corrent user to user's following list by :userID param
-    // POST method
-    // /api/users/:userId/follow
-
-    // console.log(`user controller > toggleFollowUser: \n${req.curUserId} --> ${req.userId}`);
-    // console.log(`user controller > toggleFollowUser: \n${req.curUser.additionalData.following}`);
-
-    // console.log(`user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(req.userId)}`);
+    og(
+        `user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(
+            req.userId
+        )}`
+    )
 
     if (req.curUser.additionalData.following.includes(req.userId)) {
-        // usersService.updateUser(req.curUserId, {
-        //     followeing: req.curUser.additionalData.following.filter(followerId => followerId === req.userId)
-        // })
-        // console.log('oldFollowing', req.curUser.additionalData.following);
+        le.log('oldFollowing', req.curUser.additionalData.following)
         console.log('--> unfollow :( ' + ObjectId(req.userId))
-        // const newFollowing = req.curUser.additionalData.following.filter((followerId) => followerId.equals(req.userId))
         const newFollowing = req.curUser.additionalData.following
-        // console.log('unfollow index:', newFollowing.indexOf(req.userId));
         newFollowing.splice(newFollowing.indexOf(req.userId), 1)
-        // console.log('newFollowing', newFollowing);
         req.curUser.additionalData.following = newFollowing
         req.curUser.save()
 
@@ -76,18 +58,6 @@ const toggleFollowUser = (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-    /* get user posts by :userID param
-    GET method
-    /api/users/:userId/posts?skip=0&limit=20
-    ** include all the data, like:
-         likes,
-         comments,
-         usernames & images sorces
-         ....
-    -----------------------------------------------
-    *** must get 'skip' and 'limit' as limitParams
-    */
-
     console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
                 \tskip: ${req.skip}, limit: ${req.limit}`)
 
@@ -96,7 +66,6 @@ const getUserPosts = async (req, res) => {
         skip: req.skip,
         limit: req.limit,
     })
-    // console.log(`user controller > getUserPosts > posts:`, posts);
 
     res.status(200).json(posts).end()
 }
@@ -120,9 +89,6 @@ const getUserFollowers = async (req, res) => {
 }
 
 const getMe = async (req, res) => {
-    // get all user data
-    // GET method
-    // /api/me
     const me = req.curUser.toObject()
     me.additionalData.following = me.additionalData.following.length
     me.additionalData.followers = await usersService
@@ -139,30 +105,28 @@ const getMe = async (req, res) => {
     })
 
     res.json(me).status(200).end()
-
-    // username
-    //
 }
 
 const updateMe = (req, res) => {
     // update user data
-    // POST method
+    // PUT method
     // /api/me
 }
 
 const deleteMe = (req, res) => {
-    // delete user include all his data
-    // DELETE method
-    // /api/me
+    const userId = req.curUserId
+    usersService.deleteUser(userId)
+    try {
+        res.json('User has been deleted').status(200).end()
+    } catch (err) {
+        res.status(500).json('Something went wrong').end()
+    }
 }
 
 // inside help middleware
 const getUserById = async (req, res, next) => {
-    // console.log('user controller > getUserById: userId', req.params.userId);
     const userId = getId(req.params.userId)
-    // console.log('user controller > getUserById:', userId);
     const user = await usersService.getUser(userId)
-    // console.log('user controller > getUserById:', user.toObject());
     req.userId = userId
     if (user) {
         req.user = user
