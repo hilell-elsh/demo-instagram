@@ -7,8 +7,7 @@ export default async function fetching({
     const options = {
         method: method,
         headers: new Headers({
-            'user-id': '61e43fdd5f5ab74cebc66d50'
-        })
+        }),
     }
     if (!!data && Object.keys(data).length) {
         options.headers.append('Content-Type', 'application/json')

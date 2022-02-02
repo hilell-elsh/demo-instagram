@@ -30,9 +30,7 @@ export default function SignUpForm() {
         data.forEach((value, key) => {
             signupData[key] = value
         })
-        console.log(signupData);
         const newUser = await signup(signupData)
-        console.log(newUser);
         if (newUser) {
             window.location.pathname = '/login'
         }
@@ -40,7 +38,7 @@ export default function SignUpForm() {
 
     return (
         <>
-            <FormWrapper onSubmit={(event) => signupHandler(event)}>
+            <FormWrapper onSubmit={signupHandler}>
                 <Logo>Kilogram</Logo>
                 <SecondaryTitle>No photos of people "training" in <br/> the gym on this app...</SecondaryTitle>
                 <FormInput type="email" name="email" placeholder="Email" required />

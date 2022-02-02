@@ -3,13 +3,13 @@ import fetching from './basic-fetch'
 export async function createPost(newPostData) {
     // required text, [images src]
     // const path = '/api/posts';
-    return fetchInit((method = 'POST'), (data = newPostData))
+    return fetchInit({method: 'POST', data: newPostData})
     // returned the new post data, can't change the author
 }
 
 export async function getPost(postId) {
     const path = `/${postId}`
-    return fetch(path)
+    return fetchInit({path})
 
     // returned:
     // {
@@ -45,17 +45,17 @@ export async function getPost(postId) {
 
 export async function updatePost(postId, updateData) {
     const path = `/${postId}`
-    return fetchInit(path, (method = 'PUT'), (data = updateData))
+    return fetchInit({path, method: 'PUT', data: updateData})
 }
 
 export async function deletePost(postId) {
     const path = `/${postId}`
-    return fetchInit(path, (method = 'DELETE'))
+    return fetchInit({path, method: 'DELETE'})
 }
 
 export async function toggleLikePost() {
     const path = '/api/posts'
-    return fetchInit(path, (method = 'PUT'))
+    return fetchInit({path, method: 'PUT'})
 }
 
 export function uploadImage(image) {
@@ -66,15 +66,15 @@ export function uploadImage(image) {
 
 export function getPostLikes(postId, skip = 0, limit = 10) {
     const path = `/${postId}/likes?skip=${skip}&limit=${limit}`
-    return fetchInit(path)
+    return fetchInit({path})
 }
 
 export function savePost(postId) {
     const path = `/${postId}/save`
-    fetchInit(path, (method = 'PUT'))
+    fetchInit({path, method: 'PUT'})
 }
 
-async function fetchInit(path = '', method = 'GET', data = null) {
+async function fetchInit({path = '', method = 'GET', data = null}) {
     path = `/posts${path}`
     return await fetching(path, method, data)
 }

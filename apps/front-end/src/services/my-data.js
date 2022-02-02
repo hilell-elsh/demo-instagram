@@ -1,15 +1,15 @@
 import fetching from './basic-fetch'
 
 export function getMe() {
-    return fetchInit()
+    return fetchInit({})
 }
 
 export function updateMe(updateData) {
-    return fetchInit({method='PUT', data=updateData})
+    return fetchInit({method:'PUT', data:updateData})
 }
 
 export function deleteMe() {
-    return fetchInit({method='DELETE'})
+    return fetchInit({method:'DELETE'})
 }
 
 

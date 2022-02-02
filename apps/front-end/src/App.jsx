@@ -4,6 +4,10 @@ import {
     Route,
     Redirect,
 } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { isUser } from './store/user'
+import { useEffect } from 'react'
+
 import PageFeed from './pages/Feed'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
@@ -13,17 +17,26 @@ import Settings from './pages/Settings'
 // require('dotenv').config();
 
 function App() {
+    // const dispatch = useDispatch()
+    const isLoggedIn = useSelector((state) => state.user.isUser)
+    const username = useSelector((state) => state.user.user?.userBasicData?.username || {})
+    console.log(`username: `+JSON.stringify(username));
     return (
         <Router>
             <Switch>
-                <Route path="/login">
-                    <Login />
+                <Route path="/">
+                    { isLoggedIn ? window.location.pathname = `/${username}/feed` : <Login />}
+                    {/* {!isLoggedIn && <Login />} */}
                 </Route>
+                {/* <Route path="/login">
+                    <Login />
+                </Route> */}
                 <Route path="/signup">
                     <Signup />
                 </Route>
                 <Route path="/:username">
                     <Route path="/:username/profile">
+                        {/* { !isLoggedIn && window.location.pathname = `/login`} */}
                         <Profile />
                     </Route>
                     <Route path="/:username/feed">
@@ -36,7 +49,7 @@ function App() {
                         <Settings />
                     </Route>
                 </Route>
-                <Redirect path="/" to="/login" />
+                {/* <Redirect path="/" to="/:username/feed" /> */}
             </Switch>
         </Router>
     )

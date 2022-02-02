@@ -8,6 +8,8 @@ const LikeSchema = new mongoose.Schema({
     createdDate: { type: Date, default: Date.now },
 })
 
+LikeSchema.index({ postId: true, commentId: true, user: true}, {unique: true})
+
 const LikeModel = mongoose.model('Like', LikeSchema)
 
 module.exports = LikeModel
