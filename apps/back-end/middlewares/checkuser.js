@@ -54,10 +54,10 @@ async function validateUser(req, res, next) {
     } catch (err) {
         return res.status(401).end()
     }
+    req.curUserId = payload.userId
 
     if (Date.now() - createDate < TEN_MINUTES) {
         // console.log('checkuser>validateUser>short');
-        req.curUserId = payload.userId
         // console.log('checkuser>validateUser>req.curUserId', req.curUserId);
         req.curUser = await getUser(req.curUserId)
         return next();

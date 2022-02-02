@@ -11,9 +11,9 @@ const initialState = {
 
 export const setMyData = createAsyncThunk(
     'user/fetchByIdStatus',
-    async (thunkAPI) => {
+    async () => {
       const response = await getMe()
-      return response.data
+      return response
     }
   )
 
@@ -37,19 +37,22 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(setMyData.pending, (state) => {
+            console.log("pending get me")
             state.loading = true
         })
         builder.addCase(setMyData.fulfilled, (state, action) => {
+            console.log("fullfill get me", action)
             state.loading = false
             state.isUser = true
             state.user = action.payload
             state.error = ""
         })
         builder.addCase(setMyData.rejected, (state, action) => {
+            console.log("reject get me", action)
             state.loading = false
             state.isUser = false
             state.user = {}
-            state.error = action.payload
+            state.error = action.error
         })
     }
 })
