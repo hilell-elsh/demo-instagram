@@ -5,7 +5,7 @@ import {
     Redirect,
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { isUser } from './store/user'
+import { setMyData } from './store/user'
 import { useEffect } from 'react'
 
 import PageFeed from './pages/Feed'
@@ -19,9 +19,10 @@ import { store } from './store'
 // require('dotenv').config();
 
 function App() {
-    const state = store.getState();
-    
+    const state = store.getState()
+    const dispatch = useDispatch()
     const isLoggedIn = useSelector((state) => state.user.isUser)
+    if (isLoggedIn) {dispatch(setMyData())}
     return (
         <Router>
             <Switch>
