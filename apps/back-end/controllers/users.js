@@ -33,14 +33,14 @@ const getUser = async (req, res) => {
 }
 
 const toggleFollowUser = (req, res) => {
-    og(
+    console.log(
         `user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(
             req.userId
         )}`
     )
 
     if (req.curUser.additionalData.following.includes(req.userId)) {
-        le.log('oldFollowing', req.curUser.additionalData.following)
+        console.log('oldFollowing', req.curUser.additionalData.following)
         console.log('--> unfollow :( ' + ObjectId(req.userId))
         const newFollowing = req.curUser.additionalData.following
         newFollowing.splice(newFollowing.indexOf(req.userId), 1)
@@ -113,13 +113,13 @@ const updateMe = (req, res) => {
     // /api/me
 }
 
-const deleteMe = (req, res) => {
+const deleteMe = async (req, res) => {
     const userId = req.curUserId
-    usersService.deleteUser(userId)
+    const deletedUser = await usersService.deleteUser(userId)
     try {
-        res.json('User has been deleted').status(200).end()
+        return res.json(deletedUser).status(200).end()
     } catch (err) {
-        res.status(500).json('Something went wrong').end()
+        return res.status(500).json('Something went wrong').end()
     }
 }
 

@@ -74,23 +74,23 @@ function deleteUser(userId) {
     deleteUserComments(userId)
     deleteUserLikes(userId)
     deleteUserAuth(userId)
-    return UserModel.findOneAndDelete(userId)
+    return UserModel.findByIdAndDelete(userId)
 }
 
 async function deleteUserPosts(userId) {
-    postsService.deletePost({userId: userId})
+    postsService.deletePost({ author: userId })
 }
 
 async function deleteUserComments(userId) {
-    commentsService.deleteComment({userId: userId})
+    commentsService.deleteComment({ userId: userId })
 }
 
 async function deleteUserLikes(userId) {
-    likesService.deleteLikes({userId: userId})
+    likesService.deleteLikes({ userId: userId })
 }
 
 async function deleteUserAuth(userId) {
-    authService.deleteAuth({userId: userId})
+    return await authService.deleteAuth({ userId: userId })
 }
 
 function updateUser(userId, data) {

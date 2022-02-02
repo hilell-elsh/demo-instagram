@@ -40,7 +40,7 @@ async function validateUser(req, res, next) {
     const token = req.cookies.token
     // console.log('token',token);
     if (!token) {
-        res.status(401).end()
+        return res.status(401).end()
     }
 
     let payload, createDate
@@ -60,7 +60,7 @@ async function validateUser(req, res, next) {
         // console.log('checkuser>validateUser>short');
         // console.log('checkuser>validateUser>req.curUserId', req.curUserId);
         req.curUser = await getUser(req.curUserId)
-        return next();
+        return next()
     }
     
     // console.log('checkuser>validateUser>long:', payload);
