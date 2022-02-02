@@ -9,20 +9,18 @@ import Header from '../components/global/Header'
 export default function AuthorizedPages() {
     return (
         <Switch>
+            <Header />
+            <Route exact path="/">
+                <PageFeed />
+            </Route>
             <Route path="/:username">
-                <Header />
-                <Route path="/:username/profile">
-                    <Profile />
-                </Route>
-                <Route path="/:username/feed">
-                    <PageFeed />
-                </Route>
-                <Route path="/:username/mailbox">
-                    <Mailbox />
-                </Route>
-                <Route path="/:username/settings">
-                    <Settings />
-                </Route>
+                <Profile />
+            </Route>
+            <Route path="/mailbox">
+                <Mailbox />
+            </Route>
+            <Route path="/settings">
+                <Settings />
             </Route>
         </Switch>
     )

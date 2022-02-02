@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import AuthorizedPages from './pages/AuthorizedPages'
 import UnauthorizedPages from './pages/UnauthorizedPages'
 
@@ -12,7 +12,6 @@ function App() {
         <Router>
             <UnauthorizedPages />
             <AuthorizedPages />
-            <Redirect path="/" to="/login" />
         </Router>
     )
 }

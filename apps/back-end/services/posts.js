@@ -17,17 +17,17 @@ function getPosts(query = {}) {
 
 async function deletePost(query = {}) {
     return await PostModel.find(query)
-    .select('_id')
-    .then((res) => {
-        return Promise.all(
-            res.map(async (postId) => {
-                likesService.deleteLikes({postId: postId})
-                commentsService.deleteComment({postId: postId})
-                const post = PostModel.findByIdAndDelete(postId)
-                return post
-            })
-        )
-    })
+        .select('_id')
+        .then((res) => {
+            return Promise.all(
+                res.map(async (postId) => {
+                    likesService.deleteLikes({ postId: postId })
+                    commentsService.deleteComment({ postId: postId })
+                    const post = PostModel.findByIdAndDelete(postId)
+                    return post
+                })
+            )
+        })
 }
 
 function updatePost(postId, data) {

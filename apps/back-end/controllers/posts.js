@@ -76,10 +76,10 @@ const updatePost = async (req, res) => {
 const toggleLikePost = (req, res) => {
     if (likesService.checkLike(req.curUserId, req.postId)) {
         likesService.deleteLike(req.curUserId, req.postId)
-        res.status(200).json({ liked: true }).end()
+        res.status(200).json({ liked: false }).end()
     } else {
         likesService.addLike(req.curUserId, req.postId)
-        res.status(200).json({ liked: false }).end()
+        res.status(200).json({ liked: true }).end()
     }
 }
 
