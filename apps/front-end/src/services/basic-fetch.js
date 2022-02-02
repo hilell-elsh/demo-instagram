@@ -17,9 +17,8 @@ export default async function fetching({
     return fetch(path, options)
         .then((res) => {
             if (res.statusCode === 401) {
-                throw new Error('')
+                throw new Error('You`r not Logged in yet')
             }
             return res.json()
         })
-        .catch((err) => console.log('ERROR: ' + err))
 }

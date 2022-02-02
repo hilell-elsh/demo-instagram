@@ -2,11 +2,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMyData } from './store/user'
-import { useEffect } from 'react'
 
 import PageFeed from './pages/Feed'
 import Login from './pages/Login'
@@ -14,12 +12,10 @@ import Signup from './pages/SignUp'
 import Profile from './pages/Profile'
 import Mailbox from './pages/Mailbox'
 import Settings from './pages/Settings'
-import { store } from './store'
 
 // require('dotenv').config();
 
 function App() {
-    const state = store.getState()
     const dispatch = useDispatch()
     const isLoggedIn = useSelector((state) => state.user.isUser)
     if (isLoggedIn) {dispatch(setMyData())}
