@@ -7,12 +7,12 @@ import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from
 import NewPostModal from './NewPostModal'
 
 export default function Header() {
-  const userProfile = getUser().profile
+  const user = getUser()
   const [isNewPostModal, setIsNewPostModal] = useState(false) 
 
   const headerAvatar = <Avatar 
-    alt={userProfile.name.firstName + " " + userProfile.name.lastName}
-    src={userProfile.image.src}
+    alt={user.additionalData.name.firstName + " " + user.additionalData.name.lastName}
+    src={user.userBasicData.profileImageSrc}
     sx={{ width: 36, height: 36, cursor: "pointer"}}
   />
 

@@ -2,7 +2,7 @@ const CommentModel = require('../models/comment')
 const likesService = require('../services/likes')
 
 function createCommentsInstance(postId) {
-    const newComment = new CommentModel(postId)
+    const newComment = new CommentModel({postId: postId})
     return newComment.save()
 }
 

@@ -10,14 +10,14 @@ import FollowerModal from './FollowerModal'
 
 export default function ProfileInfo() {
     // const [user, setUser] = useState({})
-    // const isloggedIn = useSelector((state) => state.user.isUser)
-    // if (isloggedIn) {
-    //     user = useSelector((state) => state.user.user)
-    // } else {
-    //     useEffect(async () => {
-    //         setUser(await getUser('61e3f85b5f5ab74cebc66d4e'))
-    //     }, [])
-    // }
+    const isloggedIn = useSelector((state) => state.user.isUser)
+    if (isloggedIn) {
+        user = useSelector((state) => state.user.user)
+    } else {
+        useEffect(async () => {
+            setUser(await getUser('61e3f85b5f5ab74cebc66d4e'))
+        }, [])
+    }
 
     const userProfilePic = user.userBasicData.profileImageSrc
     const userAvatar = (
