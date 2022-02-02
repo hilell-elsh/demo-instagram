@@ -11,7 +11,7 @@ import {
 } from './FormStyle'
 import { login } from "../../services/auth-service"
 import { getMe } from "../../services/my-data"
-import { setCurUser } from '../../store/user'
+import { setIsUser } from '../../store/user'
 import { store } from '../../store'
 
 const SmallLink = styled.p`
@@ -33,9 +33,9 @@ export default function LoginForm() {
         })
         const isUser = await login(loginData)
         if (isUser) {
-            const user = await getMe()
+            // const user = await getMe()
             // console.log(user);
-            dispatch(setCurUser(user))
+            dispatch(setIsUser(true))
             console.log('state.user')
             // console.log(store.getState().user);
             // console.log(stateUser);

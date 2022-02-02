@@ -9,4 +9,5 @@ export const store = configureStore({
         button: buttonReducer,
         user: userReducer
     },
+    devTools: true
 })
