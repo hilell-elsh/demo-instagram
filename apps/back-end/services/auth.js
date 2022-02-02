@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const AuthModel = require('../models/auth')
+const { getId } = require('../services/object')
 
 function createAuth({ userId, password }) {
     const newAuth = new AuthModel({ userId, password })
@@ -7,7 +8,7 @@ function createAuth({ userId, password }) {
 }
 
 async function validateAuth({ userId, password }) {
-    const user = await AuthModel.findOne({ userId: userId })
+    const user = await AuthModel.findOne({ userId: getId(userId) })
     return password === user.password
 }
 

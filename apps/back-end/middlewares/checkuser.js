@@ -38,6 +38,7 @@ async function checkUser(req, res, next) {
 
 async function validateUser(req, res, next) {
     const token = req.cookies.token
+    console.log('token',token);
     if (!token) {
         res.status(401).end()
     }
@@ -55,10 +56,14 @@ async function validateUser(req, res, next) {
     }
 
     if (Date.now() - createDate < TEN_MINUTES) {
+        console.log('checkuser>validateUser>short');
         req.curUserId = payload.userId
+        console.log('checkuser>validateUser>req.curUserId', req.curUserId);
         req.curUser = await getUser(req.curUserId)
-        next()
+        next();
     }
+    
+    console.log('checkuser>validateUser>long:', payload);
 
     const dbToken = await getToken(req.userId)
     let dbPayload = jwt.verify(dbToken, process.env.JWT_SECRET)
