@@ -1,13 +1,6 @@
-import { user } from '../ex-apis/user.js'
 import fetching from './basic-fetch'
 
-export function getUser() {
-    return user
-    // fetch('../ex-apis/posts.json')
-    // .then((response) => response.json())
-}
-
-export function getUser2(userId) {
+export function getUser(userId) {
     const path = `/${userId}`
     return fetchInit({ path })
 
