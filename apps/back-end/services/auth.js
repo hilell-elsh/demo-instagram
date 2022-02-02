@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const AuthModel = require('../models/auth')
-const { getId } = require('../services/object')
+const { getId } = require('./object')
 
 function createAuth({ userId, password }) {
     const newAuth = new AuthModel({ userId, password })
@@ -16,8 +16,8 @@ async function updateAuth({ userId, newPassword }) {
     await AuthModel.findOneAndUpdate({ userId: userId }, {password: newPassword})
 }
 
-function deleteAuth(userId) {
-    AuthModel.findOneAndDelete({ userId: userId })
+function deleteAuth(query = {}) {
+    return AuthModel.findOneAndDelete(query)
 }
 
 function createToken(userId) {
