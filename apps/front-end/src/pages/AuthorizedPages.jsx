@@ -9,7 +9,7 @@ import Header from '../components/global/Header'
 export default function AuthorizedPages() {
     return (
         <Switch>
-            <Header />
+            {/* <Header /> */}
             <Route exact path="/">
                 <PageFeed />
             </Route>
