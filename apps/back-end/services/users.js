@@ -2,6 +2,7 @@ const UserModel = require('../models/user')
 const postsService = require('../services/posts')
 const commentsService = require('../services/comments')
 const likesService = require('../services/likes')
+const authService = require('../services/auth')
 
 function createUser(data) {
     const newUser = new UserModel(data)
@@ -68,8 +69,28 @@ async function getUserFollowing(following, skip = 0, limit = 10) {
     // get user {_id {$in {cur..user.additionalData.following} } }.skip.limit.select('userBasicData')...
 }
 
-function deleteUser(query = {}) {
-    return UserModel.findOneAndDelete(query)
+function deleteUser(userId) {
+    deleteUserPosts(userId)
+    deleteUserComments(userId)
+    deleteUserLikes(userId)
+    deleteUserAuth(userId)
+    return UserModel.findByIdAndDelete(userId)
+}
+
+async function deleteUserPosts(userId) {
+    postsService.deletePost({ author: userId })
+}
+
+async function deleteUserComments(userId) {
+    commentsService.deleteComment({ userId: userId })
+}
+
+async function deleteUserLikes(userId) {
+    likesService.deleteLikes({ userId: userId })
+}
+
+async function deleteUserAuth(userId) {
+    return await authService.deleteAuth({ userId: userId })
 }
 
 function updateUser(userId, data) {

@@ -11,41 +11,54 @@ async function getLikesAmount(postId, commentId = null) {
     return amount
 }
 
-function deletePost(postId) {
-    return LikeModel.deleteMany({ postId: postId })
+function toggleLike({ userId, postId, commentId = null }) {
+    if (checkLike({ userId, postId, commentId })) {
+        return LikeModel.updateOne(
+            { postId: postId },
+            { $pull: { users: userId } }
+        )
+    } else {
+        return LikeModel.updateOne(
+            { postId: postId },
+            { $push: { users: userId } }
+        )
+    }
 }
 
-function deleteLike(userId, postId, commentId = null) {
+function getLikes(query = {}) {
+    return LikeModel.find({ query })
+}
+
+function deleteLikes(postId, commentId = null) {
     return LikeModel.findOneAndDelete({
         postId: postId,
         commentId: commentId,
-        user: userId,
     })
 }
 
-function addLike(userId, postId, commentId = null) {
+function createLikesInstance(postId, commentId = null) {
     const newLike = new LikeModel({
         postId: postId,
         commentId: commentId,
-        user: userId,
     })
     return newLike.save()
 }
 
-function checkLike(userId, postId, commentId = null) {
+function checkLike({ userId, postId, commentId = null }) {
     return Boolean(
         LikeModel.countDocuments({
             postId: postId,
             commentId: commentId,
-            user: userId,
+            users: [userId],
         })
     )
 }
 
 module.exports = {
     getLikesAmount,
-    deletePost,
-    deleteLike,
-    addLike,
+    deleteLikes,
+    createLikesInstance,
+    toggleLike,
     checkLike,
+    getLikes,
 }

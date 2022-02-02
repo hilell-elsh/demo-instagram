@@ -7,6 +7,7 @@ const connectToDb = require('./models')
 const port = process.env.PORT || 4000
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 const router = require('./routes')

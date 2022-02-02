@@ -1,4 +1,6 @@
 const PostModel = require('../models/post')
+const likesService = require('../services/likes')
+const commentsService = require('../services/comments')
 
 function createPost(data) {
     const newPost = new PostModel(data)
@@ -13,8 +15,19 @@ function getPosts(query = {}) {
     return PostModel.find(query)
 }
 
-function deletePost(postId) {
-    return PostModel.findByIdAndDelete(postId)
+async function deletePost(query = {}) {
+    return await PostModel.find(query)
+        .select('_id')
+        .then((res) => {
+            return Promise.all(
+                res.map(async (postId) => {
+                    likesService.deleteLikes({ postId: postId })
+                    commentsService.deleteComment({ postId: postId })
+                    const post = PostModel.findByIdAndDelete(postId)
+                    return post
+                })
+            )
+        })
 }
 
 function updatePost(postId, data) {

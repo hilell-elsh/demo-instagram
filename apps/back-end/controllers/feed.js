@@ -3,10 +3,6 @@ const commentsService = require('../services/comments')
 const likesService = require('../services/likes')
 
 const getFeed = async (req, res) => {
-    // get feed of current user
-    // GET method
-    // /api/feed
-
     const MAX_POSTS = 30
     limit = Math.min(req.limit, MAX_POSTS)
     skip = req.skip
@@ -35,12 +31,7 @@ const getFeed = async (req, res) => {
             )
         })
 
-    // console.log(`user services > getUserPosts > posts:`, posts);
-
     res.status(200).json(posts).end()
-
-    // postsService.
-    // req.user.additionalData.following
 }
 
 module.exports = { getFeed }

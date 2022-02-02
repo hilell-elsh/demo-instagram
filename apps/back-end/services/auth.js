@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const AuthModel = require('../models/auth')
+const { getId } = require('./object')
 
 function createAuth({ userId, password }) {
     const newAuth = new AuthModel({ userId, password })
@@ -7,16 +8,19 @@ function createAuth({ userId, password }) {
 }
 
 async function validateAuth({ userId, password }) {
-    const user = await AuthModel.findOne({ userId: userId })
+    const user = await AuthModel.findOne({ userId: getId(userId) })
     return password === user.password
 }
 
 async function updateAuth({ userId, newPassword }) {
-    await AuthModel.findOneAndUpdate({ userId: userId }, {password: newPassword})
+    await AuthModel.findOneAndUpdate(
+        { userId: userId },
+        { password: newPassword }
+    )
 }
 
-function deleteAuth(userId) {
-    AuthModel.findOneAndDelete({ userId: userId })
+function deleteAuth(query = {}) {
+    return AuthModel.findOneAndDelete(query)
 }
 
 function createToken(userId) {
@@ -24,12 +28,12 @@ function createToken(userId) {
         userId: userId,
         created: new Date().toJSON(),
     }
-    const token = jwt.sign(newPayload, process.env.JWT_SECRET)
+    const token = jwt.sign(newPayload, process.env.JWT_SECRET, { expiresIn: '30d'})
     return token
 }
 
 async function updateToken({ userId, token: newToken }) {
-    await AuthModel.findOneAndUpdate({ userId: userId }, {token: newToken})
+    await AuthModel.findOneAndUpdate({ userId: userId }, { token: newToken })
 }
 
 async function getToken(userId) {
@@ -44,5 +48,5 @@ module.exports = {
     deleteAuth,
     createToken,
     updateToken,
-    getToken
+    getToken,
 }
