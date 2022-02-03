@@ -17,6 +17,7 @@ export default async function fetching({ path = '', method = 'GET', data = null}
         .then((res) => {
             if (res.statusCode === 401) {
                 store.dispatch(setIsUser(false))
+                window.location.pathname = '/'
                 throw new Error('You`r not Logged in yet')
             }
             return res.json()

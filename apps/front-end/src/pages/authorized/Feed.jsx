@@ -4,7 +4,7 @@ import {getFeed} from "../../services/feed-data"
 
 
 export default function PageFeed() {
-    const [feed, setFeed] = useState()
+    const [feed, setFeed] = useState([])
     useEffect(() => {
         void (async () => {
             setFeed(await getFeed())
@@ -12,8 +12,18 @@ export default function PageFeed() {
     }, [])
     console.log("feed")
     console.log(feed)
+
+    // I don`t think this if will come to using
     if (feed === undefined) {
         return null;
+    }
+
+    if (feed.length===0) { // empty feed
+        return (
+            <>
+                <h5>YOU HAVE NO FRIENDS</h5>
+            </>
+        );
     }
     
     return (
