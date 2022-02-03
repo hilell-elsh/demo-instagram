@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const ProfileWrapper = styled.div`
+export const Profile = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 `
 
-export const InfoWrapper = styled.div`
+export const Info = styled.div`
     width: 100%;
     height: 20vh;
     display: flex;
@@ -23,7 +23,7 @@ export const PostsWrapper = styled.div`
     border-top: 1px solid #dbdbdb;
 `
 
-export const LinksWrapper = styled.div`
+export const Links = styled.div`
     width: 20vw;
     display: flex;
     justify-content: space-around;

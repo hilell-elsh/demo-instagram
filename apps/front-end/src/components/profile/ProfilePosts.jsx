@@ -1,17 +1,23 @@
 import { Link } from 'react-router-dom'
-import MyPosts from './MyPosts'
-import { PostsWrapper, LinksWrapper, Posts } from './ProfileStyle'
+import UserPosts from './UserPosts'
+import { Links, Posts } from './ProfileStyle'
+import { useEffect } from 'react'
 
-export default function ProfilePosts() {
+export default function ProfilePosts({user}) {
+    let userPosts
+    useEffect( async() => {
+       userPosts = getUserPosts(user._id)  
+    }, [user])
+
     return (
         <PostsWrapper>
-            <LinksWrapper>
-                <Link to="/:username/profile/">POSTS</Link>
-                <Link to="/:username/profile/saved">SAVED</Link>
-                <Link to="/:username/profile/tagged">TAGGED</Link>
-            </LinksWrapper>
+            <Links>
+                <Link to="/:username/">POSTS</Link>
+                <Link to="/:username/saved">SAVED</Link>
+                <Link to="/:username/tagged">TAGGED</Link>
+            </Links>
             <Posts>
-                <MyPosts />
+                <UserPosts posts={userPosts}/>
             </Posts>
         </PostsWrapper>
     )

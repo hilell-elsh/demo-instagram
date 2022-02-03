@@ -3,57 +3,11 @@ import fetching from './basic-fetch'
 export function getUser(userId) {
     const path = `/${userId}`
     return fetchInit({ path })
+}
 
-    /* returned:
-    {
-        _id: String,
-        userBasicData: {
-            username: String,
-            profileImageSrc: String
-        },
-        additionalData: {
-            name: {
-                firstName: String,
-                lastName: String
-            },
-            email: String,
-            phone: String,
-            website: String,
-            bio: String,
-            gender: String,
-            followers: *Number*,
-            following: *Number*,
-            created: Date,
-        },
-        posts: {
-            postsAmount: Number,
-            firstPosts[{
-                _id: ObjectId,
-                author: {
-                    _id: ObjectId,
-                    username: String,
-                    profileImageSrc: String
-                },
-                text: String,
-                images: [String],
-                createdDate: Date,
-                location: String,
-                allowedComment: Boolean,
-                tags: [{
-                    _id: ObjectId,
-                    tagCode: Number,
-                    tagText: String,
-                    icon: String
-                }],
-                userTags: [{
-                    _id: ObjectId,
-                    username: String,
-                    profileImageSrc: String
-                }],
-            }]
-        }
-    }
-    */
+export function getUserByUsername(username) {
+    const path = `/${username}`
+    return fetchInit({ path })
 }
 
 export function getUserPosts(userId, skip = 0, limit = 10) {
