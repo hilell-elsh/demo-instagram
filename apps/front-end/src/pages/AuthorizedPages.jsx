@@ -12,20 +12,22 @@ export default function AuthorizedPages() {
     const dispatch = useDispatch()
     dispatch(setMyData())
     return (
-        <Switch>
-            {/* <Header /> */}
-            <Route exact path="/">
-                <PageFeed />
-            </Route>
-            <Route path="/:username">
-                <Profile />
-            </Route>
-            <Route path="/mailbox">
-                <Mailbox />
-            </Route>
-            <Route path="/settings">
-                <Settings />
-            </Route>
-        </Switch>
+        <>
+            <Header />
+            <Switch>
+                <Route exact path="/">
+                    <PageFeed />
+                </Route>
+                <Route path="/:username">
+                    <Profile />
+                </Route>
+                <Route path="/mailbox">
+                    <Mailbox />
+                </Route>
+                <Route path="/settings">
+                    <Settings />
+                </Route>
+            </Switch>
+        </>
     )
 }
