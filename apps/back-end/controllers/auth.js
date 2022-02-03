@@ -5,7 +5,11 @@ const { createToken, updateToken } = require('../services/auth')
 const ONE_MONTH = 30 * 24 * 60 * 60
 
 const signup = async (req, res) => {
+<<<<<<< HEAD
     console.log('signup request', req.body)
+=======
+    console.log('signup request', req.body);
+>>>>>>> 4d9000f (add signup in front)
     const user = req.body
     const firstName = user.fullname.split(' ')[0]
     const lastName = user.fullname.split(' ')[1]
