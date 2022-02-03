@@ -32,7 +32,7 @@ export default function SignUpForm() {
         })
         const newUser = await signup(signupData)
         if (newUser) {
-            window.location.pathname = '/login'
+            window.location.pathname = '/'
         }
     }
 
