@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon dev.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "cloudinary": "^1.28.1",

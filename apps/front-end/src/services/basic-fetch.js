@@ -1,8 +1,7 @@
-export default async function fetching({
-    path = '',
-    method = 'GET',
-    data = null,
-}) {
+import { store } from "../store"
+import { setIsUser } from "../store/user"
+
+export default async function fetching({ path = '', method = 'GET', data = null}) {
     path = `${path}`
     const options = {
         method: method,
@@ -17,6 +16,7 @@ export default async function fetching({
     return fetch(path, options)
         .then((res) => {
             if (res.statusCode === 401) {
+                store.dispatch(setIsUser(false))
                 throw new Error('You`r not Logged in yet')
             }
             return res.json()

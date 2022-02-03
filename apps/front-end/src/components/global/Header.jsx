@@ -2,12 +2,12 @@ import Avatar from '@mui/material/Avatar'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-import { getUser } from '../../services/user-data'
 import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from './HeaderStyle'
 import NewPostModal from './NewPostModal'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
-  const user = getUser()
+  const user = useSelector((state => state.user.user))
   const [isNewPostModal, setIsNewPostModal] = useState(false) 
 
   const headerAvatar = <Avatar 

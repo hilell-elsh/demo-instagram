@@ -21,18 +21,13 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        // setCurUser: (state, action) => {
-        //     state.user = action.payload
-        //     state.isUser = true
-        // }
+        setIsUser: (state, action) => {
+            state.isUser = action.payload
+        },
 
         clear: (state) => {
             state.user = {}
             state.isUser = false
-        },
-
-        setIsUser: (state, action) => {
-            state.isUser = action.payload
         }
     },
     extraReducers: (builder) => {
