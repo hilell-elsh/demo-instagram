@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Masonry from '@mui/lab/Masonry'
 import Stack from '@mui/material/Stack'
 
-import { getUser } from '../../services/user-data.js'
 import PostBanner from '../global/PostBanner'
 
 function PostStack({item, index}) {
@@ -33,22 +32,21 @@ function PostStack({item, index}) {
     )
 }
 
-export default function MyPosts() {
-    const location = useLocation()
-    const postLocation = location.pathname.split('/').slice(-1).toString()
+export default function UserPosts({posts}) {
+    const postLocation = useLocation().pathname.split('/').slice(-1).toString()
     let posts
 
     switch (postLocation) {
         case 'saved':
-            posts = getUser().profile.posts.savedPosts
+            posts = posts.savedPosts
             break
 
         case 'tagged':
-            posts = getUser().profile.posts.taggedPosts
+            posts = posts.taggedPosts
             break
 
         default:
-            posts = getUser().profile.posts.myPosts
+            posts = posts.myPosts
     }
 
 
