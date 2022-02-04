@@ -58,12 +58,6 @@ export async function toggleLikePost() {
     return fetchInit(path, (method = 'PUT'))
 }
 
-export function uploadImage(image) {
-    pass
-    // '/api/upload'
-    // method 'POST'
-}
-
 export function getPostLikes(postId, skip = 0, limit = 10) {
     const path = `/${postId}/likes?skip=${skip}&limit=${limit}`
     return fetchInit({path})
@@ -72,6 +66,25 @@ export function getPostLikes(postId, skip = 0, limit = 10) {
 export function savePost(postId) {
     const path = `/${postId}/save`
     fetchInit({path, method: 'PUT'})
+}
+
+export async function getImageLink(image) {
+    // '/api/upload'
+    // method 'POST'
+    return fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+            contentType: 'multipart/form-data'
+        },
+        body: image
+    }).then((res) => {
+        if (res.statusCode === 401) {
+            store.dispatch(setIsUser(false))
+            window.location.pathname = '/'
+            throw new Error('You`r not Logged in yet')
+        }
+        return res.json()
+    })
 }
 
 async function fetchInit({path = '', method = 'GET', data = null}) {

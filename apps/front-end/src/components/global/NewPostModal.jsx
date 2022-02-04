@@ -1,5 +1,7 @@
 import styled from 'styled-components'
-import { useRef } from 'react'
+import { useRef, useCallback } from 'react'
+import { useDispatch } from 'react-redux' 
+
 import {
     ModalBackdrop,
     ModalWrapper,
@@ -9,6 +11,8 @@ import {
     ExitButton,
 } from './ModalStyle'
 import { modalClose } from '../../store/modal'
+import { getImageLink } from '../../services/post-data'
+// import { image } from '../../../../back-end/services/cloudinary'
 
 const NewPostContent = styled(ModalContent)`
     justify-content: center;
@@ -20,20 +24,29 @@ const NewPostWrapper = styled(ModalWrapper)`
 `
 
 export default function NewPostModal({setIsNewPostModal}) {
+    const dispatch = useDispatch()
     const hiddenInput = useRef(null)
     const handleClick = () => {
         hiddenInput.current.click()
     }
 
-    const uploadImg = async (e) => {
-        const files = e.target.files
-        const data = new FormData()
-        data.append('file', files[0])
-        data.append('upload_preset', 'kilogram')
-        setLoading(true)
-        const res = await fetch('https://')
-    }
-    
+
+
+    const uploadImg = useCallback( async () => {
+        const filesToUpload = hiddenInput.current?.files
+        console.log(hiddenInput.current?.files.length);
+        const images = []
+        for (let i = 0; i < filesToUpload.length; i++) {
+            console.log(filesToUpload[i]);
+            const data = new FormData()
+            data.append('photo', filesToUpload[i])
+            console.log("file:", data);
+            images.push( await getImageLink(data))
+        }
+        console.log(images);
+        return images
+    }, [hiddenInput])
+
     return (
         <ModalBackdrop>
             <NewPostWrapper>
@@ -41,7 +54,7 @@ export default function NewPostModal({setIsNewPostModal}) {
                     <p>Create new post</p>
                     <ExitButton
                         className="fas fa-times"
-                        onClick={() => dispatch(modalClose())}
+                        onClick={() => setIsNewPostModal(false)}
                     ></ExitButton>
                 </ModalHeader>
                 <NewPostContent>
@@ -50,7 +63,7 @@ export default function NewPostModal({setIsNewPostModal}) {
                         style={{ fontSize: '10rem', color: 'rgb(209 209 209)' }}
                     ></i>
                     <h2 style={{ marginTop: '1rem' }}>
-                        Drag photos and videos here
+                        Drag photos here
                     </h2>
                     <UploadButton onClick={handleClick}>
                         Select from computer
@@ -60,7 +73,8 @@ export default function NewPostModal({setIsNewPostModal}) {
                         ref={hiddenInput}
                         name="picture"
                         style={{ display: 'none' }}
-                        onChange={uploadImg}
+                        onChange={() => uploadImg()}
+                        multiple
                     ></input>
                 </NewPostContent>
             </NewPostWrapper>
