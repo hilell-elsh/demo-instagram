@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema(
     {
         userBasicData: {
             username: { type: String, required: true, unique: true},
-            profileImageSrc: String,
+            profileImageSrc: {type: String, default: "https://res.cloudinary.com/dgc53weio/image/upload/v1644138048/mwjtchzv5iy9csbk6s5v.png"},
         },
         additionalData: {
             name: {
