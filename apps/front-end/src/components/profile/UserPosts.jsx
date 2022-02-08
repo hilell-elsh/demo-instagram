@@ -33,8 +33,8 @@ function PostStack({item, index}) {
 }
 
 export default function UserPosts({userPosts}) {
+    console.log(userPosts);
     const postLocation = useLocation().pathname.split('/').slice(-1).toString()
-
     let posts
     switch (postLocation) {
         case 'saved':
@@ -46,7 +46,7 @@ export default function UserPosts({userPosts}) {
             break
 
         default:
-            posts = userPosts.myPosts
+            posts = userPosts
     }
 
 

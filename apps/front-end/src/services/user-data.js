@@ -6,7 +6,7 @@ export function getUser(userId) {
 }
 
 export function getUserByUsername(username) {
-    const path = `/${username}`
+    const path = `/username/${username}`
     return fetchInit({ path })
 }
 

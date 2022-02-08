@@ -139,11 +139,9 @@ const getUserById = async (req, res, next) => {
 
 const getUserByUsername = async (req, res, next) => {
     const username = req.params.username
-    const user = await usersService.getUserByUsername(username)
-    req.username = username
-    if (user) {
-        req.user = user
-        req.username = req.user.userBasicData.username
+    const userId = await usersService.getUserIdByUsername(username)
+    if (userId) {
+        req.userId = userId
         next()
     } else {
         res.status(404).json({ message: 'User not found' }).end()

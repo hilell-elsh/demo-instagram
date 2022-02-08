@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getMe } from '../services/my-data'
 
-const defaultUser = {
+export const defaultUser = {
     "userBasicData": {
         "username": "username",
-        
+        "profileImageSrc": ""
     },
     "additionalData": {
         "name": {

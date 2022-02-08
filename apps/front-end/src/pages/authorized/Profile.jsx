@@ -1,36 +1,32 @@
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 import ProfileInfo from '../../components/profile/ProfileInfo'
 import ProfilePosts from '../../components/profile/ProfilePosts'
 import { Profile } from '../../components/profile/ProfileStyle.jsx'
 import { getUserByUsername } from '../../services/user-data'
+import { defaultUser } from '../../store/user'
 
 export default function ProfilePage() {
-    const [user, setUser] = useState()
     const { username } = useParams()
-    const loggedInUsername = useSelector(
-        (state) => state.user.user.userBasicData.username
-    )
+    const loggedInUser = useSelector((state) => state.user.user)
+    const [user, setUser] = useState({ ...defaultUser })
 
-    const getOtherUser = async () => {
-        const res = await getUserByUsername(username)
-        setUser(res)
-    }
-
-    if (username === loggedInUsername) {
-        setUser(useSelector((state) => state.user.user))
+    if (username === loggedInUser.userBasicData.username) {
+        setUser({ ...loggedInUser })
     } else {
         useEffect(() => {
-            getOtherUser(username)
+            ;(async () => {
+                setUser(await getUserByUsername(username))
+            })()
         }, [])
     }
 
     return (
         <Profile>
-            <ProfileInfo user={user}/>
-            <ProfilePosts user={user}/>
+            <ProfileInfo user={user} />
+            <ProfilePosts user={user} />
         </Profile>
     )
 }
