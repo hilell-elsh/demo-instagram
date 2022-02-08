@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-import { Header, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from './HeaderStyle'
+import {
+    Header,
+    HeaderLogo,
+    HeaderSearch,
+    HeaderNav,
+    HeaderButton,
+} from './HeaderStyle'
 import NewPostModal from './NewPostModal'
 
 export default function Header() {
@@ -17,10 +23,7 @@ export default function Header() {
   src={user.userBasicData.profileImageSrc}
   sx={{ width: 36, height: 36, cursor: "pointer"}}
   />
-  
-
-
-
+ 
   return (
       <Header>
         <HeaderLogo>
