@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
+import { CircularProgress } from '@mui/material'
 
 import { Username, Info, Button, Count } from './ProfileStyle'
 import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
-export default function ProfileInfo({user}) {
-    console.log(user);
+export default function ProfileInfo({ user }) {
     const userProfilePic = user.userBasicData.profileImageSrc
     const userAvatar = (
         <Avatar
-            alt={'https://freesvg.org/img/abstract-user-flat-1.png'}
+            alt={user.userBasicData.username}
             src={userProfilePic}
             sx={{ width: 164, height: 164 }}
         />
