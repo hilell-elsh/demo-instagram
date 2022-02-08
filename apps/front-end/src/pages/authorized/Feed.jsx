@@ -1,37 +1,38 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Feed from "../../components/FeedPost";
-import {getFeed} from "../../services/feed-data"
-
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import Feed from '../../components/FeedPost'
+import { getFeed } from '../../services/feed-data'
 
 export default function PageFeed() {
     const [feed, setFeed] = useState([])
     useEffect(() => {
         void (async () => {
             setFeed(await getFeed())
-        })();
+        })()
     }, [])
-    console.log("feed")
+    console.log('feed')
     console.log(feed)
 
     // I don`t think this if will come to using
     if (feed === undefined) {
-        return null;
+        return null
     }
-    if (feed.length===0) { // empty feed
+    if (feed.length === 0) {
+        // empty feed
         return (
-            <>
-                <h5>YOU HAVE NO FRIENDS</h5>
-                <Link to="/charmander">link</Link>
-            </>
-        );
+            <img
+                src="https://cdn.dribbble.com/users/1186261/screenshots/3718681/media/1df2396f1eaa146bcb7dd3e73c1dc77b.gif"
+                style={{ margin: '0 auto', display: 'block' }}
+            />
+        )
     }
-    
+
     return (
         <>
-            <h5>FEED</h5>
-            <div>
-                {feed.map( contentItem => {return <Feed contentItem={contentItem} />})}
+            <div style={{ width: '70vw', margin: '0 auto' }}>
+                {feed.map((contentItem) => {
+                    return <Feed contentItem={contentItem} />
+                })}
             </div>
         </>
     )
