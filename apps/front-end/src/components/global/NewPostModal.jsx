@@ -51,6 +51,7 @@ export default function NewPostModal({setIsNewPostModal}) {
                             setStage={setStage}
                         />
                         : <NewPostWrite 
+                            setIsNewPostModal={setIsNewPostModal}
                             imagesUrls={imagesUrls}
                             imagesAmount={imagesAmount}
                         />}
