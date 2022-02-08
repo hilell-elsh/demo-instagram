@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from './HeaderStyle'
+import { Header, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from './HeaderStyle'
 import NewPostModal from './NewPostModal'
 
 export default function Header() {
@@ -22,7 +22,7 @@ export default function Header() {
 
 
   return (
-      <HeaderWrapper>
+      <Header>
         <HeaderLogo>
           <Link to="/">Kilogram</Link>
         </HeaderLogo>
@@ -60,6 +60,6 @@ export default function Header() {
             <i className="fas fa-sign-out-alt"></i>
           </HeaderButton>
         </HeaderNav>
-      </HeaderWrapper>
+      </Header>
   )  
 }
