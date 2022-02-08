@@ -88,6 +88,6 @@ export async function getImageLink(image) {
 }
 
 async function fetchInit({path = '', method = 'GET', data = null}) {
-    path = `/posts${path}`
-    return await fetching(path, method, data)
+    path = `/api/posts${path}`
+    return await fetching({path, method, data})
 }
