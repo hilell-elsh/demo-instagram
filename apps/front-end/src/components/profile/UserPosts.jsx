@@ -16,9 +16,9 @@ function PostStack({item, index}) {
             onMouseLeave={() => setIsBanner(false)}
             >
                     <img
-                        src={`${item.img}?w=162&auto=format`}
-                        srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-                        alt={item.title}
+                        src={`${item.images[0]}?w=162&auto=format`}
+                        srcSet={`${item.images[0]}?w=162&auto=format&dpr=2 2x`}
+                        alt={item.text}
                         loading="lazy"
                         style={{ borderBottomLeftRadius: 4,
                             borderBottomRightRadius: 4,
@@ -33,7 +33,6 @@ function PostStack({item, index}) {
 }
 
 export default function UserPosts({userPosts}) {
-    console.log(userPosts);
     const postLocation = useLocation().pathname.split('/').slice(-1).toString()
     let posts
     switch (postLocation) {

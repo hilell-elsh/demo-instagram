@@ -23,6 +23,7 @@ export const PostsWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     border-top: 1px solid #dbdbdb;
+    width: 100%;
 `
 
 export const Links = styled.div`
