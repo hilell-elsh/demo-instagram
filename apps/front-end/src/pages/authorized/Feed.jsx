@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Feed from "../../components/FeedPost";
 import {getFeed} from "../../services/feed-data"
 
@@ -21,6 +22,7 @@ export default function PageFeed() {
         return (
             <>
                 <h5>YOU HAVE NO FRIENDS</h5>
+                <Link to="/charmander">link</Link>
             </>
         );
     }

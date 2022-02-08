@@ -16,6 +16,10 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#root {
+    width: -webkit-fill-available;
+}
+
 a {
     text-decoration: none;
 }

@@ -14,7 +14,7 @@ function getUser(userId) {
 }
 
 function getUserByUsername(username) {
-    return UserModel.finedOn(username)
+    return UserModel.findOne(username)
 }
 
 function getUsers(query = {}) {

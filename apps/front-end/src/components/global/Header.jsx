@@ -11,6 +11,8 @@ import {
     HeaderButton,
 } from './HeaderStyle'
 import NewPostModal from './NewPostModal'
+import { clear } from '../../store/user'
+import { logout } from '../../services/auth-service'
 
 export default function Header() {
   const isLoading = useSelector((state => state.user.loading))
