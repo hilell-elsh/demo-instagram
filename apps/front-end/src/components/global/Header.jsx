@@ -1,20 +1,25 @@
 import Avatar from '@mui/material/Avatar'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-import { getUser } from '../../services/user-data'
 import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderNav, HeaderButton } from './HeaderStyle'
 import NewPostModal from './NewPostModal'
 
 export default function Header() {
-  const userProfile = getUser().profile
+  const isLoading = useSelector((state => state.user.loading))
   const [isNewPostModal, setIsNewPostModal] = useState(false) 
-
+  
+  const user = useSelector((state => state.user.user))
+  
   const headerAvatar = <Avatar 
-    alt={userProfile.name.firstName + " " + userProfile.name.lastName}
-    src={userProfile.image.src}
-    sx={{ width: 36, height: 36, cursor: "pointer"}}
+  alt={user.additionalData.name.firstName + " " + user.additionalData.name.lastName}
+  src={user.userBasicData.profileImageSrc}
+  sx={{ width: 36, height: 36, cursor: "pointer"}}
   />
+  
+
+
 
   return (
       <HeaderWrapper>
@@ -47,7 +52,8 @@ export default function Header() {
               <i className="far fa-heart" />
             </Link>
           </HeaderButton>
-          <Link to="profile">
+          {/* <Link to={`/${user.userBasicData.username}`}> */}
+          <Link to={`/${user.userBasicData.username}`}>
             {headerAvatar}
           </Link>
           <HeaderButton >

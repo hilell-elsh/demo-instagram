@@ -5,23 +5,28 @@ const { createToken, updateToken } = require('../services/auth')
 const ONE_MONTH = 30 * 24 * 60 * 60
 
 const signup = async (req, res) => {
-    console.log('signup request', req.body);
+    console.log('signup request', req.body)
     const user = req.body
     const firstName = user.fullname.split(' ')[0]
     const lastName = user.fullname.split(' ')[1]
 
-    const newUser = await usersService.createUser({
-        userBasicData: {
-            username: user.username,
-        },
-        additionalData: {
-            email: user.email,
-            name: {
-                firstName: firstName,
-                lastName: lastName,
+    try {
+        const newUser = await usersService.createUser({
+            userBasicData: {
+                username: user.username,
             },
-        },
-    })
+            additionalData: {
+                email: user.email,
+                name: {
+                    firstName: firstName,
+                    lastName: lastName,
+                },
+            },
+        })
+    } catch (err) {
+        console.log('error creating user', err);
+        res.json({ error: err }).status(409).end();        
+    }
 
     authService.createAuth({ userId: newUser._id, password: user.password })
 
@@ -33,6 +38,7 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+    console.log('login request');
     const loginData = req.body
     const user = await usersService
         .getUsers({ 'userBasicData.username': loginData.username })
@@ -51,9 +57,9 @@ const login = async (req, res) => {
             exp: Date.now() + ONE_MONTH,
             httpOnly: true,
         })
-        res.json('token').status(200).end()
+        res.json(true).status(200).end()
     } else {
-        res.json('error').status(401).end()
+        res.json(false).status(401).end()
     }
 }
 

@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema(
         text: { type: String, required: true },
         images: { type: [String], required: true },
         createdDate: { type: Date, default: Date.now },
-        location: String,
+        location: {type: String, default: ''},
         allowedComment: { type: Boolean, default: true, required: true },
         tags: [{ type: ObjectId, ref: 'Tag' }],
         userTags: [{ type: ObjectId, ref: 'User' }],
@@ -15,9 +15,9 @@ const PostSchema = new mongoose.Schema(
     { toObject: { virtuals: true }, toJSON: { virtuals: true } }
 )
 
-PostSchema.virtual('tagsCount').get(function () {
-    return this.tags.length
-})
+// PostSchema.virtual('tagsCount').get(function () {
+//     return this.tags.length
+// })
 
 const PostModel = mongoose.model('Post', PostSchema)
 

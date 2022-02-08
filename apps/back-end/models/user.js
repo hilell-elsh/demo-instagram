@@ -6,8 +6,8 @@ const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const UserSchema = new mongoose.Schema(
     {
         userBasicData: {
-            username: { type: String, required: true },
-            profileImageSrc: String,
+            username: { type: String, required: true, unique: true},
+            profileImageSrc: {type: String, default: "https://res.cloudinary.com/dgc53weio/image/upload/v1644138048/mwjtchzv5iy9csbk6s5v.png"},
         },
         additionalData: {
             name: {
@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema(
             email: {
                 type: String,
                 required: true,
+                unique: true
                 // validate: emailRegex.test
             },
             phone: String,

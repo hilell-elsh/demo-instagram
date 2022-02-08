@@ -1,14 +1,12 @@
-export default async function fetching({
-    path = '',
-    method = 'GET',
-    data = null,
-}) {
+import { store } from "../store"
+import { setIsUser } from "../store/user"
+
+export default async function fetching({ path = '', method = 'GET', data = null}) {
     path = `${path}`
     const options = {
         method: method,
         headers: new Headers({
-            'user-id': '61e43fdd5f5ab74cebc66d50'
-        })
+        }),
     }
     if (!!data && Object.keys(data).length) {
         options.headers.append('Content-Type', 'application/json')
@@ -16,6 +14,12 @@ export default async function fetching({
     }
 
     return fetch(path, options)
-        .then((res) => res.json())
-        .catch((err) => console.log('ERROR: ' + err))
+        .then((res) => {
+            if (res.statusCode === 401) {
+                store.dispatch(setIsUser(false))
+                window.location.pathname = '/'
+                throw new Error('You`r not Logged in yet')
+            }
+            return res.json()
+        })
 }

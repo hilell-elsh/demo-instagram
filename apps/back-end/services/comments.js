@@ -1,7 +1,8 @@
 const CommentModel = require('../models/comment')
+const likesService = require('../services/likes')
 
-function createComment(data) {
-    const newComment = new CommentModel(data)
+function createCommentsInstance(postId) {
+    const newComment = new CommentModel({postId: postId})
     return newComment.save()
 }
 
@@ -13,20 +14,33 @@ function getComment(commentId) {
     return CommentModel.findById(commentId)
 }
 
+function getComments(query = {}) {
+    return CommentModel.find({ query })
+}
+
 async function getCommentsAmount(postId) {
     const amount = await CommentModel.find({ postId: postId }).count().exec()
     console.log(`comment services > getCommentsAmount > amount: ${amount}`)
     return amount
 }
 
-function deletePost(postId) {
-    return CommentModel.deleteMany({ postId: postId })
+async function deleteComment(query = {}) {
+    await CommentModel.find(query)
+        .select('_id')
+        .exec()
+        .then((res) => {
+            res.map((commentId) => {
+                likesService.deleteLikes({commentId: commentId})
+                CommentModel.findByIdAndDelete(commentId)                
+            })
+        })
 }
 
 module.exports = {
-    createComment,
+    createCommentsInstance,
     getPostComments,
     getComment,
     getCommentsAmount,
-    deletePost,
+    deleteComment,
+    getComments,
 }
