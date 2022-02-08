@@ -9,14 +9,11 @@ import { getUserByUsername } from '../../services/user-data'
 
 export default function ProfilePage() {
     const { username } = useParams()
-    const abc = useSelector(
-        (state) => state.user.user
-        )
-        console.log(abc);
     const loggedInUsername = useSelector(
         (state) => state.user.user.userBasicData.username
     )
 
+    let user
     if (username === loggedInUsername) {
         user = useSelector((state) => state.user.user)
     } else {

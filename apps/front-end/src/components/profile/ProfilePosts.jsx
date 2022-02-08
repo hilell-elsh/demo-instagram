@@ -1,13 +1,21 @@
 import { Link } from 'react-router-dom'
-import UserPosts from './UserPosts'
-import { Links, Posts } from './ProfileStyle'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function ProfilePosts({user}) {
-    let userPosts
-    useEffect( async() => {
-       userPosts = getUserPosts(user._id)  
-    }, [user])
+import { Links, Posts, PostsWrapper } from './ProfileStyle'
+import { getUserPosts } from '../../services/user-data'
+import UserPosts from './UserPosts'
+
+export default function ProfilePosts({ user }) {
+    const [userPosts, setUserPosts] = useState({
+        myPosts: [],
+        taggedPosts: [],
+        savedPosts: [],
+    })
+    useEffect(() => {
+        void (async () => {
+            setUserPosts(await getUserPosts(user._id))
+        })()
+    }, [])
 
     return (
         <PostsWrapper>
@@ -17,7 +25,7 @@ export default function ProfilePosts({user}) {
                 <Link to="/:username/tagged">TAGGED</Link>
             </Links>
             <Posts>
-                <UserPosts posts={userPosts}/>
+                <UserPosts userPosts={userPosts} />
             </Posts>
         </PostsWrapper>
     )

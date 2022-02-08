@@ -20,6 +20,10 @@ a {
     text-decoration: none;
 }
 
+a:visited {
+    color: black;
+}
+
 ::-webkit-scrollbar {
     width: 17px;
 }

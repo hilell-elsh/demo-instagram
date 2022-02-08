@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Logo } from "../form/FormStyle"
 
-export const Header = styled.div`
+export const HeaderWrapper = styled.div`
     position: sticky;
     inset: 0 0 auto 0;
     height: 7vh;
