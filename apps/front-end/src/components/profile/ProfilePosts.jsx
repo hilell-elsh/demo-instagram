@@ -6,16 +6,13 @@ import { getUserPosts } from '../../services/user-data'
 import UserPosts from './UserPosts'
 
 export default function ProfilePosts({ user }) {
-    const [userPosts, setUserPosts] = useState({
-        myPosts: [],
-        taggedPosts: [],
-        savedPosts: [],
-    })
+    const [userPosts, setUserPosts] = useState([])
     useEffect(() => {
-        void (async () => {
-            setUserPosts(await getUserPosts(user._id))
-        })()
-    }, [])
+        getUserPosts(user._id).then((res) => {
+            console.log(res);
+            setUserPosts(res)
+        })
+    }, [user])
 
     return (
         <PostsWrapper>

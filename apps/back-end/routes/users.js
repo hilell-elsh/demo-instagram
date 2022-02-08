@@ -16,7 +16,7 @@ const {
 const usersRouter = Router()
 usersRouter
     .get('/api/users/:userId', getUserById, getUser)
-    .get('/api/users/:username', getUserByUsername, getUser)
+    .get('/api/users/username/:username', getUserByUsername, getUser)
     .put('/api/users/:userId/follow', getUserById, toggleFollowUser)
     .get('/api/users/:userId/posts', getUserById, getLimitParams, getUserPosts)
     .get(

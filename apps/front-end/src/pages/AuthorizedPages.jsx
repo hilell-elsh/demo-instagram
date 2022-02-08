@@ -11,8 +11,8 @@ import Header from '../components/global/Header'
 
 export default function AuthorizedPages() {
     const dispatch = useDispatch()
-    useEffect( async () => {
-        await dispatch(setMyData())
+    useEffect(() => {
+        dispatch(setMyData())
     }, [])
     return (
         <>

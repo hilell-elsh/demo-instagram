@@ -13,8 +13,8 @@ function getUser(userId) {
     return UserModel.findById(userId)
 }
 
-function getUserByUsername(username) {
-    return UserModel.findOne(username)
+function getUserIdByUsername(username) {
+    return UserModel.findOne({'userBasicData.username': username}).select('_id')
 }
 
 function getUsers(query = {}) {
@@ -110,5 +110,5 @@ module.exports = {
     getUserPosts,
     getUserFollowers,
     getUserFollowing,
-    getUserByUsername,
+    getUserIdByUsername,
 }
