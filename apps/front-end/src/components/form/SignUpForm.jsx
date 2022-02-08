@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom"
-import { useRef } from "react"
-import styled from "styled-components"
-import { signup } from "../../services/auth-service"
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import styled from 'styled-components'
+import { signup } from '../../services/auth-service'
 
-import { Logo, FormInput, SignUpLink, FormWrapper, FormButton } from "./FormStyle"
+import {
+    Logo,
+    Form,
+    FormInput,
+    SignUpLink,
+    FormWrapper,
+    FormButton,
+} from './FormStyle'
 
 const SecondaryTitle = styled.h2`
     font-size: 18px;
@@ -18,9 +25,8 @@ const SmallText = styled.p`
 `
 
 export default function SignUpForm() {
-
     async function signupHandler(event) {
-        event.preventDefault();
+        event.preventDefault()
         const data = new FormData(event.target)
         data.set('email', data.get('email'))
         data.set('fullname', data.get('fullname'))
@@ -36,21 +42,68 @@ export default function SignUpForm() {
         }
     }
 
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    function toggleVisibility() {
+        setPasswordVisible(!passwordVisible)
+    }
+
     return (
-        <>
-            <FormWrapper onSubmit={signupHandler}>
+        <FormWrapper>
+            <Form onSubmit={signupHandler}>
                 <Logo>Kilogram</Logo>
-                <SecondaryTitle>No photos of people "training" in <br/> the gym on this app...</SecondaryTitle>
-                <FormInput type="email" name="email" placeholder="Email" required />
-                <FormInput type="text" name="fullname" placeholder="Full Name" required />
-                <FormInput type="text" name="username" placeholder="Username" required />
-                <FormInput type="password" name="password" placeholder="Password" required />
+                <SecondaryTitle>
+                    No photos of people "training" in <br /> the gym on this
+                    app...
+                </SecondaryTitle>
+                <label>
+                    <FormInput
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                    />
+                </label>
+                <label>
+                    <FormInput
+                        type="text"
+                        name="fullname"
+                        placeholder="Full Name"
+                        required
+                    />
+                </label>
+                <label>
+                    <FormInput
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        required
+                    />
+                </label>
+                <label>
+                    <FormInput
+                        type={passwordVisible ? 'text' : 'password'}
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
+                    <i
+                        className={
+                            passwordVisible ? 'far fa-eye' : 'far fa-eye-slash'
+                        }
+                        onClick={() => toggleVisibility()}
+                    ></i>
+                </label>
                 <FormButton type="submit">Sign Up</FormButton>
-                <SmallText>By signing up you agree to our Terms,<br/> Data Policy and Cookies Policy.</SmallText>
-            </FormWrapper>
+                <SmallText>
+                    By signing up you agree to our Terms,
+                    <br /> Data Policy and Cookies Policy.
+                </SmallText>
+            </Form>
             <SignUpLink>
-                <p>Have an account? <Link to="/login">Log in</Link></p>
+                <p>
+                    Have an account? <Link to="/login">Log in</Link>
+                </p>
             </SignUpLink>
-        </>
+        </FormWrapper>
     )
 }

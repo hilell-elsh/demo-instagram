@@ -16,8 +16,16 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#root {
+    width: -webkit-fill-available;
+}
+
 a {
     text-decoration: none;
+}
+
+a:visited {
+    color: black;
 }
 
 ::-webkit-scrollbar {
@@ -25,12 +33,11 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px blue;
+    box-shadow: inset 0 0 15px rgb(165, 165, 165);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 15px purple;
+    box-shadow: inset 0 0 15px rgb(87, 87, 87);
     border-radius: 10px;
-    border: 2px solid;
 }

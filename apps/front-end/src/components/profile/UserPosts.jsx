@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Masonry from '@mui/lab/Masonry'
 import Stack from '@mui/material/Stack'
 
-import { getUser } from '../../services/user-data.js'
 import PostBanner from '../global/PostBanner'
 
 function PostStack({item, index}) {
@@ -17,9 +16,9 @@ function PostStack({item, index}) {
             onMouseLeave={() => setIsBanner(false)}
             >
                     <img
-                        src={`${item.img}?w=162&auto=format`}
-                        srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-                        alt={item.title}
+                        src={`${item.images[0]}?w=162&auto=format`}
+                        srcSet={`${item.images[0]}?w=162&auto=format&dpr=2 2x`}
+                        alt={item.text}
                         loading="lazy"
                         style={{ borderBottomLeftRadius: 4,
                             borderBottomRightRadius: 4,
@@ -33,22 +32,20 @@ function PostStack({item, index}) {
     )
 }
 
-export default function MyPosts() {
-    const location = useLocation()
-    const postLocation = location.pathname.split('/').slice(-1).toString()
+export default function UserPosts({userPosts}) {
+    const postLocation = useLocation().pathname.split('/').slice(-1).toString()
     let posts
-
     switch (postLocation) {
         case 'saved':
-            posts = getUser().profile.posts.savedPosts
+            posts = userPosts.savedPosts
             break
 
         case 'tagged':
-            posts = getUser().profile.posts.taggedPosts
+            posts = userPosts.taggedPosts
             break
 
         default:
-            posts = getUser().profile.posts.myPosts
+            posts = userPosts
     }
 
 

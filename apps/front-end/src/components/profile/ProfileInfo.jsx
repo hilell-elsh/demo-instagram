@@ -1,32 +1,17 @@
-import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
+import { CircularProgress } from '@mui/material'
 
-import { Username, InfoWrapper, Button, Count } from './ProfileStyle'
-import { getUser } from '../../services/user-data'
+import { Username, Info, Button, Count } from './ProfileStyle'
 import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
 
-export default function ProfileInfo() {
-    // const [user, setUser] = useState({})
-    const isloggedIn = useSelector((state) => state.user.isUser)
-    if (isloggedIn) {
-        user = useSelector((state) => state.user.user)
-    } else {
-        useEffect(async () => {
-            setUser(await getUser('61e3f85b5f5ab74cebc66d4e'))
-        }, [])
-    }
-
+export default function ProfileInfo({ user }) {
     const userProfilePic = user.userBasicData.profileImageSrc
     const userAvatar = (
         <Avatar
-            alt={
-                user.additionalData.name.firstName +
-                ' ' +
-                user.additionalData.name.lastName
-            }
+            alt={user.userBasicData.username}
             src={userProfilePic}
             sx={{ width: 164, height: 164 }}
         />
@@ -36,7 +21,7 @@ export default function ProfileInfo() {
     const dispatch = useDispatch()
 
     return (
-        <InfoWrapper>
+        <Info>
             {userAvatar}
             <Username>{user.userBasicData.username}</Username>
             <Count>
@@ -51,9 +36,10 @@ export default function ProfileInfo() {
                 <span onClick={() => dispatch(modalOpen())}>following</span>
             </Count>
             {isModal && <FollowerModal title={title} />}
-            <Link to="/:username/settings">
+            {/* if not user, change to follow/unfollow button */}
+            <Link to="/settings">
                 <Button>Edit Profile</Button>
             </Link>
-        </InfoWrapper>
+        </Info>
     )
 }

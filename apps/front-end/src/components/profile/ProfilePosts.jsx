@@ -1,17 +1,30 @@
-import { Link } from 'react-router-dom'
-import MyPosts from './MyPosts'
-import { PostsWrapper, LinksWrapper, Posts } from './ProfileStyle'
+import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
-export default function ProfilePosts() {
+import { Links, Posts, PostsWrapper } from './ProfileStyle'
+import { getUserPosts } from '../../services/user-data'
+import UserPosts from './UserPosts'
+
+export default function ProfilePosts({ user }) {
+    const { username } = useParams()
+    const [userPosts, setUserPosts] = useState(user.posts.firstPosts)
+
+    useEffect(() => {
+        getUserPosts(user._id).then((res) => {
+            setUserPosts(res)
+        })
+    }, [username])
+    console.log(userPosts)
+    
     return (
         <PostsWrapper>
-            <LinksWrapper>
-                <Link to="/:username/profile/">POSTS</Link>
-                <Link to="/:username/profile/saved">SAVED</Link>
-                <Link to="/:username/profile/tagged">TAGGED</Link>
-            </LinksWrapper>
+            <Links>
+                <Link to="/:username/">POSTS</Link>
+                <Link to="/:username/saved">SAVED</Link>
+                <Link to="/:username/tagged">TAGGED</Link>
+            </Links>
             <Posts>
-                <MyPosts />
+                <UserPosts userPosts={userPosts} />
             </Posts>
         </PostsWrapper>
     )

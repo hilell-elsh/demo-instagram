@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
-export const ProfileWrapper = styled.div`
+export const Profile = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 70vw;
+    margin: auto;
 `
 
-export const InfoWrapper = styled.div`
+export const Info = styled.div`
     width: 100%;
     height: 20vh;
     display: flex;
@@ -21,9 +23,10 @@ export const PostsWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     border-top: 1px solid #dbdbdb;
+    width: 100%;
 `
 
-export const LinksWrapper = styled.div`
+export const Links = styled.div`
     width: 20vw;
     display: flex;
     justify-content: space-around;
