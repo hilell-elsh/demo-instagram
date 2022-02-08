@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
-export const FormWrapper = styled.form`
+export const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+export const Form = styled.form`
     min-width: 25vw;
     margin-top: 20vh;
     padding: 10px;
@@ -9,8 +15,19 @@ export const FormWrapper = styled.form`
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+
+    && label {
+        width: 80%;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    && i {
+        position: absolute;
+        right: 10px;
+    }
 `
 export const Logo = styled.h1`
     font-family: billabong;
@@ -21,7 +38,7 @@ export const Logo = styled.h1`
 `
 
 export const FormInput = styled.input`
-    width: 80%;
+    flex-grow: 1;
     padding: 10px;
     margin-bottom: 5px;
     border: 1px solid #eaeaea;
@@ -46,6 +63,7 @@ export const FormButton = styled.button`
     }
 `
 export const SignUpLink = styled.div`
+    max-width: 25vw;
     display: flex;
     justify-content: center;
     margin-top: 30px;

@@ -5,6 +5,8 @@ export const Profile = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 70vw;
+    margin: auto;
 `
 
 export const Info = styled.div`

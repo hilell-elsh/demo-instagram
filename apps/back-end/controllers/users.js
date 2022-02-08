@@ -32,29 +32,6 @@ const getUser = async (req, res) => {
     res.json(user).status(200).end()
 }
 
-const getUserByUsername = async (req, res) => {
-    const user = await usersService.getUserByUsername(req.username).lean()
-
-    user.additionalData.following = user.additionalData.following.length
-    user.additionalData.followers = await usersService
-        .getUsers({ 'additionalData.following': user._id })
-        .count()
-        .exec()
-
-    user.posts = {
-        postsAmount: await postsService
-            .getPosts({ author: user._id })
-            .count()
-            .exec(),
-        firstPosts: await usersService.getUserPosts({
-            userId: user._id,
-            limit: 15,
-        }),
-    }
-
-    res.json(user).status(200).end()
-}
-
 const toggleFollowUser = (req, res) => {
     console.log(
         `user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(
@@ -154,6 +131,19 @@ const getUserById = async (req, res, next) => {
     if (user) {
         req.user = user
         req.userId = req.user._id
+        next()
+    } else {
+        res.status(404).json({ message: 'User not found' }).end()
+    }
+}
+
+const getUserByUsername = async (req, res, next) => {
+    const username = req.params.username
+    const user = await usersService.getUserByUsername(username)
+    req.username = username
+    if (user) {
+        req.user = user
+        req.username = req.user.userBasicData.username
         next()
     } else {
         res.status(404).json({ message: 'User not found' }).end()
