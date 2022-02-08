@@ -32,21 +32,21 @@ function PostStack({item, index}) {
     )
 }
 
-export default function UserPosts({posts}) {
+export default function UserPosts({userPosts}) {
     const postLocation = useLocation().pathname.split('/').slice(-1).toString()
-    let posts
 
+    let posts
     switch (postLocation) {
         case 'saved':
-            posts = posts.savedPosts
+            posts = userPosts.savedPosts
             break
 
         case 'tagged':
-            posts = posts.taggedPosts
+            posts = userPosts.taggedPosts
             break
 
         default:
-            posts = posts.myPosts
+            posts = userPosts.myPosts
     }
 
 

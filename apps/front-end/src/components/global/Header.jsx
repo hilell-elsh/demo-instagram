@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 import {
-    Header,
+    HeaderWrapper,
     HeaderLogo,
     HeaderSearch,
     HeaderNav,

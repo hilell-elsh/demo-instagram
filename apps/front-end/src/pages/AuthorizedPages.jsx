@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 import { setMyData } from '../store/user'
 import PageFeed from './authorized/Feed'
@@ -10,7 +11,9 @@ import Header from '../components/global/Header'
 
 export default function AuthorizedPages() {
     const dispatch = useDispatch()
-    dispatch(setMyData())
+    useEffect( async () => {
+        await dispatch(setMyData())
+    }, [])
     return (
         <>
             <Header />
