@@ -14,7 +14,7 @@ const postsRouter = Router()
 
 postsRouter
     .post('/api/posts', createPost)
-    .get('/api/posts', )
+    // .get('/api/posts', getMyPosts)
     .get('/api/posts/:postId', getPostById, getPost)
     .put('/api/posts/:postId', getPostById, updatePost)
     .delete('/api/posts/:postId', getPostById, deletePost)
