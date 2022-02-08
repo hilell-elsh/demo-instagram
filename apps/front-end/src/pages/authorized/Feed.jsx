@@ -17,7 +17,6 @@ export default function PageFeed() {
     if (feed === undefined) {
         return null;
     }
-
     if (feed.length===0) { // empty feed
         return (
             <>
