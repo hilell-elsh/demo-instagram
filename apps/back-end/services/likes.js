@@ -1,14 +1,12 @@
 const LikeModel = require('../models/like')
 
 async function getLikesAmount(postId, commentId = null) {
-    const amount = await LikeModel.find({
+    const likes = await LikeModel.findOne({
         postId: postId,
         commentId: commentId,
-    })
-        .count()
-        .exec()
-    console.log(`like services > getLikesAmount > amount: ${amount}`)
-    return amount
+    }).lean()
+    console.log(`like services > getLikesAmount > likes:`, likes.users.length)
+    return likes.users.length
 }
 
 function toggleLike({ userId, postId, commentId = null }) {
