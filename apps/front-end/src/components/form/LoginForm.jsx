@@ -12,18 +12,14 @@ import {
     FormButton,
 } from './FormStyle'
 import { login } from "../../services/auth-service"
-import { getMe } from "../../services/my-data"
-import { setIsUser } from '../../store/user'
-import { store } from '../../store'
+import { setIsUser, setMyData } from '../../store/user'
 
 const SmallLink = styled.p`
     font-size: 12px;
     `
 
 export default function LoginForm() {
-    const state = store.getState();
     const dispatch = useDispatch()
-    const stateUser = useSelector((state) => state.user.user)
     async function loginHandler(event) {
         event.preventDefault();
         const data = new FormData(event.target)
@@ -35,12 +31,8 @@ export default function LoginForm() {
         })
         const isUser = await login(loginData)
         if (isUser) {
-            // const user = await getMe()
-            // console.log(user);
+            dispatch(setMyData())
             dispatch(setIsUser(true))
-            console.log('state.user')
-            // console.log(store.getState().user);
-            // console.log(stateUser);
         }
     }
 
