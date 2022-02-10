@@ -137,6 +137,17 @@ const getUserById = async (req, res, next) => {
     }
 }
 
+const getUserByUsername = async (req, res, next) => {
+    const username = req.params.username
+    const userId = await usersService.getUserIdByUsername(username)
+    if (userId) {
+        req.userId = userId
+        next()
+    } else {
+        res.status(404).json({ message: 'User not found' }).end()
+    }
+}
+
 module.exports = {
     getUser,
     getUserPosts,
@@ -147,4 +158,5 @@ module.exports = {
     getUserById,
     getUserFollowing,
     getUserFollowers,
+    getUserByUsername,
 }

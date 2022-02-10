@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getMe } from '../services/my-data'
 
-const defaultUser = {
+export const defaultUser = {
     "userBasicData": {
         "username": "username",
-        
+        "profileImageSrc": ""
     },
     "additionalData": {
         "name": {
@@ -15,7 +15,33 @@ const defaultUser = {
         "email": "email",
         "followers": 0,
         "following": 0,
-        "created": new Date(0)
+        "created": Date.now()
+    },
+    "posts": {
+        "myPosts": [],
+        "taggedPosts": [],
+        "savedPosts": [],
+        "postsAmount": 0,
+        "firstPosts": []
+    },
+    "_id": "0",
+    "__v": 0,
+    "id": "0"
+}
+
+export const loadingUser = {
+    "userBasicData": {
+        "username": "username",
+        "profileImageSrc": "https://i.stack.imgur.com/MEBIB.gif"
+    },
+    "additionalData": {
+        "name": {
+            "firstName": "firstName",
+            "lastName": "lastName"
+        },
+        "email": "email",
+        "followers": 0,
+        "following": 0,
     },
     "posts": {
         "myPosts": [],

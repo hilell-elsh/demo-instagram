@@ -29,10 +29,10 @@ export default function FollowerModal({ title }) {
     }
     const usersList = checkContent(title)
 
-    const [pageNumber, setPageNumber] = useState(1)
+    const [skip, setSkip] = useState(0)
     const { loading, error, items, hasMore } = useInfiniteScrolling(
         usersList,
-        pageNumber
+        skip
     )
 
     const observer = useRef()
@@ -42,7 +42,7 @@ export default function FollowerModal({ title }) {
             if (observer.current) observer.current.disconnect()
             observer.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && hasMore) {
-                    setPageNumber((prevPageNumber) => prevPageNumber + 1)
+                    setSkip(usersList.length)
                 }
             })
             if (node) observer.current.observe(node)
