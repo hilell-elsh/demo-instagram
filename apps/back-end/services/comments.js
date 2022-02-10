@@ -19,9 +19,8 @@ function getComments(query = {}) {
 }
 
 async function getCommentsAmount(postId) {
-    const amount = await CommentModel.find({ postId: postId }).count().exec()
-    console.log(`comment services > getCommentsAmount > amount: ${amount}`)
-    return amount
+    const postComments = await CommentModel.findOne({ postId: postId }).lean()
+    return postComments.comments.length
 }
 
 async function deleteComment(query = {}) {
