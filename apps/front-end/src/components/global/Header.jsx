@@ -2,6 +2,7 @@ import Avatar from '@mui/material/Avatar'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 import {
     HeaderWrapper,
@@ -50,9 +51,15 @@ export default function Header() {
                 <HeaderButton onClick={() => setIsNewPostModal(true)}>
                     <i className="far fa-plus-square" />
                 </HeaderButton>
-                {isNewPostModal && (
-                    <NewPostModal setIsNewPostModal={setIsNewPostModal} />
-                )}
+                <AnimatePresence
+                    initial={false}
+                    exitBeforeEnter
+                    onExitComplete={() => null}
+                >
+                    {isNewPostModal && (
+                        <NewPostModal setIsNewPostModal={setIsNewPostModal} />
+                    )}
+                </AnimatePresence>
                 <HeaderButton>
                     <Link to="">
                         <i className="far fa-compass" />

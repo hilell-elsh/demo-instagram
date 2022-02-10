@@ -10,7 +10,7 @@ import { loadingUser } from '../../store/user'
 
 export default function ProfilePage() {
     const { username } = useParams()
-    const [user, setUser] = useState({...loadingUser})
+    const [user, setUser] = useState({ ...loadingUser })
     // const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function ProfilePage() {
         <Profile>
             {/* {loading && <LoadingAnimation />} */}
             <ProfileInfo user={user} />
-            <ProfilePosts user={user} />
+            <ProfilePosts userId={user._id} />
         </Profile>
     )
 }

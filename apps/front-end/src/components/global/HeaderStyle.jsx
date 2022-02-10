@@ -1,11 +1,12 @@
-import styled from "styled-components"
-import { Logo } from "../form/FormStyle"
+import styled from 'styled-components'
+import { Logo } from '../form/FormStyle'
 
 export const HeaderWrapper = styled.div`
     position: sticky;
     inset: 0 0 auto 0;
     height: 7vh;
     display: flex;
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dbdbdb;
@@ -41,19 +42,19 @@ export const HeaderNav = styled.ul`
 export const HeaderButton = styled.li`
     list-style: none;
     cursor: pointer;
-    
+
     & :hover {
         color: #bbb;
     }
-    
+
     & i {
-        font-size: 28px;    
+        font-size: 28px;
     }
-    
+
     & .fa-facebook-messenger:hover {
         color: #7cc3ff;
     }
-    
+
     & .fa-heart:hover {
         color: #ffb0b0;
     }

@@ -8,16 +8,23 @@ import {
     ExitButton,
 } from '../global/ModalStyle'
 
-export default function FollowerModalContentItem({ username, index }) {
+export default function FollowerModalContentItem({ user }) {
     const [isButton, setIsButton] = useState(false)
 
     return (
-        <ModalContentItem key={index}>
-            <Avatar src={username.image.src} sx={{ width: 40, height: 40 }} />
-            <Link to={`/${username.username}/profile`}>
-                {username.username}
+        <ModalContentItem key={user._id}>
+            <Avatar
+                src={user.userBasicData.profileImageSrc}
+                sx={{ width: 40, height: 40 }}
+            />
+            <Link to={`/${user.userBasicData.username}/profile`}>
+                {user.userBasicData.username}
             </Link>
-            <p>{username.name.firstName + ' ' + username.name.lastName}</p>
+            <p>
+                {user.additionalData.name.firstName +
+                    ' ' +
+                    user.additionalData.name.lastName}
+            </p>
             <RemoveButton
                 className="fas fa-trash"
                 onClick={() => setIsButton(true)}
