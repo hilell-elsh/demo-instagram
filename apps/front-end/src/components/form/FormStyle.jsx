@@ -7,7 +7,7 @@ export const FormWrapper = styled.div`
     align-items: center;
 `
 export const Form = styled.form`
-    min-width: 25vw;
+    width: clamp(300px, 30vw, 400px);
     margin-top: 20vh;
     padding: 10px;
     border: 1px solid #ddd;
@@ -63,7 +63,7 @@ export const FormButton = styled.button`
     }
 `
 export const SignUpLink = styled.div`
-    max-width: 25vw;
+    width: clamp(300px, 30vw, 400px);
     display: flex;
     justify-content: center;
     margin-top: 30px;

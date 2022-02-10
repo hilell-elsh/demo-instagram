@@ -55,12 +55,12 @@ export function toggleFollowUser(userId) {
 
 export function getUserFollowing(userId) {
     const path = `/${userId}/following`
-    return fetching({ path })
+    return fetchInit({ path })
 }
 
 export function getUserFollowers(userId) {
     const path = `/${userId}/followers`
-    return fetching({ path })
+    return fetchInit({ path })
 }
 
 /// change arguments to object

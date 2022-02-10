@@ -5,17 +5,17 @@ import { Links, Posts, PostsWrapper } from './ProfileStyle'
 import { getUserPosts } from '../../services/user-data'
 import UserPosts from './UserPosts'
 
-export default function ProfilePosts({ user }) {
+export default function ProfilePosts({ userId }) {
     const { username } = useParams()
-    const [userPosts, setUserPosts] = useState(user.posts.firstPosts)
+    const [userPosts, setUserPosts] = useState([])
 
     useEffect(() => {
-        getUserPosts(user._id).then((res) => {
+        getUserPosts(userId).then((res) => {
             setUserPosts(res)
         })
-    }, [username])
+    }, [])
     console.log(userPosts)
-    
+
     return (
         <PostsWrapper>
             <Links>
