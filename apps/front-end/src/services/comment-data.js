@@ -30,7 +30,7 @@ export function getCommentLikes(postId, commentId) {
     return fetchInit({postId, path})
 }
 
-async function fetchInit (postId, path="", method='GET', data=null) {
+async function fetchInit ({postId, path="", method='GET', data=null}) {
     path = `/api/posts/${postId}/comments${path}`;
     return await fetching({path, method, data})
 }
