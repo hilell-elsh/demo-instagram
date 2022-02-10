@@ -17,27 +17,15 @@ const createPost = async (req, res) => {
     res.status(200).json(newPost).end()
 }
 
-const getPost = (req, res) => {
-    const post = {
-        ...req.post,
-        author: {
-            userId: req.post.author,
-            userBasicData: usersService
-                .getUser(req.post.author)
-                .select('userBasicData'),
-        },
-        tags: req.post.tags.map((tag) => tagsService.getTag(tag)),
-        userTags: req.post.userTags.map((user) => {
-            return {
-                userId: user,
-                userBasicData: usersService
-                    .getUser(user)
-                    .select('userBasicData'),
-            }
-        }),
-        likesAmount: likesService.getLikesAmount(req.post._id), //? new ObjectId(req.post._id)
-        commentsAmount: commentsService.getCommentsAmount(req.post._id),
-    }
+const getPost = async (req, res) => {
+    const post = await req.post
+                .populate('author', 'userBasicData')
+                .populate('tags')
+                .populate('userTags', 'userBasicData')
+                .lean()
+    post.likesAmount = await likesService.getLikesAmount(post._id)
+    post.commentsAmount = await commentsService.getCommentsAmount(post._id)
+    console.log("getPost > post:", post);
 
     res.status(200).json(post).end()
 }

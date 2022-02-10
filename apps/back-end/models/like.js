@@ -7,7 +7,7 @@ const LikeSchema = new mongoose.Schema({
     users: [{ type: ObjectId, ref: 'User', required: true, unique: true }],
 })
 
-LikeSchema.index({ postId: true, commentId: true, user: true}, {unique: true})
+LikeSchema.index({ postId: true, commentId: true, users: true}, {unique: true})
 
 const LikeModel = mongoose.model('Like', LikeSchema)
 
