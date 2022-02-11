@@ -5,8 +5,14 @@ async function getLikesAmount(postId, commentId = null) {
         postId: postId,
         commentId: commentId,
     }).lean()
-    console.log(`like services > getLikesAmount > likes:`, likes.users.length)
-    return likes.users.length
+
+    if(likes) {
+        console.log(`like services > getLikesAmount > likes:`, likes.users.length)
+        return likes.users.length
+    } else {
+        return 0
+    }
+    
 }
 
 function toggleLike({ userId, postId, commentId = null }) {
