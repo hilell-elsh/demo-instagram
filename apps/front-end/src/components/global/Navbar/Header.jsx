@@ -3,16 +3,28 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import styled from 'styled-components'
 
 import {
-    HeaderWrapper,
-    HeaderLogo,
+    NavbarWrapper,
+    NavbarLogo,
     HeaderSearch,
-    HeaderNav,
-    HeaderButton,
-} from './HeaderStyle'
-import NewPostModal from './NewPostModal'
+    NavbarLinks,
+    NavbarButton,
+} from './NavbarStyle'
+import NewPostModal from '../NewPostModal'
 
+const HeaderWrapper = styled(NavbarWrapper)`
+    @media (max-width: 850px) {
+        justify-content: center;
+    }
+`
+const HeaderLinks = styled(NavbarLinks)`
+    @media (max-width: 850px) {
+        display: none;
+        /* flex: none; */
+    }
+`
 export default function Header() {
     const isLoading = useSelector((state) => state.user.loading)
     const [isNewPostModal, setIsNewPostModal] = useState(false)
@@ -33,24 +45,19 @@ export default function Header() {
 
     return (
         <HeaderWrapper>
-            <HeaderLogo>
+            <NavbarLogo layout>
                 <Link to="/">Kilogram</Link>
-            </HeaderLogo>
+            </NavbarLogo>
             <HeaderSearch type="text" placeholder="Search" />
-            <HeaderNav>
-                <HeaderButton>
+            <HeaderLinks>
+                <NavbarButton>
                     <Link to="/">
                         <i className="fas fa-home" />
                     </Link>
-                </HeaderButton>
-                <HeaderButton>
-                    <Link to="">
-                        <i className="fab fa-facebook-messenger" />
-                    </Link>
-                </HeaderButton>
-                <HeaderButton onClick={() => setIsNewPostModal(true)}>
+                </NavbarButton>
+                <NavbarButton onClick={() => setIsNewPostModal(true)}>
                     <i className="far fa-plus-square" />
-                </HeaderButton>
+                </NavbarButton>
                 <AnimatePresence
                     initial={false}
                     exitBeforeEnter
@@ -60,24 +67,18 @@ export default function Header() {
                         <NewPostModal setIsNewPostModal={setIsNewPostModal} />
                     )}
                 </AnimatePresence>
-                <HeaderButton>
-                    <Link to="">
-                        <i className="far fa-compass" />
-                    </Link>
-                </HeaderButton>
-                <HeaderButton>
+                <NavbarButton>
                     <Link to="">
                         <i className="far fa-heart" />
                     </Link>
-                </HeaderButton>
-                {/* <Link to={`/${user.userBasicData.username}`}> */}
+                </NavbarButton>
                 <Link to={`/${user.userBasicData.username}`}>
                     {headerAvatar}
                 </Link>
-                <HeaderButton>
-                    <i className="fas fa-sign-out-alt"></i>
-                </HeaderButton>
-            </HeaderNav>
+                <NavbarButton>
+                    <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                </NavbarButton>
+            </HeaderLinks>
         </HeaderWrapper>
     )
 }
