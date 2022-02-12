@@ -4,12 +4,12 @@ import PageFeed from './authorized/Feed'
 import Profile from './authorized/Profile'
 import Mailbox from './authorized/Mailbox'
 import Settings from './authorized/Settings'
-import Header from '../components/global/Header'
+import Navbar from '../components/global/Navbar/Navbar'
 
 export default function AuthorizedPages() {
     return (
         <>
-            <Header />
+            <Navbar />
             <Switch>
                 <Route exact path="/">
                     <PageFeed />

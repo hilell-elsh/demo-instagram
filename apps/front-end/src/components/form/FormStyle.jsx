@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 export const FormWrapper = styled.div`
     display: flex;
@@ -29,7 +30,7 @@ export const Form = styled.form`
         right: 10px;
     }
 `
-export const Logo = styled.h1`
+export const Logo = styled(motion.h1)`
     font-family: billabong;
     font-weight: 300;
     font-size: 64px;
