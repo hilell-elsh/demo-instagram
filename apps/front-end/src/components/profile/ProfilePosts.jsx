@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import { Links, Posts, PostsWrapper } from './ProfileStyle'
@@ -6,15 +6,14 @@ import { getUserPosts } from '../../services/user-data'
 import UserPosts from './UserPosts'
 
 export default function ProfilePosts({ userId }) {
-    const { username } = useParams()
     const [userPosts, setUserPosts] = useState([])
-
+    
     useEffect(() => {
+        console.log(userId)
         getUserPosts(userId).then((res) => {
             setUserPosts(res)
         })
     }, [])
-    console.log(userPosts)
 
     return (
         <PostsWrapper>

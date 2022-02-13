@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
 import { AnimatePresence } from 'framer-motion'
-import { CircularProgress } from '@mui/material'
 
 import { Username, Info, Button, Count } from './ProfileStyle'
 import { modalOpen } from '../../store/modal'
@@ -41,9 +40,13 @@ export default function ProfileInfo({ user }) {
                 exitBeforeEnter
                 onExitComplete={() => null}
             >
-                {isModal && <FollowerModal title={title} userId={user._id} />}
+                {isModal && (
+                    <FollowerModal
+                        title={title}
+                        userId={user._id}
+                    />
+                )}
             </AnimatePresence>
-            {/* if not user, change to follow/unfollow button */}
             <Link to="/settings">
                 <Button>Edit Profile</Button>
             </Link>

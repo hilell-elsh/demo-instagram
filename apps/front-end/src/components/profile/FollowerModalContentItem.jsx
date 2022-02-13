@@ -20,7 +20,10 @@ export default function FollowerModalContentItem({ user }) {
                 src={user.userBasicData.profileImageSrc}
                 sx={{ width: 40, height: 40 }}
             />
-            <Link to={`/${user.userBasicData.username}`} onClick={() => dispatch(modalClose())}>
+            <Link
+                to={`/${user.userBasicData.username}`}
+                onClick={() => dispatch(modalClose())}
+            >
                 {user.userBasicData.username}
             </Link>
             <p>
@@ -29,14 +32,27 @@ export default function FollowerModalContentItem({ user }) {
                     user.additionalData.name.lastName}
             </p>
             <RemoveButton
-                className="fas fa-trash"
+                layout
+                className="fa-solid fa-trash"
                 onClick={() => setIsButton(true)}
+                initial={{ x: 0 }}
+                animate={{
+                    transition: {
+                        duration: 0.4,
+                        type: 'spring',
+                        damping: 10,
+                        stiffness: 500,
+                    },
+                }}
+                exit={{ x: 0 }}
             ></RemoveButton>
             {isButton && (
                 <ExitButton
-                    className="fas fa-times"
+                    className="fa-solid fa-xmark"
                     onClick={() => setIsButton(false)}
-                    style={{ opacity: 0.6 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.6 }}
+                    exit={{ opacity: 0 }}
                 ></ExitButton>
             )}
         </ModalContentItem>

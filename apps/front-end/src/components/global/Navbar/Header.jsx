@@ -22,15 +22,15 @@ const HeaderWrapper = styled(NavbarWrapper)`
 const HeaderLinks = styled(NavbarLinks)`
     @media (max-width: 850px) {
         display: none;
-        /* flex: none; */
     }
 `
 export default function Header() {
-    const isLoading = useSelector((state) => state.user.loading)
     const [isNewPostModal, setIsNewPostModal] = useState(false)
 
     const user = useSelector((state) => state.user.user)
 
+    const isLoading = useSelector((state) => state.user.loading)
+    if (isLoading) return <div>loading</div>
     const headerAvatar = (
         <Avatar
             alt={
@@ -52,11 +52,11 @@ export default function Header() {
             <HeaderLinks>
                 <NavbarButton>
                     <Link to="/">
-                        <i className="fas fa-home" />
+                        <i className="fa-solid fa-house" />
                     </Link>
                 </NavbarButton>
                 <NavbarButton onClick={() => setIsNewPostModal(true)}>
-                    <i className="far fa-plus-square" />
+                    <i className="fa-solid fa-square-plus" />
                 </NavbarButton>
                 <AnimatePresence
                     initial={false}
@@ -69,7 +69,7 @@ export default function Header() {
                 </AnimatePresence>
                 <NavbarButton>
                     <Link to="">
-                        <i className="far fa-heart" />
+                        <i className="fa-solid fa-heart" />
                     </Link>
                 </NavbarButton>
                 <Link to={`/${user.userBasicData.username}`}>
