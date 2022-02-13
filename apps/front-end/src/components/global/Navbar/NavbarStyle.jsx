@@ -3,17 +3,9 @@ import { motion } from 'framer-motion'
 
 import { Logo } from '../../form/FormStyle'
 
-export const Nav = styled.div`
-    position: fixed;
-    height: 100vh;
-    z-index: 2;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`
-
 export const NavbarWrapper = styled(motion.div)`
+    position: sticky;
+    inset: 0;
     min-width: 370px;
     height: 7vh;
     display: flex;
@@ -23,6 +15,7 @@ export const NavbarWrapper = styled(motion.div)`
     border-bottom: 1px solid #dbdbdb;
     padding: 1rem;
     background-color: #fafafa;
+    z-index: 2;
 `
 
 export const NavbarLogo = styled(Logo)`

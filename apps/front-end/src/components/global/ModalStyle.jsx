@@ -56,7 +56,7 @@ export const ModalContent = styled(motion.div)`
     overflow: auto;
 `
 
-export const ModalContentItem = styled.div`
+export const ModalContentItem = styled(motion.div)`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,14 +74,9 @@ export const ModalContentItem = styled.div`
 `
 
 export const ExitButton = styled(motion.i)`
-    // transition: 500ms;
     cursor: pointer;
     font-size: 1.2rem;
     padding: 0.1rem;
-
-    &:hover {
-        color: #bbb;
-    }
 `
 
 export const UploadButton = styled(Button)`
@@ -92,7 +87,7 @@ export const UploadButton = styled(Button)`
     border: 1px solid transparent;
 `
 
-export const RemoveButton = styled.i`
+export const RemoveButton = styled(motion.i)`
     color: #ff6b6b;
     cursor: pointer;
     transition: 500ms;
