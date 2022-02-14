@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
@@ -7,26 +8,51 @@ import {
     RemoveButton,
     ExitButton,
 } from '../global/ModalStyle'
+import { modalClose } from '../../store/modal'
 
-export default function FollowerModalContentItem({ username, index }) {
+export default function FollowerModalContentItem({ user }) {
     const [isButton, setIsButton] = useState(false)
+    const dispatch = useDispatch()
 
     return (
-        <ModalContentItem key={index}>
-            <Avatar src={username.image.src} sx={{ width: 40, height: 40 }} />
-            <Link to={`/${username.username}/profile`}>
-                {username.username}
+        <ModalContentItem key={user._id}>
+            <Avatar
+                src={user.userBasicData.profileImageSrc}
+                sx={{ width: 40, height: 40 }}
+            />
+            <Link
+                to={`/${user.userBasicData.username}`}
+                onClick={() => dispatch(modalClose())}
+            >
+                {user.userBasicData.username}
             </Link>
-            <p>{username.name.firstName + ' ' + username.name.lastName}</p>
+            <p>
+                {user.additionalData.name.firstName +
+                    ' ' +
+                    user.additionalData.name.lastName}
+            </p>
             <RemoveButton
-                className="fas fa-trash"
+                layout
+                className="fa-solid fa-trash"
                 onClick={() => setIsButton(true)}
+                initial={{ x: 0 }}
+                animate={{
+                    transition: {
+                        duration: 0.4,
+                        type: 'spring',
+                        damping: 10,
+                        stiffness: 500,
+                    },
+                }}
+                exit={{ x: 0 }}
             ></RemoveButton>
             {isButton && (
                 <ExitButton
-                    className="fas fa-times"
+                    className="fa-solid fa-xmark"
                     onClick={() => setIsButton(false)}
-                    style={{ opacity: 0.6 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.6 }}
+                    exit={{ opacity: 0 }}
                 ></ExitButton>
             )}
         </ModalContentItem>

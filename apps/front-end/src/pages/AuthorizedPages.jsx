@@ -1,12 +1,19 @@
+import { useDispatch } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 
 import PageFeed from './authorized/Feed'
 import Profile from './authorized/Profile'
 import Mailbox from './authorized/Mailbox'
 import Settings from './authorized/Settings'
-import Header from '../components/global/Header'
+import Header from '../components/global/Navbar/Header'
+import Footer from '../components/global/Navbar/Footer'
+import { setMyData } from '../store/user'
+import { useEffect } from 'react'
 
 export default function AuthorizedPages() {
+    const dispatch = useDispatch()
+    useEffect(() => dispatch(setMyData()), [])
+
     return (
         <>
             <Header />
@@ -24,6 +31,7 @@ export default function AuthorizedPages() {
                     <Settings />
                 </Route>
             </Switch>
+            <Footer/>
         </>
     )
 }

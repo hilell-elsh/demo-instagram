@@ -38,6 +38,7 @@ function createLikesInstance(postId, commentId = null) {
     const newLike = new LikeModel({
         postId: postId,
         commentId: commentId,
+        users: []
     })
     return newLike.save()
 }
@@ -47,7 +48,6 @@ function checkLike({ userId, postId, commentId = null }) {
         LikeModel.countDocuments({
             postId: postId,
             commentId: commentId,
-            users: [userId],
         })
     )
 }

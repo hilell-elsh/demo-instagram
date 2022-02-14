@@ -13,33 +13,6 @@ export function getUserByUsername(username) {
 export function getUserPosts(userId, skip = 0, limit = 10) {
     const path = `/${userId}/posts?skip=${skip}&limit=${limit}`
     return fetchInit(path)
-
-    /* returned: 
-    [{
-        _id: ObjectId,
-        author: {
-            _id: ObjectId,
-            username: String,
-            profileImageSrc: String
-        },
-        text: String,
-        images: [String],
-        createdDate: Date,
-        location: String,
-        allowedComment: Boolean,
-        tags: [{
-            _id: ObjectId,
-            tagCode: Number,
-            tagText: String,
-            icon: String
-        }],
-        userTags: [{
-            _id: ObjectId,
-            username: String,
-            profileImageSrc: String
-        }],
-    }]
-    */
 }
 
 export function toggleFollowUser(userId) {
@@ -55,12 +28,12 @@ export function toggleFollowUser(userId) {
 
 export function getUserFollowing(userId) {
     const path = `/${userId}/following`
-    return fetching({ path })
+    return fetchInit({ path })
 }
 
 export function getUserFollowers(userId) {
     const path = `/${userId}/followers`
-    return fetching({ path })
+    return fetchInit({ path })
 }
 
 /// change arguments to object

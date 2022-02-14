@@ -52,8 +52,7 @@ export default function SignUpForm() {
             <Form onSubmit={signupHandler}>
                 <Logo>Kilogram</Logo>
                 <SecondaryTitle>
-                    No photos of people "training" in <br /> the gym on this
-                    app...
+                    No fake excersing pics in <br /> the gym on this app...
                 </SecondaryTitle>
                 <label>
                     <FormInput
@@ -95,13 +94,13 @@ export default function SignUpForm() {
                 </label>
                 <FormButton type="submit">Sign Up</FormButton>
                 <SmallText>
-                    By signing up you agree to our Terms,
-                    <br /> Data Policy and Cookies Policy.
+                    By signing up you agree to our Jerms,
+                    <br /> Data Policing and Cookies Party.
                 </SmallText>
             </Form>
             <SignUpLink>
                 <p>
-                    Have an account? <Link to="/login">Log in</Link>
+                    Have an account? <Link to="/">Log in</Link>
                 </p>
             </SignUpLink>
         </FormWrapper>
