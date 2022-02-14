@@ -9,8 +9,6 @@ import CollapseItem2 from './PostCollapse/CollapseItem2'
 import CollapseItem3 from './PostCollapse/CollapseItem3'
 
 import {getPostComments} from '../../services/comment-data'
-    
-
 
 
 export default function PostCollapse({ expanded, contentItem }) {
@@ -20,12 +18,7 @@ export default function PostCollapse({ expanded, contentItem }) {
             setComments(await getPostComments(contentItem._id))
         })()
     }, [])
-    console.log('comments')
-    console.log(comments)
-    console.log(contentItem._id)
 
-
-   
     return (
         <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>

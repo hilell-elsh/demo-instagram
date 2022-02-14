@@ -7,13 +7,10 @@ const {getId} = require('../services/object')
 
 
 const createPost = async (req, res) => {
-    console.log('posts controller > createPost')
-
     const newPost = await postsService.createPost({
         ...req.body,
         author: req.curUserId,
     })
-    console.log('posts controller > createPost: newpost:', newPost)
     likesService.createLikesInstance(newPost._id)
     commentsService.createCommentsInstance(newPost._id)
     res.status(200).json(newPost).end()
@@ -27,7 +24,6 @@ const getPost = async (req, res) => {
                 .lean()
     post.likesAmount = await likesService.getLikesAmount(post._id)
     post.commentsAmount = await commentsService.getCommentsAmount(post._id)
-    console.log("getPost > post:", post);
 
     res.status(200).json(post).end()
 }
@@ -66,12 +62,9 @@ const updatePost = async (req, res) => {
 
 const toggleLikePost = async (req, res) => {
     const userId = req.curUserId
-    console.log(userId)
     const postId = getId(req.params.postId) 
-    console.log(`Post ID: ${postId} liked by User: ${userId}`)
-    
     const updateData = await likesService.toggleLike({userId, postId})
-    console.log(updateData)
+
     if(!updateData) {
         res.status(200).json('user liked the post')
     } else {
