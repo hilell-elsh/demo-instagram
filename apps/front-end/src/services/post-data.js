@@ -53,9 +53,9 @@ export async function deletePost(postId) {
     return fetchInit({path, method: 'DELETE'})
 }
 
-export async function toggleLikePost() {
-    const path = `/api/posts/${postId}/like`
-    return fetchInit(path, (method = 'PUT'))
+export async function toggleLikePost(postId) {
+    const path = `/${postId}/like`
+    return fetchInit({path, method : 'PUT'})
 }
 
 export function getPostLikes(postId, skip = 0, limit = 10) {
