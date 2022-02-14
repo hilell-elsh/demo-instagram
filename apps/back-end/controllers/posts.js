@@ -3,6 +3,8 @@ const usersService = require('../services/users')
 const tagsService = require('../services/tags')
 const likesService = require('../services/likes')
 const commentsService = require('../services/comments')
+const {getId} = require('../services/object')
+
 
 const createPost = async (req, res) => {
     console.log('posts controller > createPost')
@@ -62,9 +64,15 @@ const updatePost = async (req, res) => {
     }
 }
 
-const toggleLikePost = (req, res) => {
-    likesService.toggleLike({userId: req.curUserId, postId: req.postId})
-    if(userId) {
+const toggleLikePost = async (req, res) => {
+    const userId = req.curUserId
+    console.log(userId)
+    const postId = getId(req.params.postId) 
+    console.log(`Post ID: ${postId} liked by User: ${userId}`)
+    
+    const updateData = await likesService.toggleLike({userId, postId})
+    console.log(updateData)
+    if(!updateData) {
         res.status(200).json('user liked the post')
     } else {
         res.status(200).json('user unliked the post')
@@ -78,7 +86,7 @@ const getPostLikes = (req, res) => {
 // inside help middleware
 const getPostById = async (req, res, next) => {
     const postId = req.params.postId
-    const post = postsService.getPost(postId)
+    const post = await postsService.getPost(postId)
     req.postId = postId
     if (post) {
         req.post = post

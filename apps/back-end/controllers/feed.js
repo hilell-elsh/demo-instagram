@@ -26,6 +26,7 @@ const getFeed = async (req, res) => {
                     )),
                         (post.commentsAmount =
                             await commentsService.getCommentsAmount(post._id))
+                    // (post.isLiked  )
                     return post
                 })
             )

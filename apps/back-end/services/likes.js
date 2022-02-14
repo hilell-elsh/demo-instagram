@@ -1,3 +1,4 @@
+const { getId } = require('./object')
 const LikeModel = require('../models/like')
 
 async function getLikesAmount(postId, commentId = null) {
@@ -15,18 +16,20 @@ async function getLikesAmount(postId, commentId = null) {
     
 }
 
-function toggleLike({ userId, postId, commentId = null }) {
-    if (checkLike({ userId, postId, commentId })) {
-        return LikeModel.updateOne(
+ async function toggleLike({ userId, postId, commentId = null }) {
+    const boolean = await checkLike({ userId, postId, commentId })
+    if (boolean) {
+        await LikeModel.updateOne(
             { postId: postId },
-            { $pull: { users: userId } }
+            { $pull: { users: userId.toString() } }
         )
     } else {
-        return LikeModel.updateOne(
+        await LikeModel.updateOne(
             { postId: postId },
             { $push: { users: userId } }
         )
     }
+    return boolean
 }
 
 function getLikes(query = {}) {
@@ -49,12 +52,10 @@ function createLikesInstance(postId, commentId = null) {
     return newLike.save()
 }
 
-function checkLike({ userId, postId, commentId = null }) {
+async function checkLike({ userId, postId, commentId = null }) {
+    const likes = await LikeModel.findOne({postId: postId} ).lean()
     return Boolean(
-        LikeModel.countDocuments({
-            postId: postId,
-            commentId: commentId,
-        })
+        likes.users.some((user)=> user.equals(getId(userId))) 
     )
 }
 
