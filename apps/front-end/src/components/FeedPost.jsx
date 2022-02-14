@@ -23,8 +23,12 @@ export default function Feed({ contentItem }) {
             {postHeader}
             {postMedia}
             {postContent}
-            <PostActions expanded={expanded} setExpanded={setExpanded} />
-            <PostCollapse expanded={expanded} />
+            <PostActions
+                contentItem={contentItem}
+                expanded={expanded}
+                setExpanded={setExpanded}
+            />
+            <PostCollapse expanded={expanded} contentItem={contentItem} />
         </Card>
     )
 }
