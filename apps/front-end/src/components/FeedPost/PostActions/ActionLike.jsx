@@ -9,11 +9,10 @@ import { useState } from 'react'
 
 function likePost(contentItem) {
     toggleLikePost(contentItem._id)
-    console.log("post", contentItem._id, 'liked'  )
 }
 export default function ActionLike({ contentItem}) {
 
-    const [isLiked, setIsLiked] = useState(contentItem.isLiked = false)
+    const [isLiked, setIsLiked] = useState(contentItem.isLiked)
     const [likesAmount, setLikesAmount] = useState(contentItem.likesAmount)  
 
     return (

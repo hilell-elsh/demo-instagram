@@ -8,7 +8,6 @@ async function getLikesAmount(postId, commentId = null) {
     }).lean()
 
     if(likes) {
-        console.log(`like services > getLikesAmount > likes:`, likes.users.length)
         return likes.users.length
     } else {
         return 0
