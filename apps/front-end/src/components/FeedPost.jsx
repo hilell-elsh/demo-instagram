@@ -12,9 +12,9 @@ export default function Feed({ contentItem }) {
     const [expanded, setExpanded] = React.useState(false);
     const {postHeader, postContent, postMedia} = React.useMemo(() => {
         return {
-            postHeader: <PostHeader />,
-            postContent: <PostContent />,
-            postMedia: <PostMedia />,
+            postHeader: <PostHeader contentItem={contentItem} />,
+            postContent: <PostContent contentItem={contentItem} />,
+            postMedia: <PostMedia contentItem={contentItem} />,
         }
     }, [])
 
