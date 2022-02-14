@@ -6,6 +6,12 @@ function createCommentsInstance(postId) {
     return newComment.save()
 }
 
+async function addComment({postId, comment}) {
+    const postComments = await CommentModel.findOne({ postId: postId })
+    postComments.comments.push(comment)
+    return postComments.save()
+}
+
 function getPostComments(postId, limit = 2, skip = 0) {
     return CommentModel.find({ postId: postId }).skip(skip).limit(limit)
 }
@@ -28,6 +34,13 @@ async function getCommentsAmount(postId) {
     }
 }
 
+async function checkComment({ postId, commentId }) {
+    const postComments = await CommentModel.findOne({postId: postId} ).lean()
+    return Boolean(
+        postComments.comments.some((comment)=> comment._id.equals(getId(commentId))) 
+    )
+}
+
 async function deleteComment(query = {}) {
     await CommentModel.find(query)
         .select('_id')
@@ -47,4 +60,6 @@ module.exports = {
     getCommentsAmount,
     deleteComment,
     getComments,
+    checkComment,
+    addComment,
 }

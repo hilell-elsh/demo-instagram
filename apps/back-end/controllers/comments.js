@@ -1,7 +1,7 @@
 const commentsService = require('../services/comments')
 const likesService = require('../services/likes')
 
-const createPostComment = (req, res) => {
+const createPostComment = async (req, res) => {
     // create new post comment, by :postId param
     // POST method
     // /api/posts/:postId/comments
@@ -9,9 +9,8 @@ const createPostComment = (req, res) => {
     // postId user text
 
     try {
-        const newComment = commentsService.createComment({
+        const newComment = await commentsService.addComment({
             ...req.body,
-            postId: req.postId,
             user: req.curUserId,
         })
 
@@ -65,17 +64,17 @@ const toggleLikeComment = (req, res) => {
 }
 
 const getCommentById = async (req, res, next) => {
-    const postId = req.params.commentId
-    const post = postsService.getPost(postId)
-    req.postId = postId
-    if (post) {
-        req.post = post
-        req.postId = req.post._id
+    const commentId = req.params.commentId
+    const comment = commentsService.checkComment({postId: req.postId, commentId})
+    if (comment) {
+        console.log('comment found: ', commentId);
         next()
     } else {
-        res.status(404).json({ message: 'Post not found' }).end()
+        console.log('comment not found: ', commentId);
+        res.status(404).json({ message: 'Comment not found' }).end()
     }
 }
+
 
 module.exports = {
     createPostComment,
@@ -83,4 +82,5 @@ module.exports = {
     deletePostComment,
     updatePostComment,
     toggleLikeComment,
+    getCommentById
 }
