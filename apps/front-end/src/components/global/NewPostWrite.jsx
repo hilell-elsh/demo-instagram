@@ -12,16 +12,12 @@ export default function NewPostWrite({imagesUrls, imagesAmount, setIsNewPostModa
     function handleSharePost(event) {
         event.preventDefault()
         const data = new FormData(event.target)
-        console.log(data.keys());
         const postData = {}
         data.forEach((value, key) => {
             postData[key] = value
         })
         postData.images = [...imagesUrls]
-        console.log(postData);
-        // console.log(await createPost(postData));
         createPost(postData).then((res) => {
-            // console.log("statusCode", res);
             setIsNewPostModal(false)
             alert("Your post has posted")
         })

@@ -6,8 +6,6 @@ const getFeed = async (req, res) => {
     const MAX_POSTS = 30
     limit = Math.min(req.limit, MAX_POSTS)
     skip = req.skip
-    console.log(`feed services > getFeed: ${req.curUserId} 
-    \t...skip: ${skip}, limit: ${limit}`)
 
     const posts = await postsService
         .getPosts({ author: { $in: req.curUser.additionalData.following } })
@@ -26,6 +24,7 @@ const getFeed = async (req, res) => {
                     )),
                         (post.commentsAmount =
                             await commentsService.getCommentsAmount(post._id))
+                    post.isLiked = await likesService.checkLike({userId: req.curUser,postId: post._id }) 
                     return post
                 })
             )

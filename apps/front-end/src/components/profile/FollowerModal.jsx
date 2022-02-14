@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { useState, useRef, useCallback } from 'react'
-import Skeleton from '@mui/material/Skeleton'
+import { useEffect, useState } from 'react'
 
 import {
     ModalBackdrop,
@@ -8,17 +7,23 @@ import {
     ModalHeader,
     ExitButton,
     ModalContent,
+    dropIn,
+    fadeIn,
 } from '../global/ModalStyle'
 import { modalClose } from '../../store/modal'
-import { getUser } from '../../services/user-data'
 import FollowerModalContentItem from './FollowerModalContentItem'
-import useInfiniteScrolling from '../../services/useInfiniteScrolling'
+import { getUserFollowers, getUserFollowing } from '../../services/user-data'
 
-export default function FollowerModal({ title }) {
+export default function FollowerModal({ title, userId }) {
     const dispatch = useDispatch()
 
-    const userFollowers = getUser().profile.followers
-    const userFollowing = getUser().profile.following
+    const [userFollowers, setUserFollowers] = useState([])
+    const [userFollowing, setUserFollowing] = useState([])
+
+    useEffect(() => {
+        getUserFollowers(userId).then((res) => setUserFollowers(res))
+        getUserFollowing(userId).then((res) => setUserFollowing(res))
+    }, [])
 
     function checkContent(title) {
         if (title === 'following') {
@@ -29,30 +34,21 @@ export default function FollowerModal({ title }) {
     }
     const usersList = checkContent(title)
 
-    const [skip, setSkip] = useState(0)
-    const { loading, error, items, hasMore } = useInfiniteScrolling(
-        usersList,
-        skip
-    )
-
-    const observer = useRef()
-    const lastItemElementRef = useCallback(
-        (node) => {
-            if (loading) return
-            if (observer.current) observer.current.disconnect()
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && hasMore) {
-                    setSkip(usersList.length)
-                }
-            })
-            if (node) observer.current.observe(node)
-        },
-        [loading, hasMore]
-    )
-
     return (
-        <ModalBackdrop>
-            <ModalWrapper>
+        <ModalBackdrop
+            onClick={() => dispatch(modalClose())}
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+        >
+            <ModalWrapper
+                onClick={(e) => e.stopPropagation()}
+                variants={dropIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+            >
                 <ModalHeader>
                     <p>{title}</p>
                     <ExitButton
@@ -61,30 +57,9 @@ export default function FollowerModal({ title }) {
                     ></ExitButton>
                 </ModalHeader>
                 <ModalContent>
-                    {items.map((username, key, index) => {
-                        if (items.length === index + 1) {
-                            return (
-                                <FollowerModalContentItem
-                                    ref={lastItemElementRef}
-                                    key={Math.random()}
-                                    username={username}
-                                    index={index}
-                                    loading={loading}
-                                />
-                            )
-                        } else {
-                            return (
-                                <FollowerModalContentItem
-                                    key={Math.random()}
-                                    username={username}
-                                    index={index}
-                                    loading={loading}
-                                />
-                            )
-                        }
+                    {usersList.map((user) => {
+                        return <FollowerModalContentItem user={user} />
                     })}
-                    {loading && <Skeleton animation="wave" />}
-                    {/* {error &&<ErrorMsg></ErrorMsg>} */}
                 </ModalContent>
             </ModalWrapper>
         </ModalBackdrop>

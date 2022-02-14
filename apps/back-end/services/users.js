@@ -14,7 +14,9 @@ function getUser(userId) {
 }
 
 function getUserIdByUsername(username) {
-    return UserModel.findOne({'userBasicData.username': username}).select('_id')
+    return UserModel.findOne({ 'userBasicData.username': username }).select(
+        '_id'
+    )
 }
 
 function getUsers(query = {}) {
@@ -24,8 +26,6 @@ function getUsers(query = {}) {
 async function getUserPosts({ userId, skip = 0, limit = 10 }) {
     const MAX_POSTS = 20
     limit = Math.min(limit, MAX_POSTS)
-    console.log(`user services > getUserPosts: request: posts of ${userId} 
-    \t...skip: ${skip}, limit: ${limit}`)
 
     const posts = await postsService
         .getPosts({ author: userId })
@@ -48,7 +48,7 @@ async function getUserPosts({ userId, skip = 0, limit = 10 }) {
             )
         })
 
-    // console.log(`user services > getUserPosts > posts:`, posts);
+  
 
     return posts
 }
@@ -56,21 +56,22 @@ async function getUserPosts({ userId, skip = 0, limit = 10 }) {
 async function getUserFollowers(userId, skip = 0, limit = 10) {
     const followers = await getUsers({ 'additionalData.following': userId })
         .select('userBasicData')
+        .select('additionalData.name')
         .skip(skip)
         .limit(limit)
         .lean()
-    // get user {additionalData.following {$in {cur..userId} } }.skip.limit.select('userBasicData')...
+   
     return followers
 }
 
 async function getUserFollowing(following, skip = 0, limit = 10) {
-    console.log(`user services > getUserFollowing > following: ${following}`)
+   
     return await getUsers({ _id: following })
         .select('userBasicData')
+        .select('additionalData.name')
         .skip(skip)
         .limit(limit)
         .lean()
-    // get user {_id {$in {cur..user.additionalData.following} } }.skip.limit.select('userBasicData')...
 }
 
 function deleteUser(userId) {

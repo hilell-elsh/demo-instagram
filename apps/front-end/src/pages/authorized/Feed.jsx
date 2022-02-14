@@ -10,10 +10,7 @@ export default function PageFeed() {
             setFeed(await getFeed())
         })()
     }, [])
-    console.log('feed')
-    console.log(feed)
-
-    // I don`t think this if will come to using
+  
     if (feed === undefined) {
         return null
     }

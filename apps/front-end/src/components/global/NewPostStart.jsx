@@ -14,17 +14,13 @@ export default function newPostStart({setImagesUrls, setStage, imagesUrls, setIm
     const uploadImg = useCallback( async () => {
         setStage(2)
         const filesToUpload = hiddenInput.current?.files
-        console.log(hiddenInput.current?.files.length);
         setImagesAmount(imagesAmount+hiddenInput.current?.files.length)
         const images = []
         for (let i = 0; i < filesToUpload.length; i++) {
-            console.log(filesToUpload[i]);
             const data = new FormData()
             data.append('photo', filesToUpload[i])
-            console.log("file:", data);
             images.push( await getImageLink(data))
         }
-        console.log(images);
         setImagesUrls(images)
     }, [hiddenInput])
 
