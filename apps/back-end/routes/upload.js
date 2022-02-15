@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const cloudinary = require('../services/cloudinary')
 const multer = require('multer')
-const upload = multer({ dest: '/temp' })
+const upload = multer({ dest: '/temps' })
 
 const uploadRouter = Router()
 
