@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": 'https://kilogram2022.herokuapp.com'
+      "/api": 'https://kilogram2022.herokuapp.com:4000'
     }
   }
 })
