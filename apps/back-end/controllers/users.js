@@ -29,9 +29,7 @@ const getUser = async (req, res) => {
 }
 
 const toggleFollowUser = (req, res) => {
-
     if (req.curUser.additionalData.following.includes(req.userId)) {
-
         const newFollowing = req.curUser.additionalData.following
         newFollowing.splice(newFollowing.indexOf(req.userId), 1)
         req.curUser.additionalData.following = newFollowing
@@ -47,8 +45,6 @@ const toggleFollowUser = (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-    
-
     const posts = await usersService.getUserPosts({
         userId: req.userId,
         skip: req.skip,
@@ -74,6 +70,12 @@ const getUserFollowers = async (req, res) => {
         req.limit
     )
     res.status(200).json(followers).end()
+}
+
+const checkIsFollowing = async (req, res) => {
+    const userId = req.params.userId
+    const isFollowing = req.curUser.additionalData.following.some(following => following.equals(userId))
+    res.status(200).json(isFollowing).end()
 }
 
 const getMe = async (req, res) => {
@@ -147,4 +149,5 @@ module.exports = {
     getUserFollowing,
     getUserFollowers,
     getUserByUsername,
+    checkIsFollowing,
 }

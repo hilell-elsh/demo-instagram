@@ -17,13 +17,7 @@ export function getUserPosts(userId, skip = 0, limit = 10) {
 
 export function toggleFollowUser(userId) {
     const path = `/${userId}/follow`
-    return fetching({ path, method: 'PUT' })
-
-    /* returned:
-    {
-        isFollow: Boolean
-    }
-    */
+    return fetchInit({ path, method: 'PUT' })
 }
 
 export function getUserFollowing(userId) {
@@ -33,6 +27,11 @@ export function getUserFollowing(userId) {
 
 export function getUserFollowers(userId) {
     const path = `/${userId}/followers`
+    return fetchInit({ path })
+}
+
+export function checkIsFollowing(userId) {
+    const path = `/${userId}/is-following`
     return fetchInit({ path })
 }
 

@@ -12,7 +12,7 @@ const commentsRouter = Router()
 
 commentsRouter
 
-    .use(getPostById)
+    .use('/api/posts/:postId/comments', getPostById)
 
     .post('/api/posts/:postId/comments', createPostComment)
     .get('/api/posts/:postId/comments', getPostComments)

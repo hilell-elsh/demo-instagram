@@ -10,7 +10,8 @@ const {
     getUserById,
     getUserFollowing,
     getUserFollowers,
-    getUserByUsername
+    getUserByUsername,
+    checkIsFollowing
 } = require('../controllers/users')
 
 const usersRouter = Router()
@@ -31,6 +32,7 @@ usersRouter
         getLimitParams,
         getUserFollowers
     )
+    .get('/api/users/:userId/is-following', checkIsFollowing)
     .get('/api/me', getMe)
     .put('/api/me', updateMe)
     .delete('/api/me', deleteMe)
