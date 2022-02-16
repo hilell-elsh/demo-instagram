@@ -19,7 +19,7 @@ export default function Footer() {
     const user = useSelector((state) => state.user.user)
 
     const isLoading = useSelector((state) => state.user.loading)
-    if (isLoading) return <div>loading</div>
+    if (isLoading) return <div></div>
 
     const headerAvatar = (
         <Avatar
@@ -42,7 +42,9 @@ export default function Footer() {
                     </Link>
                 </NavbarButton>
                 <NavbarButton>
-                    <i className="fa-solid fa-square-plus"></i>
+                    <Link to="/new-post">
+                        <i className="fa-solid fa-square-plus"></i>
+                    </Link>
                 </NavbarButton>
 
                 <NavbarButton>

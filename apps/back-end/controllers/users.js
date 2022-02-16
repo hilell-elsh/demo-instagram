@@ -6,11 +6,7 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
 const getUser = async (req, res) => {
-    console.log('user controller > getUser: get user', req.userId)
-
     const user = await usersService.getUser(req.userId).lean()
-
-    console.log('user controller > getUser:', user)
 
     user.additionalData.following = user.additionalData.following.length
     user.additionalData.followers = await usersService
@@ -33,15 +29,7 @@ const getUser = async (req, res) => {
 }
 
 const toggleFollowUser = (req, res) => {
-    console.log(
-        `user controller > toggleFollowUser: \n${req.curUser.additionalData.following.includes(
-            req.userId
-        )}`
-    )
-
     if (req.curUser.additionalData.following.includes(req.userId)) {
-        console.log('oldFollowing', req.curUser.additionalData.following)
-        console.log('--> unfollow :( ' + ObjectId(req.userId))
         const newFollowing = req.curUser.additionalData.following
         newFollowing.splice(newFollowing.indexOf(req.userId), 1)
         req.curUser.additionalData.following = newFollowing
@@ -49,7 +37,6 @@ const toggleFollowUser = (req, res) => {
 
         res.status(200).json({ isFollow: false }).end()
     } else {
-        console.log('--> follow')
         req.curUser.additionalData.following.push(req.userId)
         req.curUser.save()
 
@@ -58,9 +45,6 @@ const toggleFollowUser = (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-    console.log(`user controller > getUserPosts: request: all posts ${req.userId} 
-                \tskip: ${req.skip}, limit: ${req.limit}`)
-
     const posts = await usersService.getUserPosts({
         userId: req.userId,
         skip: req.skip,
@@ -86,6 +70,12 @@ const getUserFollowers = async (req, res) => {
         req.limit
     )
     res.status(200).json(followers).end()
+}
+
+const checkIsFollowing = async (req, res) => {
+    const userId = req.params.userId
+    const isFollowing = req.curUser.additionalData.following.some(following => following.equals(userId))
+    res.status(200).json(isFollowing).end()
 }
 
 const getMe = async (req, res) => {
@@ -159,4 +149,5 @@ module.exports = {
     getUserFollowing,
     getUserFollowers,
     getUserByUsername,
+    checkIsFollowing,
 }

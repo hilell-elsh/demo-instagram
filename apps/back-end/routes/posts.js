@@ -21,7 +21,7 @@ postsRouter
 
     .post('/api/posts/uploadImage')
 
-    .put('/api/posts/:postId/like', getPostById, toggleLikePost)
+    .put('/api/posts/:postId/like', /*getPostById ,*/ toggleLikePost)
 
     .get('/api/posts/:postId/likes', getPostById, getPostLikes)
 

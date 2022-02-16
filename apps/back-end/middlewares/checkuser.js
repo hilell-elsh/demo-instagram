@@ -8,37 +8,11 @@ const TEN_MINUTES = 1000 * 60 * 10
 const ONE_DAY = TEN_MINUTES * 6 * 24
 const ONE_MONTH = ONE_DAY * 30
 
-// async function checkUser(req, res, next) {
-//     const userId = req.headers['user-id']
 
-//     // console.log("checkuser > checkuser > userId:", userId);
-
-//     if (userId === '0') {
-//         console.log('checkuser > : admin request')
-//         req.curUser = 'admin'
-//         next()
-//     } else {
-//         console.log('checkuser > : another user request')
-//         // const user = await getUser(userId);
-
-//         try {
-//             const curUserId = getId(userId)
-//             console.log(`checkuser > curUserId : ${curUserId}`)
-//             const curUser = await getUser(curUserId)
-//             // console.log(`checkuser: curUser ${curUser}`);
-//             req.curUser = curUser
-//             req.curUserId = req.curUser._id
-//         } catch (err) {
-//             // err
-//         }
-
-//         next()
-//     }
-// }
 
 async function validateUser(req, res, next) {
     const token = req.cookies.token
-    // console.log('token',token);
+    
     if (!token) {
         return res.status(401).end()
     }
@@ -58,13 +32,10 @@ async function validateUser(req, res, next) {
     req.curUser = await getUser(req.curUserId)
 
     if (Date.now() - createDate < TEN_MINUTES) {
-        // console.log('checkuser>validateUser>short');
-        // console.log('checkuser>validateUser>req.curUserId', req.curUserId);
+       
         return next()
     }
     
-    // console.log('checkuser>validateUser>long:', payload);
-
     const dbToken = await getToken(req.curUserId)
     let dbPayload = jwt.verify(dbToken, process.env.JWT_SECRET)
     let dbCreateDate = new Date(dbPayload.created)
@@ -82,6 +53,5 @@ async function validateUser(req, res, next) {
 }
 
 module.exports = {
-    // checkUser,
     validateUser,
 }

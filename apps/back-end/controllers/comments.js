@@ -75,7 +75,7 @@ const getCommentById = async (req, res, next) => {
     } else {
         res.status(404).json({ message: 'Post not found' }).end()
     }
-};
+}
 
 module.exports = {
     createPostComment,

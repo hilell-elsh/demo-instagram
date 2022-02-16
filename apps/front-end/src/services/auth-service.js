@@ -1,7 +1,6 @@
 import fetching from './basic-fetch'
 
 export function signup({fullname, username, email, password}) {
-    console.log("signup:", fullname, username, email, password);
     return fetching({ path: 'api/signup', method: 'POST' , data: {
         fullname, username, email, password
     }})

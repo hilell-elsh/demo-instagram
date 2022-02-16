@@ -20,7 +20,12 @@ function getComments(query = {}) {
 
 async function getCommentsAmount(postId) {
     const postComments = await CommentModel.findOne({ postId: postId }).lean()
-    return postComments.comments.length
+
+    if (postComments) {
+        return postComments.comments.length
+    } else {
+        return 0
+    }
 }
 
 async function deleteComment(query = {}) {
