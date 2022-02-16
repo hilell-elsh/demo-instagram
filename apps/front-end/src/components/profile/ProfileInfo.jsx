@@ -20,14 +20,14 @@ export default function ProfileInfo({ user, usernameParam }) {
     const myUsername = useSelector(
         (state) => state.user.user.userBasicData.username
     )
-    const [isFollowing, setIsFollowing] = useState(false)
-    const [followersCount, setFollowersCount] = useState(0)
+    const [isFollowing, setIsFollowing] = useState(user.additionalData.isFollowing)
+    const [followersCount, setFollowersCount] = useState(user.additionalData.followers)
 
     useEffect(async () => {
-        await setIsFollowing(checkIsFollowing(user._id))
+        await setIsFollowing(user.additionalData.isFollowing)
         setFollowersCount(user.additionalData.followers)
     }, [user])
-
+    console.log(user)
     async function renderInfoButton() {
         if (myUsername === usernameParam) {
             return (
@@ -40,7 +40,7 @@ export default function ProfileInfo({ user, usernameParam }) {
                 <Button
                     onClick={() => {
                         toggleFollowUser(user._id)
-                        setIsFollowing(false)
+                        setIsFollowing(!isFollowing)
                         setFollowersCount(followersCount - 1)
                     }}
                 >
@@ -52,7 +52,7 @@ export default function ProfileInfo({ user, usernameParam }) {
                 <Button
                     onClick={() => {
                         toggleFollowUser(user._id)
-                        setIsFollowing(true)
+                        setIsFollowing(!isFollowing)
                         setFollowersCount(followersCount + 1)
                     }}
                 >
