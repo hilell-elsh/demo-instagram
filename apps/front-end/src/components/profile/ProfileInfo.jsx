@@ -24,10 +24,11 @@ export default function ProfileInfo({ user, usernameParam }) {
     const [followersCount, setFollowersCount] = useState(user.additionalData.followers)
 
     useEffect(async () => {
-        await setIsFollowing(user.additionalData.isFollowing)
+        console.log('user', user.additionalData)
+        setIsFollowing(user.additionalData.isFollowing)
         setFollowersCount(user.additionalData.followers)
     }, [user])
-    console.log(user)
+    console.log('followers count:', followersCount);
     async function renderInfoButton() {
         if (myUsername === usernameParam) {
             return (
