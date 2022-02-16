@@ -6,13 +6,20 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
 const getUser = async (req, res) => {
+    
     const user = await usersService.getUser(req.userId).lean()
-
+    const followers = await usersService.getUsers({ 'additionalData.following': user._id }).exec()
     user.additionalData.following = user.additionalData.following.length
-    user.additionalData.followers = await usersService
-        .getUsers({ 'additionalData.following': user._id })
-        .count()
-        .exec()
+    user.additionalData.followers = followers.length
+    user.additionalData.isFollowing = followers.map((user) => user.id ).includes(req.curUserId)
+    
+    console.log(followers.map((user) => user.id ))
+    console.log(req.curUserId)
+
+    // user.additionalData.followers = await usersService
+    //     .getUsers({ 'additionalData.following': user._id })
+    //     .count()
+    //     .exec()
 
     user.posts = {
         postsAmount: await postsService
