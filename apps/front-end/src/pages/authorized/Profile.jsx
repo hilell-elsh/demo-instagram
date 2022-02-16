@@ -17,7 +17,7 @@ export default function ProfilePage() {
     console.log(user);
     return (
         <Profile>
-            <ProfileInfo user={user} />
+            <ProfileInfo user={user} usernameParam={username}/>
             <ProfilePosts userId={user._id} />
         </Profile>
     )

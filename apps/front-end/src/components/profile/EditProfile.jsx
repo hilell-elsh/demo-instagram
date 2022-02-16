@@ -1,6 +1,7 @@
-import { FormButton, FormInput, EditWrapper } from '../form/FormStyle'
-import { user } from '../../ex-apis/user'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+
+import { FormButton, FormInput, EditWrapper } from '../form/FormStyle'
 
 const EditButton = styled(FormButton)`
     width: 12vw;
@@ -14,6 +15,8 @@ const ProfilePicButton = styled(EditButton)`
 `
 
 export default function EditProfile() {
+    const user = useSelector((state) => state.user.user)
+    
     return (
         <EditWrapper>
             <label>
@@ -24,15 +27,15 @@ export default function EditProfile() {
                 <FormInput
                     type="text"
                     placeholder={
-                        user.profile.name.firstName +
+                        user.additionalData.name.firstName +
                         ' ' +
-                        user.profile.name.lastName
+                        user.additionalData.name.lastName
                     }
                 />
             </label>
             <label>
                 Username
-                <FormInput type="text" placeholder={user.profile.username} />
+                <FormInput type="text" placeholder={user.userBasicData.username} />
             </label>
             <label>
                 Website
@@ -44,7 +47,7 @@ export default function EditProfile() {
             </label>
             <label>
                 Email
-                <FormInput type="Email" placeholder="Email" />
+                <FormInput type="Email" placeholder={user.additionalData.email} />
             </label>
             <label>
                 Phone

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 import NewPostStart from './NewPostStart'
 import NewPostWrite from './NewPostWrite'
@@ -25,8 +24,6 @@ const NewPostWrapper = styled(ModalWrapper)`
 `
 
 export default function NewPostModal({ setIsNewPostModal }) {
-    const dispatch = useDispatch()
-
     const [stage, setStage] = useState(1)
     const [imagesUrls, setImagesUrls] = useState([])
     const [imagesAmount, setImagesAmount] = useState(0)

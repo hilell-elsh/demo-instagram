@@ -33,8 +33,9 @@ function PostStack({item, index}) {
 }
 
 export default function UserPosts({userPosts}) {
+    console.log(userPosts);
     const postLocation = useLocation().pathname.split('/').slice(-1).toString()
-    let posts
+    let posts = []
     switch (postLocation) {
         case 'saved':
             posts = userPosts.savedPosts
