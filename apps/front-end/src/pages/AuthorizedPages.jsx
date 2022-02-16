@@ -5,6 +5,7 @@ import PageFeed from './authorized/Feed'
 import Profile from './authorized/Profile'
 import Mailbox from './authorized/Mailbox'
 import Settings from './authorized/Settings'
+import NewPostMobile from './authorized/NewPostMobile'
 import Header from '../components/global/Navbar/Header'
 import Footer from '../components/global/Navbar/Footer'
 import { setMyData } from '../store/user'
@@ -21,17 +22,20 @@ export default function AuthorizedPages() {
                 <Route exact path="/">
                     <PageFeed />
                 </Route>
-                <Route path="/:username">
-                    <Profile />
-                </Route>
                 <Route path="/mailbox">
                     <Mailbox />
                 </Route>
                 <Route path="/settings">
                     <Settings />
                 </Route>
+                <Route path="/new-post">
+                    <NewPostMobile />
+                </Route>
+                <Route path="/:username">
+                    <Profile />
+                </Route>
             </Switch>
-            <Footer/>
+            <Footer />
         </>
     )
 }

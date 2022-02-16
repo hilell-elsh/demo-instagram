@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Feed from '../../components/FeedPost'
+import LoadingAnimation from '../../components/global/LoadingAnimation'
 import { getFeed } from '../../services/feed-data'
 
 export default function PageFeed() {
@@ -17,10 +18,7 @@ export default function PageFeed() {
     if (feed.length === 0) {
         // empty feed
         return (
-            <img
-                src="https://cdn.dribbble.com/users/1186261/screenshots/3718681/media/1df2396f1eaa146bcb7dd3e73c1dc77b.gif"
-                style={{ margin: '0 auto', display: 'block' }}
-            />
+            <LoadingAnimation />
         )
     }
 

@@ -30,7 +30,8 @@ export default function Header() {
     const user = useSelector((state) => state.user.user)
 
     const isLoading = useSelector((state) => state.user.loading)
-    if (isLoading) return <div>loading</div>
+    if (isLoading) return <div></div>
+
     const headerAvatar = (
         <Avatar
             alt={

@@ -7,9 +7,16 @@ import { AnimatePresence } from 'framer-motion'
 import { Username, Info, Button, Count } from './ProfileStyle'
 import { modalOpen } from '../../store/modal'
 import FollowerModal from './FollowerModal'
+import LoadingAnimation from '../global/LoadingAnimation'
 import { toggleFollowUser, checkIsFollowing } from '../../services/user-data'
 
 export default function ProfileInfo({ user, usernameParam }) {
+    const [isLoading, setIsLoading] = useState(true)
+    const loading = useSelector((state) => state.user.loading)
+    useEffect(() => {
+        if (!loading) setIsLoading(false)
+    }, [loading])
+
     const myUsername = useSelector(
         (state) => state.user.user.userBasicData.username
     )
@@ -95,6 +102,7 @@ export default function ProfileInfo({ user, usernameParam }) {
                 {isModal && <FollowerModal title={title} userId={user._id} />}
             </AnimatePresence>
             {infoButton}
+            {isLoading && <LoadingAnimation />}
         </Info>
     )
 }
