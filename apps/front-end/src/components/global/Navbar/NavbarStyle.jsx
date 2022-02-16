@@ -52,12 +52,13 @@ export const NavbarLinks = styled(motion.ul)`
 export const NavbarButton = styled.li`
     list-style: none;
     cursor: pointer;
-
+    
     & :hover {
         color: #bbb;
     }
-
+    
     & i {
+        color: black;
         font-size: 28px;
     }
 
