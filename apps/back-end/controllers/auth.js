@@ -25,7 +25,7 @@ const signup = async (req, res) => {
         })
     } catch (err) {
         console.log('error creating user', err);
-        res.json({ error: err }).status(409).end();        
+        return res.json({ error: err }).status(409).end();        
     }
 
     authService.createAuth({ userId: newUser._id, password: user.password })
@@ -34,7 +34,7 @@ const signup = async (req, res) => {
     newUser.additionalData.followers = 0
     newUser.posts.postsAmount = 0
     newUser.posts.firstPosts = []
-    res.json(newUser.toObject()).status(200).end()
+    return res.json(newUser.toObject()).status(200).end()
 }
 
 const login = async (req, res) => {
